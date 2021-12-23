@@ -1,0 +1,25 @@
+hr {
+	width: 100%;
+	border: 1px solid black;
+}
+
+.Post {
+	width: 100vw;
+	max-width: 800px;
+	text-align: start;
+}
+
+.center {
+	margin-left: 10px;
+	text-align: center;
+}
+
+a {
+	font-size: 20px;
+	color: var(--primary-bg-color);
+	text-decoration: none;
+}
+
+a:hover {
+	color: var(--btmSecondary-bg-color);
+}

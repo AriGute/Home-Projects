@@ -1,0 +1,25 @@
+body {
+	--primary-bg-color: rgb(134, 60, 0);
+	--secondary-bg-color: rgb(238, 193, 110);
+	--tertiary-bg-color: rgb(43, 36, 30);
+	--quaternary-bg-color: rgb(245, 229, 200);
+
+	--btmPrimary-bg-color: rgb(194, 148, 64);
+	--btmSecondary-bg-color: rgb(133, 99, 37);
+
+	--cardPrimary-bg-color: rgb(214, 190, 146);
+
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+		'Droid Sans', 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	background-color: var(--tertiary-bg-color);
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas,
+		'Courier New', monospace;
+}

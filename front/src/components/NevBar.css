@@ -1,0 +1,22 @@
+.NevBar {
+	display: flex;
+	justify-content: center;
+	background-color: rgb(90, 41, 1);
+	margin-right: 10px;
+	margin-right: 10px;
+	position: relative;
+	z-index: 10;
+	box-shadow: 0px 5px 10px;
+	width: 100%;
+}
+
+.NevBar a {
+	font-size: 16px;
+	color: var(--secondary-bg-color);
+	text-decoration: none;
+	padding: 15px;
+}
+
+.NevBar a:hover {
+	color: var(--btmSecondary-bg-color);
+}

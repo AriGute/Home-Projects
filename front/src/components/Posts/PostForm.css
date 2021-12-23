@@ -1,0 +1,19 @@
+.PostForm {
+	display: flex;
+	justify-content: center;
+}
+
+textarea,
+input {
+	background-color: rgb(245, 229, 200);
+}
+
+.tagList {
+	border: 1px solid black;
+	width: 100px;
+	min-height: 20px;
+	background-color: var(--quaternary-bg-color);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

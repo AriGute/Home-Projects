@@ -1,0 +1,4 @@
+.env
+*.rest
+/node_modules
+ssl/*
