@@ -26,7 +26,7 @@ mongoose.connection
 app.use(
 	'/auth',
 	cors({
-		origin: 'http://localhost:3000',
+		origin: process.env.CLIENT_DNS,
 		credentials: true,
 	}),
 	authService.routes,
