@@ -5,7 +5,6 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-
 const app = express();
 const authService = require('./routes/authRoutes');
 const postService = require('./routes/postRoutes');
@@ -35,7 +34,7 @@ app.use(
 app.use(
 	'/posts',
 	cors({
-		origin: 'http://localhost:3000',
+		origin: process.env.CLIENT_DNS,
 		credentials: true,
 	}),
 	postService.routes,
