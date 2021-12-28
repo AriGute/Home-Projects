@@ -5,7 +5,7 @@ hr {
 
 .Post {
 	width: 100vw;
-	max-width: 800px;
+	max-width: 900px;
 	text-align: start;
 }
 
@@ -16,10 +16,10 @@ hr {
 
 a {
 	font-size: 20px;
-	color: var(--primary-bg-color);
+	color: var(--secondary-bg-color);
 	text-decoration: none;
 }
 
 a:hover {
-	color: var(--btmSecondary-bg-color);
+	color: var(--secondary-bg-color);
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import AuthService from '../../services/AuthService';
 import PostService from '../../services/PostService';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import './Vote.css';
 
 const Vote = (props) => {
@@ -24,20 +26,10 @@ const Vote = (props) => {
 	const [btnDownVote, setBtnDownVote] =
 		useState(btnUnavailable);
 
-	const clearVote = (postId) => {
-		PostService.ClearVote(postId).then((updatedPost) => {
-			setPost(updatedPost);
-		});
-	};
-
 	const upVote = (postId) => {
-		// if (vote.upVote === true) {
-		// 	clearVote(postId);
-		// } else {
 		PostService.UpVote(postId).then((updatedPost) => {
 			setPost(updatedPost);
 		});
-		// }
 	};
 	const downVote = (postId) => {
 		PostService.DownVote(postId).then((updatedPost) => {
@@ -74,6 +66,7 @@ const Vote = (props) => {
 				setBtnDownVote(btnUnavailable);
 			}
 		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userId, post]);
 
 	return (
@@ -83,7 +76,7 @@ const Vote = (props) => {
 				onClick={() => {
 					if (isLogin) upVote(post._id);
 				}}>
-				up
+				<KeyboardArrowUpIcon></KeyboardArrowUpIcon>
 			</button>
 			<div style={{ textAlign: 'center' }}>
 				<p>{votesBalance}</p>
@@ -93,7 +86,7 @@ const Vote = (props) => {
 				onClick={() => {
 					if (isLogin) downVote(post._id);
 				}}>
-				down
+				<KeyboardArrowDownIcon></KeyboardArrowDownIcon>
 			</button>
 		</div>
 	);

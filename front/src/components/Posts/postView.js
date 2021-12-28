@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import AuthService from '../../services/AuthService';
 import Vote from './Vote';
+import CommentEditor from './commentEditor';
+
 const PostView = () => {
 	const location = useLocation();
 	const post = location.state.post;
@@ -15,20 +17,27 @@ const PostView = () => {
 				setAuthor(profile);
 			},
 		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
 		<div className='PostView '>
 			<div className='fullPost'>
 				<div className='card'>
 					<div className='postContent'>
-						<h2 className='fitText'>{post.header}</h2>
+						<h2
+							className='fitText'
+							style={{
+								color: 'var(--secondary-bg-color)',
+							}}>
+							{post.header}
+						</h2>
 						<p className='fitText'>{post.brief}</p>
 						<p className='fitText'>{post.description}</p>
 					</div>
 					<div className='lowerPost'>
 						{author ? (
 							<div className='card author'>
-								{author.name}
+								{<p>{author.name}</p>}
 							</div>
 						) : (
 							<div
@@ -61,14 +70,15 @@ const PostView = () => {
 					<p
 						style={{
 							borderTop:
-								'3px solid var(--tertiary-bg-color)',
+								'3px solid var(--primary-bg-color)',
 							borderBottom:
-								'3px solid var(--tertiary-bg-color)',
+								'3px solid var(--primary-bg-color)',
 						}}>
 						last modified:{' '}
 						{post.lastModifiedDate.slice(0, 10)}
 					</p>
 				</div>
+				<CommentEditor post={post}></CommentEditor>
 			</div>
 		</div>
 	);

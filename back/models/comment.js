@@ -4,9 +4,8 @@ const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
 	ownerId: String,
-	name: String,
 	comment: String,
-	votes: Number,
+	votesBalance: Number,
 	lastModifiedDate: Date, //TODO: make this an index in mongo
 	creationDate: Date,
 });

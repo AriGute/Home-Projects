@@ -1,8 +1,10 @@
+import './PostForm.css';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
 import PostService from '../../services/PostService';
-import './PostForm.css';
+import { Autocomplete, TextField } from '@mui/material';
+import Chip from '@mui/material/Chip';
 
 const PostForm = (Post) => {
 	const [isLogin, setIsLogin] = useState(false);
@@ -10,7 +12,18 @@ const PostForm = (Post) => {
 	const [brief, setBrief] = useState('');
 	const [description, setDescription] = useState('');
 	const [tagsList, setTagsList] = useState([]);
+	const [inputValue, setInputValue] = useState('');
 	const history = useHistory();
+
+	const handleDelete = (i) => {
+		console.log('delete this');
+		if (tagsList.length > 0) {
+			const newList = tagsList.filter((item, index) => {
+				return index !== i ? 1 : 0;
+			});
+			setTagsList(newList);
+		}
+	};
 
 	const addPost = (e) => {
 		PostService.AddPost(
@@ -28,21 +41,20 @@ const PostForm = (Post) => {
 	};
 
 	const addTag = () => {
-		// TODO: limit to X tags in the list
-		const val = document.getElementById('tagInput').value;
-		setTagsList([...tagsList, val]);
-		document.getElementById('tagInput').value = '';
+		if (tagsList.includes(inputValue)) return;
+		setTagsList([...tagsList, inputValue]);
 	};
 
 	useEffect(() => {
 		AuthService.Profile().then(async (user) => {
-			setIsLogin(user.isLogin);
+			if (user) setIsLogin(user.isLogin);
 		});
 	}, [tagsList]);
+
 	return (
 		<div className='PostForm'>
 			{isLogin ? (
-				<div className='card'>
+				<div className='card' style={{ maxWidth: '90vw' }}>
 					<form onSubmit={addPost}>
 						<label htmlFor=''>Header</label>
 						<input
@@ -55,7 +67,7 @@ const PostForm = (Post) => {
 							required
 							name='brief'
 							id='brief'
-							cols='50'
+							cols='40'
 							rows='5'
 							onChange={(e) =>
 								setBrief(e.target.value)
@@ -65,26 +77,55 @@ const PostForm = (Post) => {
 							required
 							name='description'
 							id='brief'
-							cols='50'
+							cols='40'
 							rows='15'
 							onChange={(e) =>
 								setDescription(e.target.value)
 							}></textarea>
-						<label htmlFor=''>Tags</label>
-						<div>
-							<input id='tagInput' type='text' />
+						{/* <label htmlFor=''>Tags</label> */}
+						<div
+							style={{
+								display: 'flex',
+								flexDirection: 'row',
+								paddingTop: '10px',
+								paddingBottom: '10px',
+							}}>
+							<Autocomplete
+								onInputChange={(event, newInputValue) => {
+									setInputValue(newInputValue);
+								}}
+								sx={{
+									width: 200,
+								}}
+								size='small'
+								options={options}
+								renderInput={(params) => (
+									<TextField
+										id='tagInput'
+										{...params}
+										label='Tag'
+										color='success'
+									/>
+								)}></Autocomplete>
 							<button
 								type='button'
-								style={{ marginLeft: '5px' }}
+								style={{
+									marginLeft: '5px',
+									position: 'relative',
+									top: '5px',
+								}}
 								onClick={addTag}>
-								{/* TODO: pick from exist tags list and not free text*/}
 								Add Tag
 							</button>
 						</div>
 						<div className='tagList'>
 							{tagsList.map((tag, index) => (
 								<div key={index}>
-									<p>{tag}</p>
+									<Chip
+										label={tag}
+										onDelete={(e) =>
+											handleDelete(index)
+										}></Chip>
 								</div>
 							))}
 						</div>
@@ -92,6 +133,7 @@ const PostForm = (Post) => {
 							style={{
 								alignSelf: 'center',
 								margin: '5px',
+								color: 'var(--secondary-bg-color)',
 							}}>
 							Submit
 						</button>
@@ -104,4 +146,11 @@ const PostForm = (Post) => {
 	);
 };
 
+const options = [
+	'Java',
+	'JavaScript',
+	'Python',
+	'React',
+	'Angular',
+];
 export default PostForm;

@@ -1,9 +1,5 @@
 const PostService = {
 	AddPost: async (header, brief, description, tags) => {
-		console.log(header);
-		console.log(brief);
-		console.log(description);
-		console.log(tags);
 		try {
 			let results = await fetch(
 				process.env.REACT_APP_SERVER + '/posts/add',
@@ -29,7 +25,7 @@ const PostService = {
 		try {
 			let results = await fetch(
 				process.env.REACT_APP_SERVER +
-					`/posts/list${i == null ? '/i=$0' : '/i=$' + i}`,
+					`/posts/list/${i == null ? 0 : i}`,
 				{
 					method: 'GET',
 					credentials: 'include',
@@ -105,6 +101,23 @@ const PostService = {
 		);
 		const data = await results.json();
 		return data.vote;
+	},
+
+	AddComment: async (comment, postId) => {
+		const results = await fetch(
+			process.env.REACT_APP_SERVER + '/posts/addComment',
+			{
+				headers: { 'Content-Type': 'application/json' },
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify({
+					postId: postId,
+					comment: comment,
+				}),
+			},
+		);
+		// const data = await results.json();
+		return results.ok;
 	},
 };
 

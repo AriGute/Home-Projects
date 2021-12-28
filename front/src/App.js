@@ -1,5 +1,5 @@
 import Header from './components/Header';
-import NevBar from './components/NevBar';
+import NavBar from './components/navBar';
 import {
 	BrowserRouter,
 	Route,
@@ -12,31 +12,53 @@ import Register from './components/Authentication/Register';
 import Profile from './components/Authentication/Profile';
 import PostForm from './components/Posts/PostForm';
 import PostView from './components/Posts/postView';
+import About from './components/about';
+import ContactUs from './components/contactUs';
+import { Drawer } from '@mui/material';
+import { useState } from 'react';
 
 function App() {
+	const [drawer, setDrawer] = useState(false);
 	return (
 		<div className='App'>
-			<Header />
 			<BrowserRouter>
-				<NevBar />
+				<Header drawer={drawer} setDrawer={setDrawer} />
+				<Drawer
+					sx={{
+						'& .MuiDrawer-paperAnchorLeft': {
+							overflowY: 'clip !important',
+						},
+					}}
+					anchor='left'
+					open={drawer}
+					onClose={() => setDrawer(false)}
+					children={
+						<NavBar setDrawer={setDrawer}></NavBar>
+					}></Drawer>
 				<Switch>
 					<Route exact path='/'>
-						<Home />
+						<Home></Home>
 					</Route>
 					<Route exact path='/login'>
-						<Login />
+						<Login></Login>
 					</Route>
 					<Route exact path='/profile'>
-						<Profile />
+						<Profile></Profile>
 					</Route>
 					<Route exact path='/register'>
-						<Register />
+						<Register></Register>
 					</Route>
 					<Route exact path='/addProject'>
 						<PostForm></PostForm>
 					</Route>
 					<Route path='/postView'>
-						<PostView />
+						<PostView></PostView>
+					</Route>
+					<Route path='/about'>
+						<About></About>
+					</Route>
+					<Route path='/contactUs'>
+						<ContactUs></ContactUs>
 					</Route>
 				</Switch>
 			</BrowserRouter>

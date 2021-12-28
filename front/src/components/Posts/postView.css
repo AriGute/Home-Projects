@@ -1,5 +1,5 @@
 hr {
-	border: 1px solid var(--tertiary-bg-color);
+	border: 1px solid var(--primary-bg-color);
 }
 
 .PostView {
@@ -20,7 +20,7 @@ hr {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border-top: 3px solid var(--tertiary-bg-color);
+	border-top: 3px solid var(--primary-bg-color);
 }
 
 .postContent {
@@ -31,13 +31,17 @@ hr {
 
 .tags {
 	margin: 5px;
-	border: 3px solid var(--tertiary-bg-color);
+	border: 3px solid var(--primary-bg-color);
 	border-radius: 5px;
 }
 
 .tag {
 	margin: 5px;
-	border-top: 1px solid var(--tertiary-bg-color);
-	border-bottom: 1px solid var(--tertiary-bg-color);
+	border-top: 1px solid var(--primary-bg-color);
+	border-bottom: 1px solid var(--primary-bg-color);
 	font-size: 12px;
+}
+
+p {
+	color: var(--secondary-bg-color);
 }

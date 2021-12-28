@@ -1,6 +1,5 @@
 require('dotEnv').config();
 const mongoose = require('mongoose');
-const Comment = require('./comment');
 const Schema = mongoose.Schema;
 
 const postScheme = new Schema({
@@ -8,11 +7,11 @@ const postScheme = new Schema({
 	header: String,
 	brief: String,
 	description: String,
-	votesBalance: Number,
+	votesBalance: Number, //TODO: make this an index in mongo
 	commentsCount: Number,
 	tags: [String],
-	lastModifiedDate: Date, //TODO: make this an index in mongo
-	creationDate: Date,
+	lastModifiedDate: Date,
+	creationDate: Date, //TODO: make this an index in mongo
 });
 
 const Post = mongoose.model(

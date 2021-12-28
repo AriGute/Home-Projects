@@ -5,13 +5,23 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 const authService = require('./routes/authRoutes');
 const postService = require('./routes/postRoutes');
 app.use(express.json());
 app.use(cookieParser());
+
+mongoose.connect(process.env.DATA_BASE, (err, db) => {
+	postService.createIndex(db);
+});
+mongoose.connection
+	.once('open', function () {
+		console.log('Connection has been made.');
+	})
+	.on('error', function (error) {
+		console.log('Connection error: ', error);
+	});
 
 app.use(
 	'/auth',
@@ -28,17 +38,8 @@ app.use(
 		origin: 'http://localhost:3000',
 		credentials: true,
 	}),
-	postService,
+	postService.routes,
 );
-
-mongoose.connect(process.env.USERS_DB);
-mongoose.connection
-	.once('open', function () {
-		console.log('Connection has been made.');
-	})
-	.on('error', function (error) {
-		console.log('Connection error: ', error);
-	});
 
 // can be remove at any time
 app.get('/', cors(), (req, res, next) => {

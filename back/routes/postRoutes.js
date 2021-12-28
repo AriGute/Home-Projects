@@ -5,6 +5,34 @@ const User = require('../models/user');
 const Vote = require('../models/vote');
 const authService = require('./authRoutes');
 
+/**
+ * create necessary index for frequently query operations.
+ *
+ * @param {object} db mongo db object
+ */
+async function createIndex(db) {
+	// For users to find there posts
+	const ownerIdIndex = await db
+		.collection(process.env.POSTS_COLLECTION)
+		.createIndex({
+			ownerId: 1,
+		});
+
+	// For sorting posts by vote balance
+	const voteBalanceIndex = await db
+		.collection(process.env.POSTS_COLLECTION)
+		.createIndex({
+			votesBalance: 1,
+		});
+
+	// For new posts to visible
+	const dateIndex = await db
+		.collection(process.env.POSTS_COLLECTION)
+		.createIndex({
+			creationDate: 1,
+		});
+}
+
 router.post('/add', authService.verifyToken, (req, res) => {
 	const post = new Post({
 		ownerId: req.user.uid,
@@ -84,7 +112,6 @@ const setVote = (req, res, isUpVote) => {
 			vote.save();
 			change = isUpVote ? 1 : -1;
 		}
-		console.log(change);
 		// Find post and update its vote balance and votes reference list.
 		Post.findOneAndUpdate(
 			{
@@ -128,30 +155,32 @@ router.get(
 router.delete(
 	'/delete',
 	authService.verifyToken,
+	(req, res) => {},
+);
+
+router.get('/list/:i', (req, res) => {
+	const index = parseInt(req.params.i);
+	Post.find({})
+		.sort({
+			votesBalance: -1,
+		})
+		.skip(index)
+		.limit(index + 10)
+		.then((results) => {
+			res.status(200).json(results);
+		});
+});
+
+router.post(
+	'/addComment',
+	authService.verifyToken,
 	(req, res) => {
-		User.findOneAndDelete(
-			{
-				_id: mongoose.Types.ObjectId(req.user.itemId),
-			},
-			(err, user) => {
-				console.log('Something went wrong here');
-				res
-					.status(500)
-					.send(
-						'Something went wrong here, try again later.',
-					);
-			},
-		);
+		console.log(req.body);
+		res.sendStatus(200);
 	},
 );
 
-// TODO: sort by votes count
-// TODO: make every itemList query as stream.
-router.get('/list/:i', (req, res) => {
-	// console.log(req.params);
-	Post.find({}, (err, results) => {
-		res.status(200).json(results);
-	});
-});
-
-module.exports = router;
+module.exports = {
+	routes: router,
+	createIndex: createIndex,
+};

@@ -46,7 +46,6 @@ const AuthService = {
 		}
 	},
 	Logout: async () => {
-		console.log('logout');
 		try {
 			let results = await fetch(
 				process.env.REACT_APP_SERVER + '/auth/logout',
@@ -81,7 +80,6 @@ const AuthService = {
 		}
 	},
 	FindProfile: async (uid) => {
-		console.log(uid);
 		try {
 			let results = await fetch(
 				process.env.REACT_APP_SERVER +

@@ -1,0 +1,22 @@
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.img {
+	height: 100px;
+	width: 100px;
+}
+
+.Loading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	animation: rotation 1s infinite linear;
+	height: 100px;
+	width: 100px;
+}

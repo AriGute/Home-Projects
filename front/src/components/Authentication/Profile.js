@@ -21,10 +21,15 @@ const Profile = () => {
 	return (
 		<div className='Profile'>
 			<div className='card'>
-				<h2>Profile:</h2>
+				<h2 style={{ color: 'var(--secondary-bg-color)' }}>
+					Profile:
+				</h2>
 				{details ? (
 					<div>
-						<h3>
+						<h3
+							style={{
+								color: 'var(--secondary-bg-color)',
+							}}>
 							{details.firstName + ' ' + details.lastName}
 						</h3>
 						<p>Email: {details.email}</p>

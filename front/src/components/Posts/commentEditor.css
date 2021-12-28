@@ -1,0 +1,12 @@
+.commentEditor {
+	width: 80%;
+	height: 100px;
+	resize: none;
+	margin-right: 10px;
+}
+
+.commentForm {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
