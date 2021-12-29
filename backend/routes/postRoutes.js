@@ -3,6 +3,7 @@ const router = express.Router();
 const Post = require('../models/post');
 const User = require('../models/user');
 const Vote = require('../models/vote');
+const Comment = require('../models/comment');
 const authService = require('./authRoutes');
 
 /**
@@ -175,7 +176,7 @@ router.post(
 	'/addComment',
 	authService.verifyToken,
 	(req, res) => {
-		console.log(req.body);
+		Comment;
 		res.sendStatus(200);
 	},
 );

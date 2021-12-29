@@ -116,7 +116,7 @@ const PostService = {
 				}),
 			},
 		);
-		// const data = await results.json();
+
 		return results.ok;
 	},
 };

@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const authService = require('./routes/authRoutes');
 const postService = require('./routes/postRoutes');
+const path = require('path');
 app.use(express.json());
 app.use(cookieParser());
 
@@ -21,6 +22,13 @@ mongoose.connection
 	.on('error', function (error) {
 		console.log('Connection error: ', error);
 	});
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', function (req, res) {
+	res.sendFile(
+		path.join(__dirname, 'public', 'index.html'),
+	);
+});
 
 app.use(
 	'/auth',
