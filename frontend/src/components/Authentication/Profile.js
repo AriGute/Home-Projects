@@ -9,9 +9,10 @@ const Profile = () => {
 	const history = new useHistory();
 
 	const logout = () => {
+		console.log('logout');
 		AuthService.Logout();
 		history.push('/login');
-		window.location.reload();
+		// window.location.reload();
 	};
 	useEffect(() => {
 		AuthService.Profile().then(async (user) => {

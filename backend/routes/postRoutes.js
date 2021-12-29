@@ -160,6 +160,7 @@ router.delete(
 );
 
 router.get('/list/:i', (req, res) => {
+	console.log('test');
 	const index = parseInt(req.params.i);
 	Post.find({})
 		.sort({
