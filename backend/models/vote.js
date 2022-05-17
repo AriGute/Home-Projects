@@ -11,7 +11,7 @@ const voteScheme = new Schema({
 });
 
 const Vote = mongoose.model(
-	process.env.VOTE_COLLECTION,
+	process.env.VOTES_COLLECTION,
 	voteScheme,
 );
 
