@@ -2,3 +2,4 @@
 *.rest
 /node_modules
 ssl/*
+*.http
