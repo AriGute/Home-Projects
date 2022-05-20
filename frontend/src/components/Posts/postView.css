@@ -12,10 +12,7 @@ hr {
 	max-width: 1000px;
 }
 
-.author {
-	height: 100px;
-	width: 200px;
-}
+
 .lowerPost {
 	display: flex;
 	justify-content: space-between;

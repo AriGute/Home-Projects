@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import AuthService from "../../services/AuthService";
 import Vote from "./Vote";
 import CommentEditor from "./commentEditor";
-import ProfileIcon from "../CardProfile/ProfileIcon";
+import CardProfile from "../CardProfile/CardProfile";
 
 const PostView = () => {
   const location = useLocation();
@@ -36,10 +36,7 @@ const PostView = () => {
           </div>
           <div className="lowerPost">
             {author ? (
-              <div className="card author">
-                {<p>{author.name}</p>}
-                <ProfileIcon name={author.name} />
-              </div>
+              <CardProfile profile={author}/>
             ) : (
               <div
                 className="card"
