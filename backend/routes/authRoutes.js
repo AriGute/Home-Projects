@@ -194,8 +194,10 @@ router.get('/findProfile/:uid', (req, res) => {
 	User.findOne({ _id: req.params.uid }, (err, results) => {
 		if (results) {
 			let payload = {};
-			payload['name'] =
-				results.firstName + ' ' + results.lastName;
+			payload['firstName'] = results.firstName;
+			payload['lastName'] = results.lastName;
+			payload['lastActiveAt'] = results.lastActiveAt;
+			payload['registerDate'] = results.lastActiveAt;
 			res.status(200).json(payload);
 		}
 	});
