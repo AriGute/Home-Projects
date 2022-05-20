@@ -15,12 +15,23 @@ Authentication service api using express and mongo db over ssl.
 ## Essential environment variables and files:
 
 Add .env file and add this variables:
+`
+DATA_BASE
+USERS_COLLECTION
+POSTS_COLLECTION
+COMMENTS_COLLECTION
+VOTES_COLLECTION
 
-- USERS_DB=mongo db path for the users.
-- USERS_COLLECTION=users collection name.
-- ACCESS_TOKEN_SECRET=secret for access tokens.
-- REFRESH_TOKEN_SECRET=secret for refresh tokens.
+ACCESS_TOKEN_NAME
+ACCESS_TOKEN_SECRET
+ACCESS_TOKEN_TTL
 
+REFRESH_TOKEN_SECRET
+REFRESH_TOKEN_TT
+
+PORT
+CLIENT_DNS
+`
 Add ssl folder and add inside:
 
 - certificate.pem
