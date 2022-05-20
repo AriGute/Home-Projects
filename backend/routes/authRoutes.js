@@ -197,7 +197,7 @@ router.get('/findProfile/:uid', (req, res) => {
 			payload['firstName'] = results.firstName;
 			payload['lastName'] = results.lastName;
 			payload['lastActiveAt'] = results.lastActiveAt;
-			payload['registerDate'] = results.lastActiveAt;
+			payload['registerDate'] = results.registerDate;
 			res.status(200).json(payload);
 		}
 	});
