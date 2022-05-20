@@ -75,7 +75,7 @@ function stop() {
 // 				process.env.port,
 // 		);
 // 	});
-app.listen(process.env.port, () => {
+app.listen(process.env.PORT, () => {
 	console.log(
 		'Server up and running in port: ' + process.env.port,
 	);
