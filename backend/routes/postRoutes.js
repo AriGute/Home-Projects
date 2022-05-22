@@ -12,21 +12,21 @@ const authService = require('./authRoutes');
  * @param {object} db mongo db object
  */
 async function createIndex(db) {
-	// For users to find there posts
+	// For users to find their posts
 	const ownerIdIndex = await db
 		.collection(process.env.POSTS_COLLECTION)
 		.createIndex({
 			ownerId: 1,
 		});
 
-	// For sorting posts by vote balance
+	// For sorting posts by votes balance
 	const voteBalanceIndex = await db
 		.collection(process.env.POSTS_COLLECTION)
 		.createIndex({
 			votesBalance: 1,
 		});
 
-	// For new posts to visible
+	// For new posts to be visible
 	const dateIndex = await db
 		.collection(process.env.POSTS_COLLECTION)
 		.createIndex({
@@ -159,7 +159,7 @@ router.delete(
 	(req, res) => {},
 );
 
-router.get('/list/:i', (req, res) => {
+router.get('/postsList/:i', (req, res) => {
 	console.log('test');
 	const index = parseInt(req.params.i);
 	Post.find({})
@@ -177,10 +177,58 @@ router.post(
 	'/addComment',
 	authService.verifyToken,
 	(req, res) => {
-		Comment;
+		const comment = new Comment({
+			ownerId: req.user.uid,
+			postId: req.body.postId,
+			comment: req.body.comment,
+			lastModifiedDate: Date(),
+			creationDate: Date(),
+		});
+		comment.save();
 		res.sendStatus(200);
 	},
 );
+
+router.delete(
+	'/deleteComment',
+	authService.verifyToken,
+	(req, res) => {
+		Comment.findOneAndDelete({
+			_id: req.body.commentId,
+		}).then((results) => {
+			if (results) {
+				if (results.ownerId === req.user.uid) {
+					res.sendStatus(200);
+				} else {
+					res.sendStatus(401);
+				}
+			} else {
+				res.sendStatus(404);
+			}
+		});
+	},
+);
+
+router.get('/commentsList/:postId&:i', (req, res) => {
+	console.log('comments lists');
+	const postId = req.params.postId;
+	const index = parseInt(req.params.i);
+	Comment.find({
+		postId: postId,
+	})
+		.sort({
+			creationDate: -1,
+		})
+		.skip(index)
+		.limit(index + 10)
+		.then((results) => {
+			if (results) {
+				res.status(200).json(results);
+			} else {
+				res.sendStatus(404);
+			}
+		});
+});
 
 module.exports = {
 	routes: router,
