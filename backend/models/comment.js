@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
 	ownerId: String,
+	postId: String,
 	comment: String,
-	votesBalance: Number,
-	lastModifiedDate: Date, //TODO: make this an index in mongo
-	creationDate: Date,
+	lastModifiedDate: Date,
+	creationDate: Date, //TODO: make this an index in mongo
 });
 
 const Comment = mongoose.model(
