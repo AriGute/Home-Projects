@@ -139,9 +139,7 @@ router.get(
 			postId: req.params.id,
 		}).then((voteResults) => {
 			if (voteResults) {
-				const payload = {
-					vote: voteResults,
-				};
+				const payload = voteResults;
 				res.status(200).json(payload);
 			} else {
 				const payload = {

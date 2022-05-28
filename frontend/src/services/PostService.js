@@ -21,6 +21,22 @@ const PostService = {
 		}
 	},
 	RemovePost: (itemId) => {},
+	GetOnePost: async (postId) => {
+		try {
+			let results = await fetch(
+				process.env.REACT_APP_SERVER +
+					`/posts/getOnePost/${postId}`,
+				{
+					method: 'GET',
+					credentials: 'include',
+				},
+			);
+			const data = results.json();
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
+	},
 	GetPosts: async (i) => {
 		try {
 			let results = await fetch(
@@ -50,6 +66,7 @@ const PostService = {
 			},
 		);
 		const data = await results.json();
+		console.log(data);
 		return data;
 	},
 	DownVote: async (postId) => {
@@ -99,7 +116,8 @@ const PostService = {
 				credentials: 'include',
 			},
 		);
-		return results.ok;
+		const data = await results.json();
+		return data;
 	},
 
 	AddComment: async (comment, postId) => {
