@@ -4,21 +4,24 @@ import { useEffect, useState } from 'react';
 import AuthService from '../../services/AuthService';
 import Vote from './Vote';
 import CommentEditor from './commentEditor';
+import CardProfile from '../CardProfile/CardProfile';
+import PostService from '../../services/PostService';
 
 const PostView = () => {
 	const location = useLocation();
-	const post = location.state.post;
+	const [post, setPost] = useState(location.state.post);
 	const [author, setAuthor] = useState(null);
 
 	useEffect(() => {
 		console.log(post.ownerId);
+		PostService.GetOnePost(post._id);
 		AuthService.FindProfile(post.ownerId).then(
 			(profile) => {
 				setAuthor(profile);
 			},
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [post]);
 	return (
 		<div className='PostView '>
 			<div className='fullPost'>
@@ -31,14 +34,12 @@ const PostView = () => {
 							}}>
 							{post.header}
 						</h2>
-						<p className='fitText'>{post.brief}</p>
-						<p className='fitText'>{post.description}</p>
+						<p className='fitText' style={{marginLeft : "10px"}}>{post.brief}</p>
+						<p className='fitText' style={{marginLeft : "10px"}}>{post.description}</p>
 					</div>
 					<div className='lowerPost'>
 						{author ? (
-							<div className='card author'>
-								{<p>{author.name}</p>}
-							</div>
+							<CardProfile profile={author} />
 						) : (
 							<div
 								className='card'

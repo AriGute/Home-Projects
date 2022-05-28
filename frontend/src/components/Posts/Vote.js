@@ -9,7 +9,9 @@ const Vote = (props) => {
 	const btnClickedStyle = {
 		backgroundColor: 'orange',
 	};
-	const btnNotClickedStyle = {};
+	const btnNotClickedStyle = {
+		backgroundColor: 'var(--btmPrimary-bg-color)',
+	};
 	const btnUnavailable = {
 		backgroundColor: 'lightgrey',
 		cursor: 'inherit',
@@ -18,13 +20,17 @@ const Vote = (props) => {
 	const userId = props.userId;
 	const [post, setPost] = useState(props.post);
 	const [isLogin, setIsLogin] = useState(false);
-	const [votesBalance, setVotes] = useState('-');
+	const [votesBalance, setVotes] = useState(
+		post.votesBalance,
+	);
 
-	const [btnUpVote, setBtnUpVote] =
-		useState(btnUnavailable);
+	const [btnUpVote, setBtnUpVote] = useState(
+		btnNotClickedStyle,
+	);
 
-	const [btnDownVote, setBtnDownVote] =
-		useState(btnUnavailable);
+	const [btnDownVote, setBtnDownVote] = useState(
+		btnNotClickedStyle,
+	);
 
 	const upVote = (postId) => {
 		PostService.UpVote(postId).then((updatedPost) => {
@@ -44,20 +50,24 @@ const Vote = (props) => {
 			// User is login?
 			if (user.isLogin) {
 				PostService.GetVote(post._id).then((vote) => {
-					// User have vote for this post?
+					// User have vote for this post
+					console.log(vote);
 					if (vote) {
 						setIsLogin(true);
 						if (vote.upVote === true) {
 							setBtnUpVote(btnClickedStyle); // upVote is clicked
 							setBtnDownVote(btnNotClickedStyle); // no vote
+							setVotes(post.votesBalance);
 						} else if (vote.upVote === false) {
 							setBtnDownVote(btnClickedStyle); // downVote is clicked
 							setBtnUpVote(btnNotClickedStyle); // no vote
+							setVotes(post.votesBalance);
 						}
 					} else {
 						// In case User have no vote in this post
 						setBtnUpVote(btnNotClickedStyle); // no vote
 						setBtnDownVote(btnNotClickedStyle); // no vote
+						setVotes(post.votesBalance);
 					}
 				});
 			} else {
