@@ -11,8 +11,8 @@ const Profile = () => {
 	const logout = () => {
 		console.log('logout');
 		AuthService.Logout();
-		history.push('/login');
-		// window.location.reload();
+		history.push('/');
+		window.location.reload();
 	};
 	useEffect(() => {
 		AuthService.Profile().then(async (user) => {

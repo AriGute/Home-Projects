@@ -1,9 +1,11 @@
 import CardProfile from '../CardProfile/CardProfile';
 import Utils from '../../services/Utils';
 import './Comment.css';
+import ToolTip from '../ToolTip';
 
 const Comment = ({ comment, profile }) => {
 	let date = Utils.DateFormat(comment.creationDate);
+
 	return (
 		<div className='card'>
 			<div className='commentContent'>
@@ -23,6 +25,7 @@ const Comment = ({ comment, profile }) => {
 					})}
 					<p className='date'>{date}</p>
 				</div>
+				<ToolTip></ToolTip>
 			</div>
 		</div>
 	);
