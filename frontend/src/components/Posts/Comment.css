@@ -1,0 +1,17 @@
+.commentContent {
+	display: flex;
+}
+.commentText {
+	max-width: 800px;
+	margin: 0 auto 0 10px;
+	text-align: left;
+    width: 70%;
+    min-height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column
+}
+.date {
+	font-size: 12px;
+    text-align: right;
+}

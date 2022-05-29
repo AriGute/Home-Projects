@@ -3,6 +3,7 @@ import DefaultProfileIcon from './DefaultProfileIcon';
 import Utils from '../../services/Utils';
 
 const CardProfile = ({ profile }) => {
+	console.log(profile);
 	let date = Utils.DateFormat(profile.lastActiveAt);
 	return (
 		<div className='card cardProfile'>

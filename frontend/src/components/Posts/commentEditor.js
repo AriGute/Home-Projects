@@ -1,4 +1,4 @@
-import './commentEditor.css';
+import './CommentEditor.css';
 import { useState } from 'react';
 import PostService from '../../services/PostService';
 
