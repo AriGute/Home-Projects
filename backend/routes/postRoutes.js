@@ -142,9 +142,7 @@ router.get(
 				const payload = voteResults;
 				res.status(200).json(payload);
 			} else {
-				const payload = {
-					vote: null,
-				};
+				const payload = null;
 				res.status(200).json(payload);
 			}
 		});
@@ -215,7 +213,7 @@ router.get('/commentsList/:postId&:i', (req, res) => {
 		postId: postId,
 	})
 		.sort({
-			creationDate: -1,
+			creationDate: 1,
 		})
 		.skip(index)
 		.limit(index + 10)

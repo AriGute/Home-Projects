@@ -3,18 +3,34 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import AuthService from '../../services/AuthService';
 import Vote from './Vote';
-import CommentEditor from './commentEditor';
+import CommentEditor from './CommentEditor';
 import CardProfile from '../CardProfile/CardProfile';
 import PostService from '../../services/PostService';
+import Comment from './Comment';
 
 const PostView = () => {
 	const location = useLocation();
 	const [post, setPost] = useState(location.state.post);
 	const [author, setAuthor] = useState(null);
+	const [comments, setComments] = useState([]);
+
+	const demoProfile = {
+		firstName: 'coordi',
+		lastActiveAt: '2022-05-28T20:16:13.000Z',
+		lastName: 'shokety',
+		registerDate: '2022-05-17T18:24:54.000Z',
+	};
+
+	const loadComments = () => {
+		PostService.GetComments(post._id, comments.length).then(
+			(results) => {
+				setComments(comments.concat(results));
+			},
+		);
+	};
 
 	useEffect(() => {
-		console.log(post.ownerId);
-		PostService.GetOnePost(post._id);
+		// PostService.GetOnePost(post._id);
 		AuthService.FindProfile(post.ownerId).then(
 			(profile) => {
 				setAuthor(profile);
@@ -27,15 +43,24 @@ const PostView = () => {
 			<div className='fullPost'>
 				<div className='card'>
 					<div className='postContent'>
-						<h2
-							className='fitText'
-							style={{
-								color: 'var(--secondary-bg-color)',
-							}}>
-							{post.header}
-						</h2>
-						<p className='fitText' style={{marginLeft : "10px"}}>{post.brief}</p>
-						<p className='fitText' style={{marginLeft : "10px"}}>{post.description}</p>
+						<div className='postText'>
+							<h2
+								style={{
+									color: 'var(--secondary-bg-color)',
+								}}>
+								{post.header}
+							</h2>
+							{post.brief.split('\n').map((text, i) => {
+								//split every line in text to p
+								return <p key={post._id + i}>{text}</p>;
+							})}
+							{post.description
+								.split('\n')
+								.map((text, i) => {
+									//split every line in text to p
+									return <p key={post._id + i}>{text}</p>;
+								})}
+						</div>
 					</div>
 					<div className='lowerPost'>
 						{author ? (
@@ -80,6 +105,25 @@ const PostView = () => {
 					</p>
 				</div>
 				<CommentEditor post={post}></CommentEditor>
+				{comments.length > 0 ? ( // In case posts.length > 0
+					comments.map((comment) => {
+						return (
+							<Comment
+								profile={demoProfile}
+								comment={comment}
+								key={comment._id}></Comment>
+						);
+					})
+				) : (
+					//In case commetns.length == 0
+					<p>Load comments first...</p>
+				)}
+
+				<button
+					className='loadComments'
+					onClick={loadComments}>
+					Load comments
+				</button>
 			</div>
 		</div>
 	);
