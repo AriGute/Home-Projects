@@ -21,11 +21,11 @@ const PostService = {
 		}
 	},
 	RemovePost: (itemId) => {},
-	GetOnePost: async (postId) => {
+	GetPostById: async (postId) => {
 		try {
 			let results = await fetch(
 				process.env.REACT_APP_SERVER +
-					`/posts/getOnePost/${postId}`,
+					`/posts/GetPostById/${postId}`,
 				{
 					method: 'GET',
 					credentials: 'include',
@@ -136,6 +136,7 @@ const PostService = {
 
 		return results.ok;
 	},
+
 	GetComments: async (postId, i) => {
 		try {
 			let results = await fetch(

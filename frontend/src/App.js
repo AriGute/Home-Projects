@@ -1,5 +1,5 @@
 import Header from './components/Header';
-import NavBar from './components/navBar';
+import NavBar from './components/NavBar';
 import {
 	BrowserRouter,
 	Route,
@@ -11,9 +11,10 @@ import Login from './components/Authentication/Login';
 import Register from './components/Authentication/Register';
 import Profile from './components/Authentication/Profile';
 import PostForm from './components/Posts/PostForm';
-import PostView from './components/Posts/postView';
-import About from './components/about';
-import ContactUs from './components/contactUs';
+import PostView from './components/Posts/PostView';
+import About from './components/About';
+import ContactUs from './components/ContactUs';
+import Report from './components/Report';
 import { Drawer } from '@mui/material';
 import { useState } from 'react';
 
@@ -51,7 +52,13 @@ function App() {
 					<Route exact path='/addProject'>
 						<PostForm></PostForm>
 					</Route>
-					<Route path='/postView'>
+					<Route exact path='/postView/' >
+						<PostView></PostView>
+					</Route>
+					<Route exact path='/report'>
+					<Report></Report>
+					</Route>
+					<Route path='/postView/:id'>
 						<PostView></PostView>
 					</Route>
 					<Route path='/about'>

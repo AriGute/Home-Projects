@@ -1,4 +1,4 @@
-import './navBar.css';
+import './NavBar.css';
 import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -6,6 +6,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 
 const NavBar = ({ setDrawer }) => {
+	
 	return (
 		<div className='NavBar'>
 			<h3
