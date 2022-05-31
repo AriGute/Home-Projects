@@ -1,4 +1,4 @@
-import './postView.css';
+import './PostView.css';
 import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import AuthService from '../../services/AuthService';
@@ -7,10 +7,20 @@ import CommentEditor from './CommentEditor';
 import CardProfile from '../CardProfile/CardProfile';
 import PostService from '../../services/PostService';
 import Comment from './Comment';
+import ToolTip from '../ToolTip';
 
 const PostView = () => {
 	const { id } = useParams();
 	const location = useLocation();
+	const editPost = () => {
+		alert('edit');
+	};
+	const deletePost = () => {
+		alert('delete');
+	};
+	const reportPost = () => {
+		alert('report');
+	};
 	// TODO: remove demo object
 	const demoPost = {
 		_id: '123',
@@ -30,7 +40,7 @@ const PostView = () => {
 	);
 	const [author, setAuthor] = useState(null);
 	const [comments, setComments] = useState([]);
-	// TODO: remove demo object 
+	// TODO: remove demo object
 	const demoProfile = {
 		firstName: 'coordi',
 		lastActiveAt: '2022-05-28T20:16:13.000Z',
@@ -64,7 +74,7 @@ const PostView = () => {
 	}, [post]);
 	return (
 		<div>
-			{id != undefined || post ? (
+			{id !== undefined || post ? (
 				<div className='PostView'>
 					<div className='fullPost'>
 						<div className='card'>
@@ -89,6 +99,10 @@ const PostView = () => {
 											);
 										})}
 								</div>
+								<ToolTip
+									edit={editPost}
+									del={deletePost}
+									report={reportPost}></ToolTip>
 							</div>
 							<div className='lowerPost'>
 								{author ? (
