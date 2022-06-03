@@ -7,6 +7,7 @@ const Vote = require('../models/vote');
 const Comment = require('../models/comment');
 const authService = require('./authRoutes');
 const Profile = require('../models/profile');
+const inputGuard = require('../utils');
 const ObjectId = mongoose.Types.ObjectId;
 
 /**
@@ -120,9 +121,11 @@ const setVote = (req, res, isUpVote) => {
 };
 
 router.get('/checkVote/:id', authService.verifyToken, (req, res) => {
+	const uid = inputGuard(req.user.uid);
+	const id = inputGuard(req.params.id);
 	Vote.findOne({
-		ownerId: req.user.uid,
-		postId: req.params.id,
+		ownerId: uid,
+		postId: id,
 	}).then((voteResults) => {
 		if (voteResults) {
 			const payload = voteResults;
@@ -137,8 +140,7 @@ router.get('/checkVote/:id', authService.verifyToken, (req, res) => {
 router.delete('/delete', authService.verifyToken, (req, res) => {});
 
 router.get('/postsList/:i', (req, res) => {
-	console.log('test');
-	const index = parseInt(req.params.i);
+	const index = inputGuard(parseInt(req.params.i));
 	Post.find({})
 		.sort({
 			votesBalance: -1,
@@ -148,6 +150,21 @@ router.get('/postsList/:i', (req, res) => {
 		.then((results) => {
 			res.status(200).json(results);
 		});
+});
+
+router.get('/post/:id', (req, res) => {
+	const postId = inputGuard(req.params.id);
+	if (postId) {
+		Post.find({ _id: ObjectId(postId) }).then((results) => {
+			if (results) {
+				res.status(200).json(results);
+			} else {
+				res.sendStatus(404);
+			}
+		});
+	} else {
+		res.sendStatus(400);
+	}
 });
 
 router.post('/addComment', authService.verifyToken, (req, res) => {
@@ -179,8 +196,8 @@ router.delete('/deleteComment', authService.verifyToken, (req, res) => {
 });
 
 router.get('/commentsList/:postId&:i', (req, res) => {
-	const postId = req.params.postId;
-	const index = parseInt(req.params.i);
+	const postId = inputGuard(req.params.postId);
+	const index = inputGuard(parseInt(req.params.i));
 	Comment.find({
 		postId: postId,
 	})
