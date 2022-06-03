@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const express = require('express');
 const User = require('../models/user');
-
+const Profile = require('../models/profile');
+const ObjectId = mongoose.Types.ObjectId;
 const router = express.Router();
 
 /**
@@ -72,7 +73,7 @@ router.post('/register', async (req, res) => {
 router.post('/deleteUser', verifyToken, (req, res) => {
 	User.findOneAndDelete(
 		{
-			_id: mongoose.Types.ObjectId(req.user.uid),
+			_id: ObjectId(req.user.uid),
 		},
 		(err, user) => {
 			if (user != null) {
@@ -193,11 +194,7 @@ router.get('/profile', verifyToken, (req, res) => {
 router.get('/findProfile/:uid', (req, res) => {
 	User.findOne({ _id: req.params.uid }, (err, results) => {
 		if (results) {
-			let payload = {};
-			payload['firstName'] = results.firstName;
-			payload['lastName'] = results.lastName;
-			payload['lastActiveAt'] = results.lastActiveAt;
-			payload['registerDate'] = results.registerDate;
+			let payload = Profile(results);
 			res.status(200).json(payload);
 		}
 	});
