@@ -1,10 +1,13 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const Post = require('../models/post');
 const User = require('../models/user');
 const Vote = require('../models/vote');
 const Comment = require('../models/comment');
 const authService = require('./authRoutes');
+const Profile = require('../models/profile');
+const ObjectId = mongoose.Types.ObjectId;
 
 /**
  * create necessary index for frequently query operations.
@@ -13,25 +16,19 @@ const authService = require('./authRoutes');
  */
 async function createIndex(db) {
 	// For users to find their posts
-	const ownerIdIndex = await db
-		.collection(process.env.POSTS_COLLECTION)
-		.createIndex({
-			ownerId: 1,
-		});
+	const ownerIdIndex = await db.collection(process.env.POSTS_COLLECTION).createIndex({
+		ownerId: 1,
+	});
 
 	// For sorting posts by votes balance
-	const voteBalanceIndex = await db
-		.collection(process.env.POSTS_COLLECTION)
-		.createIndex({
-			votesBalance: 1,
-		});
+	const voteBalanceIndex = await db.collection(process.env.POSTS_COLLECTION).createIndex({
+		votesBalance: 1,
+	});
 
 	// For new posts to be visible
-	const dateIndex = await db
-		.collection(process.env.POSTS_COLLECTION)
-		.createIndex({
-			creationDate: 1,
-		});
+	const dateIndex = await db.collection(process.env.POSTS_COLLECTION).createIndex({
+		creationDate: 1,
+	});
 }
 
 router.post('/add', authService.verifyToken, (req, res) => {
@@ -61,21 +58,13 @@ router.post('/add', authService.verifyToken, (req, res) => {
 	});
 });
 
-router.put(
-	'/upVote',
-	authService.verifyToken,
-	(req, res) => {
-		setVote(req, res, true);
-	},
-);
+router.put('/upVote', authService.verifyToken, (req, res) => {
+	setVote(req, res, true);
+});
 
-router.put(
-	'/downVote',
-	authService.verifyToken,
-	(req, res) => {
-		setVote(req, res, false);
-	},
-);
+router.put('/downVote', authService.verifyToken, (req, res) => {
+	setVote(req, res, false);
+});
 
 const setVote = (req, res, isUpVote) => {
 	// Check if vote document already exist for pair {user._id, post._id}
@@ -130,30 +119,22 @@ const setVote = (req, res, isUpVote) => {
 	});
 };
 
-router.get(
-	'/checkVote/:id',
-	authService.verifyToken,
-	(req, res) => {
-		Vote.findOne({
-			ownerId: req.user.uid,
-			postId: req.params.id,
-		}).then((voteResults) => {
-			if (voteResults) {
-				const payload = voteResults;
-				res.status(200).json(payload);
-			} else {
-				const payload = null;
-				res.status(200).json(payload);
-			}
-		});
-	},
-);
+router.get('/checkVote/:id', authService.verifyToken, (req, res) => {
+	Vote.findOne({
+		ownerId: req.user.uid,
+		postId: req.params.id,
+	}).then((voteResults) => {
+		if (voteResults) {
+			const payload = voteResults;
+			res.status(200).json(payload);
+		} else {
+			const payload = null;
+			res.status(200).json(payload);
+		}
+	});
+});
 
-router.delete(
-	'/delete',
-	authService.verifyToken,
-	(req, res) => {},
-);
+router.delete('/delete', authService.verifyToken, (req, res) => {});
 
 router.get('/postsList/:i', (req, res) => {
 	console.log('test');
@@ -169,44 +150,35 @@ router.get('/postsList/:i', (req, res) => {
 		});
 });
 
-router.post(
-	'/addComment',
-	authService.verifyToken,
-	(req, res) => {
-		const comment = new Comment({
-			ownerId: req.user.uid,
-			postId: req.body.postId,
-			comment: req.body.comment,
-			lastModifiedDate: Date(),
-			creationDate: Date(),
-		});
-		comment.save();
-		res.sendStatus(200);
-	},
-);
+router.post('/addComment', authService.verifyToken, (req, res) => {
+	const comment = new Comment({
+		ownerId: req.user.uid,
+		postId: req.body.postId,
+		comment: req.body.comment,
+		lastModifiedDate: Date(),
+		creationDate: Date(),
+	});
+	comment.save();
+	res.sendStatus(200);
+});
 
-router.delete(
-	'/deleteComment',
-	authService.verifyToken,
-	(req, res) => {
-		Comment.findOneAndDelete({
-			_id: req.body.commentId,
-		}).then((results) => {
-			if (results) {
-				if (results.ownerId === req.user.uid) {
-					res.sendStatus(200);
-				} else {
-					res.sendStatus(401);
-				}
+router.delete('/deleteComment', authService.verifyToken, (req, res) => {
+	Comment.findOneAndDelete({
+		_id: req.body.commentId,
+	}).then((results) => {
+		if (results) {
+			if (results.ownerId === req.user.uid) {
+				res.sendStatus(200);
 			} else {
-				res.sendStatus(404);
+				res.sendStatus(401);
 			}
-		});
-	},
-);
+		} else {
+			res.sendStatus(404);
+		}
+	});
+});
 
 router.get('/commentsList/:postId&:i', (req, res) => {
-	console.log('comments lists');
 	const postId = req.params.postId;
 	const index = parseInt(req.params.i);
 	Comment.find({
@@ -217,9 +189,19 @@ router.get('/commentsList/:postId&:i', (req, res) => {
 		})
 		.skip(index)
 		.limit(index + 10)
-		.then((results) => {
-			if (results) {
-				res.status(200).json(results);
+		.then((commentsResults) => {
+			if (commentsResults) {
+				const data = commentsResults.map(async (comment) => {
+					let userResult = await User.find({
+						_id: ObjectId(comment.ownerId),
+					});
+					const modifyComment = JSON.parse(JSON.stringify(comment));
+					modifyComment.ownerProfile = Profile(userResult[0]);
+					return modifyComment;
+				});
+				Promise.all(data).then((results) => {
+					res.status(200).json(results);
+				});
 			} else {
 				res.sendStatus(404);
 			}

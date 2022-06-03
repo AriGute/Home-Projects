@@ -1,6 +1,8 @@
+### get profile
+
 GET http://localhost:4000/auth/findProfile/627e9661b75ae40f1e8cf7a9
 
-###
+### delete comment
 
 DELETE http://localhost:4000/posts/deleteComment
 Content-Type: application/json
@@ -8,3 +10,8 @@ Content-Type: application/json
 {
     "commentId":"628a63ccc094843dbb27c6a4"
 }
+
+### get comments
+
+GET http://localhost:4000/posts/commentsList/627e9797b75ae40f1e8cf7ce&0
+Content-Type: application/json
