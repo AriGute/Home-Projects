@@ -21,11 +21,27 @@ const PostService = {
 		}
 	},
 	RemovePost: (itemId) => {},
+	GetPostById: async (postId) => {
+		try {
+			let results = await fetch(
+				process.env.REACT_APP_SERVER +
+					`/posts/GetPostById/${postId}`,
+				{
+					method: 'GET',
+					credentials: 'include',
+				},
+			);
+			const data = results.json();
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
+	},
 	GetPosts: async (i) => {
 		try {
 			let results = await fetch(
 				process.env.REACT_APP_SERVER +
-					`/posts/list/${i == null ? 0 : i}`,
+					`/posts/postsList/${i == null ? 0 : i}`,
 				{
 					method: 'GET',
 					credentials: 'include',
@@ -50,6 +66,7 @@ const PostService = {
 			},
 		);
 		const data = await results.json();
+		console.log(data);
 		return data;
 	},
 	DownVote: async (postId) => {
@@ -100,7 +117,7 @@ const PostService = {
 			},
 		);
 		const data = await results.json();
-		return data.vote;
+		return data;
 	},
 
 	AddComment: async (comment, postId) => {
@@ -118,6 +135,44 @@ const PostService = {
 		);
 
 		return results.ok;
+	},
+
+	GetComments: async (postId, i) => {
+		try {
+			let results = await fetch(
+				process.env.REACT_APP_SERVER +
+					`/posts/commentsList/${
+						postId == null ? 0 : postId
+					}&${i == null ? 0 : i}`,
+				{
+					method: 'GET',
+					credentials: 'include',
+				},
+			);
+			const data = results.json();
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
+	},
+	DeleteComment: async (commentId) => {
+		try {
+			let results = await fetch(
+				process.env.REACT_APP_SERVER +
+					`/posts/deleteComment`,
+				{
+					method: 'DELETE',
+					credentials: 'include',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						commentId: commentId,
+					}),
+				},
+			);
+			return results.ok;
+		} catch (error) {
+			console.log(error);
+		}
 	},
 };
 

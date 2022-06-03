@@ -1,0 +1,34 @@
+.toolTip {
+	position: relative;
+}
+.menu {
+	left: -100px;
+	position: absolute;
+	width: 60px;
+	height: 85px;
+}
+.menu button {
+	padding: 0;
+	background-color: inherit;
+	font-size: 20px;
+	width: 60px;
+}
+.login {
+	text-align: center;
+}
+.dots {
+	left: -17px;
+	position: absolute;
+	color: var(--secondary-bg-color);
+	width: 20px;
+	display: flex;
+	justify-content: flex-end;
+	border-radius: 25%;
+}
+.dots:hover {
+	background-color: var(--btmSecondary-bg-color);
+}
+.dots:after {
+	content: '\2807';
+	font-size: 20px;
+}

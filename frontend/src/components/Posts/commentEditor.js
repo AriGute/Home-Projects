@@ -1,4 +1,4 @@
-import './commentEditor.css';
+import './CommentEditor.css';
 import { useState } from 'react';
 import PostService from '../../services/PostService';
 
@@ -6,6 +6,7 @@ const CommentEditor = ({ post }) => {
 	const [comment, setComment] = useState('');
 
 	function addComment(e) {
+		
 		e.preventDefault();
 		PostService.AddComment(comment, post._id).then(
 			(results) => {

@@ -3,7 +3,7 @@ import AuthService from '../services/AuthService';
 import PostService from '../services/PostService';
 import './Home.css';
 import Post from './Posts/Post';
-import Loading from './loading';
+import Loading from './Loading';
 
 const Home = () => {
 	const [posts, setPosts] = useState([]);

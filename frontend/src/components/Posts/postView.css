@@ -12,10 +12,6 @@ hr {
 	max-width: 1000px;
 }
 
-.author {
-	height: 100px;
-	width: 200px;
-}
 .lowerPost {
 	display: flex;
 	justify-content: space-between;
@@ -25,8 +21,8 @@ hr {
 
 .postContent {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
+	text-align: left;
+	margin-left: 20px;
 }
 
 .tags {
@@ -45,3 +41,9 @@ hr {
 p {
 	color: var(--secondary-bg-color);
 }
+
+.postText {
+	max-width: 800px;
+	margin: 0 auto 0 auto;
+}
+
