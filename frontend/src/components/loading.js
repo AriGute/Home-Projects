@@ -5,7 +5,6 @@ const Loading = () => {
 	return (
 		<div className='Loading'>
 			<RotateRightSharpIcon
-				style={{ color: 'white' }}
 				color='inherit'
 				fontSize='large'></RotateRightSharpIcon>
 		</div>

@@ -51,7 +51,7 @@ button {
 	transition: 0.2s;
 }
 
-button:hover:hover {
+button:hover {
 	background-color: var(--btmSecondary-bg-color);
 }
 
@@ -71,6 +71,7 @@ form {
 }
 
 p,
+h1,
 h2,
 h3,
 h4,

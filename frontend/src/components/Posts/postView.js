@@ -8,10 +8,18 @@ import CardProfile from '../CardProfile/CardProfile';
 import PostService from '../../services/PostService';
 import Comment from './Comment';
 import ToolTip from '../ToolTip';
+import Loading from '../Loading';
 
 const PostView = () => {
 	const { id } = useParams();
 	const location = useLocation();
+	const [post, setPost] = useState(location.state?.post || demoPost);
+	const [author, setAuthor] = useState(null);
+	const [comments, setComments] = useState([]);
+	const [loadingStyle, setloadingStyle] = useState({
+		display: 'none',
+	});
+
 	const editPost = () => {
 		alert('edit');
 	};
@@ -21,6 +29,7 @@ const PostView = () => {
 	const reportPost = () => {
 		alert('report');
 	};
+
 	// TODO: remove demo object
 	const demoPost = {
 		_id: '123',
@@ -35,11 +44,7 @@ const PostView = () => {
 		creationDate: '2022-05-28T14:04:09.000Z',
 		__v: 0,
 	};
-	const [post, setPost] = useState(
-		location.state?.post || demoPost,
-	);
-	const [author, setAuthor] = useState(null);
-	const [comments, setComments] = useState([]);
+
 	// TODO: remove demo object
 	const demoProfile = {
 		firstName: 'coordi',
@@ -49,11 +54,14 @@ const PostView = () => {
 	};
 
 	const loadComments = () => {
-		PostService.GetComments(post._id, comments.length).then(
-			(results) => {
+		setloadingStyle({ display: 'inline-block' });
+		PostService.GetComments(post._id, comments.length)
+			.then((results) => {
 				setComments(comments.concat(results));
-			},
-		);
+			})
+			.then(() => {
+				setloadingStyle({ display: 'none' });
+			});
 	};
 
 	useEffect(() => {
@@ -65,11 +73,9 @@ const PostView = () => {
 	useEffect(() => {
 		console.log(post.ownerId);
 		// PostService.GetPostById(post._id);
-		AuthService.FindProfile(post.ownerId).then(
-			(profile) => {
-				setAuthor(profile);
-			},
-		);
+		AuthService.FindProfile(post.ownerId).then((profile) => {
+			setAuthor(profile);
+		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [post]);
 	return (
@@ -90,19 +96,12 @@ const PostView = () => {
 										//split every line in text to p
 										return <p key={post._id + i}>{text}</p>;
 									})}
-									{post.description
-										.split('\n')
-										.map((text, i) => {
-											//split every line in text to p
-											return (
-												<p key={post._id + i}>{text}</p>
-											);
-										})}
+									{post.description.split('\n').map((text, i) => {
+										//split every line in text to p
+										return <p key={post._id + i}>{text}</p>;
+									})}
 								</div>
-								<ToolTip
-									edit={editPost}
-									del={deletePost}
-									report={reportPost}></ToolTip>
+								<ToolTip edit={editPost} del={deletePost} report={reportPost}></ToolTip>
 							</div>
 							<div className='lowerPost'>
 								{author ? (
@@ -121,14 +120,10 @@ const PostView = () => {
 										flexDirection: 'row',
 									}}>
 									<div className='tags'>
-										<p style={{ fontSize: '12px' }}>
-											Tags:
-										</p>
+										<p style={{ fontSize: '12px' }}>Tags:</p>
 										<div style={{ display: 'flex' }}>
 											{post.tags.map((tag, index) => (
-												<div
-													className='tag'
-													key={post._id + index}>
+												<div className='tag' key={post._id + index}>
 													<p>{tag}</p>
 												</div>
 											))}
@@ -137,35 +132,24 @@ const PostView = () => {
 									<Vote post={post} />
 								</div>
 							</div>
-							<p
-								style={{
-									borderTop:
-										'3px solid var(--primary-bg-color)',
-									borderBottom:
-										'3px solid var(--primary-bg-color)',
-								}}>
-								last modified:{' '}
-								{post.lastModifiedDate.slice(0, 10)}
-							</p>
+							<p>last modified: {post.lastModifiedDate.slice(0, 10)}</p>
 						</div>
 						<CommentEditor post={post}></CommentEditor>
 						{comments.length > 0 ? ( // In case posts.length > 0
 							comments.map((comment) => {
 								return (
-									<Comment
-										profile={demoProfile}
-										comment={comment}
-										key={comment._id}></Comment>
+									<Comment profile={demoProfile} comment={comment} key={comment._id}></Comment>
 								);
 							})
 						) : (
 							//In case commetns.length == 0
-							<p>Load comments first...</p>
+							<div></div>
 						)}
-
-						<button
-							className='loadComments'
-							onClick={loadComments}>
+						<div className='loadinDiv' style={loadingStyle}>
+							<Loading />
+						</div>
+						<br />
+						<button onClick={loadComments} className='loadComments'>
 							Load comments
 						</button>
 					</div>

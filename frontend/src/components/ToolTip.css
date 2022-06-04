@@ -6,12 +6,16 @@
 	position: absolute;
 	width: 60px;
 	height: 85px;
+	background-color: var(--btmSecondary-bg-color);
 }
 .menu button {
 	padding: 0;
 	background-color: inherit;
 	font-size: 20px;
 	width: 60px;
+}
+.menu button:hover{
+	background-color: var(--btmPrimary-bg-color);
 }
 .login {
 	text-align: center;

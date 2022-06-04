@@ -1,45 +1,34 @@
 const AuthService = {
 	Login: async (email, password) => {
 		try {
-			let results = await fetch(
-				process.env.REACT_APP_SERVER + '/auth/login',
-				{
-					headers: { 'Content-Type': 'application/json' },
-					method: 'POST',
-					credentials: 'include',
-					body: JSON.stringify({
-						email: email,
-						password: password,
-					}),
-				},
-			);
+			let results = await fetch(process.env.REACT_APP_SERVER + '/auth/login', {
+				headers: { 'Content-Type': 'application/json' },
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify({
+					email: email,
+					password: password,
+				}),
+			});
 			return results.ok;
 		} catch (error) {
 			console.log(error);
 		}
 	},
-	Register: async (
-		firstName,
-		lastName,
-		email,
-		password,
-	) => {
+	Register: async (firstName, lastName, email, password) => {
 		try {
 			console.log(firstName, lastName, email, password);
-			let results = await fetch(
-				process.env.REACT_APP_SERVER + '/auth/register',
-				{
-					headers: { 'Content-Type': 'application/json' },
-					method: 'POST',
-					credentials: 'include',
-					body: JSON.stringify({
-						firstName: firstName,
-						lastName: lastName,
-						email: email,
-						password: password,
-					}),
-				},
-			);
+			let results = await fetch(process.env.REACT_APP_SERVER + '/auth/register', {
+				headers: { 'Content-Type': 'application/json' },
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify({
+					firstName: firstName,
+					lastName: lastName,
+					email: email,
+					password: password,
+				}),
+			});
 			return results.ok;
 		} catch (error) {
 			console.log(error);
@@ -47,47 +36,44 @@ const AuthService = {
 	},
 	Logout: async () => {
 		try {
-			let results = await fetch(
-				process.env.REACT_APP_SERVER + '/auth/logout',
-				{
-					method: 'GET',
-					credentials: 'include',
-				},
-			);
+			let results = await fetch(process.env.REACT_APP_SERVER + '/auth/logout', {
+				method: 'GET',
+				credentials: 'include',
+			});
 			return results.ok;
 		} catch (error) {
 			console.log(error);
 		}
 	},
 	Profile: async () => {
-		try {
-			let results = await fetch(
-				process.env.REACT_APP_SERVER + '/auth/profile',
-				{
+		const profile = window.sessionStorage.getItem('profile');
+		console.log(profile);
+		if (profile) {
+			return JSON.parse(profile);
+		} else {
+			try {
+				let results = await fetch(process.env.REACT_APP_SERVER + '/auth/profile', {
 					method: 'GET',
 					credentials: 'include',
-				},
-			);
-			const user = {
-				isLogin: results.ok,
-			};
-			if (results.ok) {
-				user.profile = results.json();
+				});
+				const user = {
+					isLogin: results.ok,
+				};
+				if (results.ok) {
+					user.profile = await results.json();
+					window.sessionStorage.setItem('profile', JSON.stringify(user));
+				}
+				return user;
+			} catch (error) {
+				console.log(error);
 			}
-			return user;
-		} catch (error) {
-			console.log(error);
 		}
 	},
 	FindProfile: async (uid) => {
 		try {
-			let results = await fetch(
-				process.env.REACT_APP_SERVER +
-					`/auth/findProfile/${uid}`,
-				{
-					method: 'GET',
-				},
-			);
+			let results = await fetch(process.env.REACT_APP_SERVER + `/auth/findProfile/${uid}`, {
+				method: 'GET',
+			});
 			const data = await results.json();
 			return data;
 		} catch (error) {

@@ -2,18 +2,20 @@ html {
 	overflow-y: auto;
 }
 
+
+
 body {
-	--primary-bg-color: rgb(37, 33, 33);
-	--secondary-bg-color: rgb(219, 219, 219);
-	--tertiary-bg-color: rgb(66, 60, 53);
-	--quaternary-bg-color: rgb(58, 51, 44);
+	--primary-bg-color: rgb(27, 38, 59);
+	--secondary-bg-color: rgb(224, 225, 221);
+	--tertiary-bg-color: rgb(224, 225, 221);
+	--quaternary-bg-color: 	rgb(13, 27, 42);;
 
-	--btmPrimary-bg-color: rgb(26, 23, 23);
-	--btmSecondary-bg-color: rgb(44, 44, 44);
-	--btmTertiary-bg-color: rgb(66, 60, 53);
+	--btmPrimary-bg-color: rgb(13, 28, 43);
+	--btmSecondary-bg-color: rgb(27, 38, 59);
+	--btmTertiary-bg-color: rgb(119, 141, 169);
 
-	--cardPrimary-bg-color: rgb(54, 51, 51);
-
+	--cardPrimary-bg-color: rgb(65, 90, 119);
+	
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
 		'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',

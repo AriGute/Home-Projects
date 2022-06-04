@@ -19,8 +19,9 @@ label {
 	border: 1px solid black;
 	width: 100px;
 	min-height: 20px;
-	background-color: var(--quaternary-bg-color);
+	background-color: var(--secondary-bg-color);
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
