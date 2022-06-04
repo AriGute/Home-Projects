@@ -6,18 +6,10 @@ const CommentEditor = ({ post }) => {
 	const [comment, setComment] = useState('');
 
 	function addComment(e) {
-		
 		e.preventDefault();
-		PostService.AddComment(comment, post._id).then(
-			(results) => {
-				console.log(
-					'add comment: ' +
-						comment +
-						', to post:' +
-						post._id,
-				);
-			},
-		);
+		PostService.AddComment(comment, post._id).then((results) => {
+			console.log('add comment: ' + comment + ', to post:' + post._id);
+		});
 	}
 
 	return (

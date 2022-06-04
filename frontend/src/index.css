@@ -3,16 +3,16 @@ html {
 }
 
 body {
-	--primary-bg-color: rgb(37, 33, 33);
-	--secondary-bg-color: rgb(219, 219, 219);
-	--tertiary-bg-color: rgb(66, 60, 53);
-	--quaternary-bg-color: rgb(58, 51, 44);
+	--primary-bg-color: rgb(0, 103, 120);
+	/* --secondary-bg-color: rgb(219, 219, 219); */
+	--tertiary-bg-color: rgb(255, 225, 118);
+	--quaternary-bg-color: rgb(0, 175, 193);
 
-	--btmPrimary-bg-color: rgb(26, 23, 23);
-	--btmSecondary-bg-color: rgb(44, 44, 44);
+	--btmPrimary-bg-color: rgb(0, 147, 171);
+	--btmSecondary-bg-color: rgb(0, 175, 193);
 	--btmTertiary-bg-color: rgb(66, 60, 53);
 
-	--cardPrimary-bg-color: rgb(54, 51, 51);
+	--cardPrimary-bg-color: rgb(0, 175, 193);
 
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
