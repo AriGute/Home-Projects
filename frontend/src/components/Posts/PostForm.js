@@ -26,12 +26,7 @@ const PostForm = (Post) => {
 	};
 
 	const addPost = (e) => {
-		PostService.AddPost(
-			header,
-			brief,
-			description,
-			tagsList,
-		).then((results) => {
+		PostService.AddPost(header, brief, description, tagsList).then((results) => {
 			console.log(results);
 			if (results) {
 				window.location.reload();
@@ -57,11 +52,7 @@ const PostForm = (Post) => {
 				<div className='card' style={{ maxWidth: '90vw' }}>
 					<form onSubmit={addPost}>
 						<label htmlFor=''>Header</label>
-						<input
-							required
-							type='text'
-							onChange={(e) => setHeader(e.target.value)}
-						/>
+						<input required type='text' onChange={(e) => setHeader(e.target.value)} />
 						<label htmlFor=''>Short Brief</label>
 						<textarea
 							required
@@ -69,9 +60,7 @@ const PostForm = (Post) => {
 							id='brief'
 							cols='40'
 							rows='5'
-							onChange={(e) =>
-								setBrief(e.target.value)
-							}></textarea>
+							onChange={(e) => setBrief(e.target.value)}></textarea>
 						<label htmlFor=''>Description</label>
 						<textarea
 							required
@@ -79,9 +68,7 @@ const PostForm = (Post) => {
 							id='brief'
 							cols='40'
 							rows='15'
-							onChange={(e) =>
-								setDescription(e.target.value)
-							}></textarea>
+							onChange={(e) => setDescription(e.target.value)}></textarea>
 						{/* <label htmlFor=''>Tags</label> */}
 						<div
 							style={{
@@ -100,12 +87,7 @@ const PostForm = (Post) => {
 								size='small'
 								options={options}
 								renderInput={(params) => (
-									<TextField
-										id='tagInput'
-										{...params}
-										label='Tag'
-										color='success'
-									/>
+									<TextField id='tagInput' {...params} label='Tag' />
 								)}></Autocomplete>
 							<button
 								type='button'
@@ -121,11 +103,7 @@ const PostForm = (Post) => {
 						<div className='tagList'>
 							{tagsList.map((tag, index) => (
 								<div key={index}>
-									<Chip
-										label={tag}
-										onDelete={(e) =>
-											handleDelete(index)
-										}></Chip>
+									<Chip label={tag} onDelete={(e) => handleDelete(index)}></Chip>
 								</div>
 							))}
 						</div>
@@ -146,11 +124,5 @@ const PostForm = (Post) => {
 	);
 };
 
-const options = [
-	'Java',
-	'JavaScript',
-	'Python',
-	'React',
-	'Angular',
-];
+const options = ['Java', 'JavaScript', 'Python', 'React', 'Angular'];
 export default PostForm;

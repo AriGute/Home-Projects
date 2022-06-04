@@ -10,12 +10,4 @@
 	flex-direction: row;
 	justify-content: flex-end;
 }
-.commentForm button {
-	background-color: var(--primary-bg-color);
-	color: #ffe176;
-}
 
-.commentForm button:hover {
-	background-color: var(--btmPrimary-bg-color);
-
-}

@@ -132,13 +132,7 @@ const PostView = () => {
 									<Vote post={post} />
 								</div>
 							</div>
-							<p
-								style={{
-									borderTop: '3px solid var(--primary-bg-color)',
-									borderBottom: '3px solid var(--primary-bg-color)',
-								}}>
-								last modified: {post.lastModifiedDate.slice(0, 10)}
-							</p>
+							<p>last modified: {post.lastModifiedDate.slice(0, 10)}</p>
 						</div>
 						<CommentEditor post={post}></CommentEditor>
 						{comments.length > 0 ? ( // In case posts.length > 0
@@ -155,7 +149,7 @@ const PostView = () => {
 							<Loading />
 						</div>
 						<br />
-						<button onClick={loadComments}>
+						<button onClick={loadComments} className='loadComments'>
 							Load comments
 						</button>
 					</div>

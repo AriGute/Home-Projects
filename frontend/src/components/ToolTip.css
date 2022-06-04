@@ -14,6 +14,9 @@
 	font-size: 20px;
 	width: 60px;
 }
+.menu button:hover{
+	background-color: var(--btmPrimary-bg-color);
+}
 .login {
 	text-align: center;
 }

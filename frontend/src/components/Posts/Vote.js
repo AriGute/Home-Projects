@@ -7,10 +7,10 @@ import './Vote.css';
 
 const Vote = (props) => {
 	const btnClickedStyle = {
-		backgroundColor: 'orange',
+		backgroundColor: 'var(--primary-bg-color)'
 	};
 	const btnNotClickedStyle = {
-		backgroundColor: 'var(--btmPrimary-bg-color)',
+		backgroundColor: 'var(--btmTertiary-bg-color)',
 	};
 	const btnUnavailable = {
 		backgroundColor: 'lightgrey',
@@ -20,17 +20,11 @@ const Vote = (props) => {
 	const userId = props.userId;
 	const [post, setPost] = useState(props.post);
 	const [isLogin, setIsLogin] = useState(false);
-	const [votesBalance, setVotes] = useState(
-		post.votesBalance,
-	);
+	const [votesBalance, setVotes] = useState(post.votesBalance);
 
-	const [btnUpVote, setBtnUpVote] = useState(
-		btnNotClickedStyle,
-	);
+	const [btnUpVote, setBtnUpVote] = useState(btnNotClickedStyle);
 
-	const [btnDownVote, setBtnDownVote] = useState(
-		btnNotClickedStyle,
-	);
+	const [btnDownVote, setBtnDownVote] = useState(btnNotClickedStyle);
 
 	const upVote = (postId) => {
 		PostService.UpVote(postId).then((updatedPost) => {
@@ -88,8 +82,8 @@ const Vote = (props) => {
 				}}>
 				<KeyboardArrowUpIcon></KeyboardArrowUpIcon>
 			</button>
-			<div style={{ textAlign: 'center' }}>
-				<p>{votesBalance}</p>
+			<div>
+				<p style={{color: 'rgb(13, 27, 42)'}}>{votesBalance}</p>
 			</div>
 			<button
 				style={btnDownVote}

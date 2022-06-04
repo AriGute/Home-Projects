@@ -12,7 +12,7 @@ const NavBar = ({ setDrawer }) => {
 			<h3
 				style={{
 					textAlign: 'center',
-					color: 'var(--secondary-bg-color)',
+					color: 'var(--quaternary-bg-color)',
 					padding: '5px',
 				}}>
 				Home Projects

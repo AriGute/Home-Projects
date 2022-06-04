@@ -140,7 +140,7 @@ router.get('/checkVote/:id', authService.verifyToken, (req, res) => {
 router.delete('/delete', authService.verifyToken, (req, res) => {});
 
 router.get('/postsList/:i', (req, res) => {
-	const index = inputGuard(parseInt(req.params.i));
+	const index = parseInt(inputGuard(req.params.i));
 	Post.find({})
 		.sort({
 			votesBalance: -1,
@@ -196,8 +196,9 @@ router.delete('/deleteComment', authService.verifyToken, (req, res) => {
 });
 
 router.get('/commentsList/:postId&:i', (req, res) => {
+
 	const postId = inputGuard(req.params.postId);
-	const index = inputGuard(parseInt(req.params.i));
+	const index = parseInt(inputGuard(req.params.i));
 	Comment.find({
 		postId: postId,
 	})
