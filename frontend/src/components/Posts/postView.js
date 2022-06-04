@@ -13,6 +13,20 @@ import Loading from '../Loading';
 const PostView = () => {
 	const { id } = useParams();
 	const location = useLocation();
+	// TODO: remove demo object
+	const demoPost = {
+		_id: '123',
+		ownerId: '6283e87602907297dbff0588',
+		header: `test ${id}`,
+		brief: 'test',
+		description: 'test',
+		votesBalance: 0,
+		commentsCount: 0,
+		tags: ['Python'],
+		lastModifiedDate: '2022-05-28T14:04:09.000Z',
+		creationDate: '2022-05-28T14:04:09.000Z',
+		__v: 0,
+	};
 	const [post, setPost] = useState(location.state?.post || demoPost);
 	const [author, setAuthor] = useState(null);
 	const [comments, setComments] = useState([]);
@@ -28,21 +42,6 @@ const PostView = () => {
 	};
 	const reportPost = () => {
 		alert('report');
-	};
-
-	// TODO: remove demo object
-	const demoPost = {
-		_id: '123',
-		ownerId: '6283e87602907297dbff0588',
-		header: `test ${id}`,
-		brief: 'test',
-		description: 'test',
-		votesBalance: 0,
-		commentsCount: 0,
-		tags: ['Python'],
-		lastModifiedDate: '2022-05-28T14:04:09.000Z',
-		creationDate: '2022-05-28T14:04:09.000Z',
-		__v: 0,
 	};
 
 	// TODO: remove demo object

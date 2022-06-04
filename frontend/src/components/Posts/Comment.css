@@ -5,13 +5,15 @@
 	max-width: 800px;
 	margin: 0 auto 0 5px;
 	text-align: left;
-    width: 73%;
-    min-height: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column
+	width: 73%;
+	min-height: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	padding-top: 10px;
 }
+
 .date {
 	font-size: 12px;
-    text-align: right;
+	text-align: right;
 }
