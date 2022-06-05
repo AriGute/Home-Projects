@@ -16,7 +16,6 @@ const PostForm = (Post) => {
 	const history = useHistory();
 
 	const handleDelete = (i) => {
-		console.log('delete this');
 		if (tagsList.length > 0) {
 			const newList = tagsList.filter((item, index) => {
 				return index !== i ? 1 : 0;

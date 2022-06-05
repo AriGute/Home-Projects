@@ -8,10 +8,10 @@ const CardProfile = ({ profile }) => {
 		<div className='card cardProfile'>
 			<DefaultProfileIcon name={`${profile.firstName} ${profile.lastName}`} />
 			<div className='details'>
-				<p>
+				<p className='name'>
 					{profile.firstName} {profile.lastName}
 				</p>
-				<p>
+				<p className='lastSeen'>
 					Last seen: <br />
 					{date.toString()}
 				</p>

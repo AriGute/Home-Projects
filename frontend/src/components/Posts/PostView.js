@@ -141,7 +141,7 @@ const PostView = () => {
 									<Vote post={post} />
 								</div>
 							</div>
-							<p>last modified: {post.lastModifiedDate.slice(0, 10)}</p>
+							<p>Last Modified: {post.lastModifiedDate.slice(0, 10)}</p>
 						</div>
 						<CommentEditor post={post}></CommentEditor>
 						{comments.length > 0 ? ( // In case posts.length > 0
