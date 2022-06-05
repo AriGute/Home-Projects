@@ -3,7 +3,6 @@ import DefaultProfileIcon from './DefaultProfileIcon';
 import Utils from '../../services/Utils';
 
 const CardProfile = ({ profile }) => {
-	console.log(profile);
 	let date = Utils.DateFormat(profile.lastActiveAt);
 	return (
 		<div className='card cardProfile'>
@@ -11,10 +10,10 @@ const CardProfile = ({ profile }) => {
 				name={`${profile.firstName} ${profile.lastName}`}
 			/>
 			<div className='details'>
-				<p>
+				<p className='name'>
 					{profile.firstName} {profile.lastName}
 				</p>
-				<p>
+				<p className='lastSeen'>
 					Last seen: <br />
 					{date.toString()}
 				</p>

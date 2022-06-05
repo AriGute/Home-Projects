@@ -45,7 +45,6 @@ const Vote = (props) => {
 			if (user.isLogin) {
 				PostService.GetVote(post._id).then((vote) => {
 					// User have vote for this post
-					console.log(vote);
 					if (vote) {
 						setIsLogin(true);
 						if (vote.upVote === true) {

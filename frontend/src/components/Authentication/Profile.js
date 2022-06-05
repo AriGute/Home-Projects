@@ -9,7 +9,6 @@ const Profile = () => {
 	const history = new useHistory();
 
 	const logout = () => {
-		console.log('logout');
 		AuthService.Logout();
 		history.push('/');
 		window.location.reload();
