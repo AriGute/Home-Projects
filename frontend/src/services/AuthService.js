@@ -17,7 +17,6 @@ const AuthService = {
 	},
 	Register: async (firstName, lastName, email, password) => {
 		try {
-			console.log(firstName, lastName, email, password);
 			let results = await fetch(process.env.REACT_APP_SERVER + '/auth/register', {
 				headers: { 'Content-Type': 'application/json' },
 				method: 'POST',
@@ -48,7 +47,6 @@ const AuthService = {
 	},
 	Profile: async () => {
 		const profile = window.sessionStorage.getItem('profile');
-		console.log(profile);
 		if (profile) {
 			return JSON.parse(profile);
 		} else {
