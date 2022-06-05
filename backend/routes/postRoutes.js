@@ -81,9 +81,7 @@ const setVote = (req, res, isUpVote) => {
 			if (voteResults.upVote === isUpVote) {
 				// In case already up-voted then clear vote.
 				change = isUpVote ? -1 : 1;
-				Vote.deleteOne(filter).then((results) => {
-					console.log('vote cleared');
-				});
+				Vote.deleteOne(filter).then((results) => {});
 			} else {
 				// In case there is a down-vote then change to up-vote.
 				voteResults.upVote = isUpVote;
