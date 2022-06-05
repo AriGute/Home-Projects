@@ -27,7 +27,6 @@ const PostForm = (Post) => {
 
 	const addPost = (e) => {
 		PostService.AddPost(header, brief, description, tagsList).then((results) => {
-			console.log(results);
 			if (results) {
 				window.location.reload();
 			}

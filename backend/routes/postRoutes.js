@@ -139,7 +139,7 @@ router.get('/checkVote/:id', authService.verifyToken, (req, res) => {
 
 router.delete('/delete', authService.verifyToken, (req, res) => {});
 
-router.get('/postsList/:i', (req, res) => {
+router.get('/getPosts/:i', (req, res) => {
 	const index = parseInt(inputGuard(req.params.i));
 	Post.find({})
 		.sort({
@@ -152,7 +152,7 @@ router.get('/postsList/:i', (req, res) => {
 		});
 });
 
-router.get('/post/:id', (req, res) => {
+router.get('/getPost/:id', (req, res) => {
 	const postId = inputGuard(req.params.id);
 	if (postId) {
 		Post.find({ _id: ObjectId(postId) }).then((results) => {
@@ -195,8 +195,7 @@ router.delete('/deleteComment', authService.verifyToken, (req, res) => {
 	});
 });
 
-router.get('/commentsList/:postId&:i', (req, res) => {
-
+router.get('/getComments/:postId&:i', (req, res) => {
 	const postId = inputGuard(req.params.postId);
 	const index = parseInt(inputGuard(req.params.i));
 	Comment.find({

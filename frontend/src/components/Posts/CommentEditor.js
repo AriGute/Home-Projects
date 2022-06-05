@@ -7,9 +7,11 @@ const CommentEditor = ({ post }) => {
 
 	function addComment(e) {
 		e.preventDefault();
-		PostService.AddComment(comment, post._id).then((results) => {
-			console.log('add comment: ' + comment + ', to post:' + post._id);
-		});
+		debugger;
+		PostService.AddComment(comment, post._id);
+		const commentInput = e?.target[0]?.value;
+		if (commentInput) e.target[0].value = '';
+		setComment('');
 	}
 
 	return (
@@ -24,7 +26,9 @@ const CommentEditor = ({ post }) => {
 						onChange={(e) => {
 							setComment(e.target.value);
 						}}></textarea>
-					<button className='postBtn' type='submit'>Post</button>
+					<button className='postBtn' type='submit'>
+						Post
+					</button>
 				</form>
 			</div>
 		</div>

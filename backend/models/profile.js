@@ -3,7 +3,7 @@
  * and return public profile for that user.
  *
  * @param {Object} user JSON or Model from mongo.
- * @returns {Object} user public profile after filtering sensitive data.
+ * @returns {Object} User public profile after filtering sensitive data.
  */
 function Profile(user) {
 	let profile = {};
