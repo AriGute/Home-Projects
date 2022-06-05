@@ -8,28 +8,30 @@ import CardProfile from '../CardProfile/CardProfile';
 import PostService from '../../services/PostService';
 import Comment from './Comment';
 import ToolTip from '../ToolTip';
-import Loading from '../Loading';
+import Loading from '../../PlaceHolders/Loading';
+import TextPlaceHolder from '../../PlaceHolders/TextPlaceHolder';
 
 const PostView = () => {
-	const { id } = useParams();
 	const location = useLocation();
 	// TODO: remove demo object
-	const demoPost = {
-		_id: '123',
-		ownerId: '6283e87602907297dbff0588',
-		header: `test ${id}`,
-		brief: 'test',
-		description: 'test',
-		votesBalance: 0,
-		commentsCount: 0,
-		tags: ['Python'],
-		lastModifiedDate: '2022-05-28T14:04:09.000Z',
-		creationDate: '2022-05-28T14:04:09.000Z',
+	const defaultPost = {
+		_id: '',
+		ownerId: ' ',
+		header: ' ',
+		brief: ' ',
+		description: ' ',
+		votesBalance: ' ',
+		commentsCount: ' ',
+		tags: [' '],
+		lastModifiedDate: ' ',
+		creationDate: ' ',
 		__v: 0,
 	};
-	const [post, setPost] = useState(location.state?.post || demoPost);
+	const [post, setPost] = useState(defaultPost);
+	const { id } = useParams();
 	const [author, setAuthor] = useState(null);
 	const [comments, setComments] = useState([]);
+	const [isLoadingPost, setIsLoadingPost] = useState(true);
 	const [loadingStyle, setloadingStyle] = useState({
 		display: 'none',
 	});
@@ -64,43 +66,52 @@ const PostView = () => {
 	};
 
 	useEffect(() => {
-		PostService.GetPostById(id).then((post) => {
-			setPost(post);
+		PostService.GetPostById(id || location.state?.post._id).then((updatedPost) => {
+			setPost(updatedPost[0]);
+			setIsLoadingPost(false);
 		});
-	}, [id]);
 
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	useEffect(() => {
-		// PostService.GetPostById(post._id);
 		AuthService.FindProfile(post.ownerId).then((profile) => {
 			setAuthor(profile);
 		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [post]);
+
 	return (
 		<div>
 			{id !== undefined || post ? (
 				<div className='PostView'>
 					<div className='fullPost'>
 						<div className='card'>
-							<div className='postContent'>
-								<div className='postText'>
-									<h2
-										style={{
-											color: 'var(--secondary-bg-color)',
-										}}>
-										{post.header}
-									</h2>
-									{post.brief.split('\n').map((text, i) => {
-										//split every line in text to p
-										return <p key={post._id + i}>{text}</p>;
-									})}
-									{post.description.split('\n').map((text, i) => {
-										//split every line in text to p
-										return <p key={post._id + i}>{text}</p>;
-									})}
+							{isLoadingPost === false ? (
+								<div className='postContent'>
+									<div className='postText'>
+										<h2
+											style={{
+												color: 'var(--secondary-bg-color)',
+											}}>
+											{post.header}
+										</h2>
+										{post.brief.split('\n').map((text, i) => {
+											//split every line in text to p
+											return <p key={post._id + i}>{text}</p>;
+										})}
+										{post.description.split('\n').map((text, i) => {
+											//split every line in text to p
+											return <p key={post._id + i}>{text}</p>;
+										})}
+									</div>
+									<ToolTip edit={editPost} del={deletePost} report={reportPost}></ToolTip>
 								</div>
-								<ToolTip edit={editPost} del={deletePost} report={reportPost}></ToolTip>
-							</div>
+							) : (
+								<TextPlaceHolder
+									rows={10}
+									height={'20px'}
+									color={'var(--tertiary-bg-color)'}></TextPlaceHolder>
+							)}
+
 							<div className='lowerPost'>
 								{author ? (
 									<CardProfile profile={author} />

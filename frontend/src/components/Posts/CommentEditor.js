@@ -16,14 +16,18 @@ const CommentEditor = ({ post }) => {
 
 	function addComment(e) {
 		e.preventDefault();
+		debugger;
 		PostService.AddComment(comment, post._id);
+		const commentInput = e?.target[0]?.value;
+		if (commentInput) e.target[0].value = '';
+		setComment('');
 	}
 
 	return (
 		<div className='CommentEditor'>
 			<div className='card'>
 				<form className='commentForm' onSubmit={addComment}>
-				{profile ? <CardProfile profile={profile} /> : <div></div>}
+					{profile ? <CardProfile profile={profile} /> : <div></div>}
 					<textarea
 						className='commentEditor'
 						name=''
@@ -32,7 +36,6 @@ const CommentEditor = ({ post }) => {
 						onChange={(e) => {
 							setComment(e.target.value);
 						}}></textarea>
-						
 					<button className='postBtn' type='submit'>
 						Post
 					</button>

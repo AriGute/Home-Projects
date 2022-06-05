@@ -7,7 +7,7 @@ import './Vote.css';
 
 const Vote = (props) => {
 	const btnClickedStyle = {
-		backgroundColor: 'var(--primary-bg-color)'
+		backgroundColor: 'var(--btmPrimary-bg-color)',
 	};
 	const btnNotClickedStyle = {
 		backgroundColor: 'var(--btmTertiary-bg-color)',
@@ -17,10 +17,9 @@ const Vote = (props) => {
 		cursor: 'inherit',
 	};
 
-	const userId = props.userId;
 	const [post, setPost] = useState(props.post);
 	const [isLogin, setIsLogin] = useState(false);
-	const [votesBalance, setVotes] = useState(post.votesBalance);
+	const [votesBalance, setVotes] = useState(false);
 
 	const [btnUpVote, setBtnUpVote] = useState(btnNotClickedStyle);
 
@@ -38,9 +37,14 @@ const Vote = (props) => {
 	};
 
 	useEffect(() => {
-		setVotes(post.votesBalance);
+		setPost(props.post);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [props.post]);
+
+	useEffect(() => {
 		AuthService.Profile().then((user) => {
 			setIsLogin(user.isLogin);
+			setVotes(post.votesBalance);
 			// User is login?
 			if (user.isLogin) {
 				PostService.GetVote(post._id).then((vote) => {
@@ -50,17 +54,14 @@ const Vote = (props) => {
 						if (vote.upVote === true) {
 							setBtnUpVote(btnClickedStyle); // upVote is clicked
 							setBtnDownVote(btnNotClickedStyle); // no vote
-							setVotes(post.votesBalance);
 						} else if (vote.upVote === false) {
 							setBtnDownVote(btnClickedStyle); // downVote is clicked
 							setBtnUpVote(btnNotClickedStyle); // no vote
-							setVotes(post.votesBalance);
 						}
 					} else {
 						// In case User have no vote in this post
 						setBtnUpVote(btnNotClickedStyle); // no vote
 						setBtnDownVote(btnNotClickedStyle); // no vote
-						setVotes(post.votesBalance);
 					}
 				});
 			} else {
@@ -70,7 +71,7 @@ const Vote = (props) => {
 			}
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userId, post]);
+	}, [post.votesBalance]);
 
 	return (
 		<div className='Vote'>
@@ -82,7 +83,11 @@ const Vote = (props) => {
 				<KeyboardArrowUpIcon></KeyboardArrowUpIcon>
 			</button>
 			<div>
-				<p style={{color: 'rgb(13, 27, 42)'}}>{votesBalance}</p>
+				{votesBalance !== false ? (
+					<p style={{ color: 'rgb(13, 27, 42)' }}>{votesBalance}</p>
+				) : (
+					<p>" "</p>
+				)}
 			</div>
 			<button
 				style={btnDownVote}

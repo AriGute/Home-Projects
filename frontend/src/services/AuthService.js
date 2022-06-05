@@ -39,7 +39,7 @@ const AuthService = {
 				method: 'GET',
 				credentials: 'include',
 			});
-			window.sessionStorage.removeItem('profile')
+			window.sessionStorage.removeItem('profile');
 			return results.ok;
 		} catch (error) {
 			console.log(error);

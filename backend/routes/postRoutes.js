@@ -81,9 +81,7 @@ const setVote = (req, res, isUpVote) => {
 			if (voteResults.upVote === isUpVote) {
 				// In case already up-voted then clear vote.
 				change = isUpVote ? -1 : 1;
-				Vote.deleteOne(filter).then((results) => {
-					console.log('vote cleared');
-				});
+				Vote.deleteOne(filter).then((results) => {});
 			} else {
 				// In case there is a down-vote then change to up-vote.
 				voteResults.upVote = isUpVote;
@@ -139,7 +137,7 @@ router.get('/checkVote/:id', authService.verifyToken, (req, res) => {
 
 router.delete('/delete', authService.verifyToken, (req, res) => {});
 
-router.get('/postsList/:i', (req, res) => {
+router.get('/getPosts/:i', (req, res) => {
 	const index = parseInt(inputGuard(req.params.i));
 	Post.find({})
 		.sort({
@@ -152,7 +150,7 @@ router.get('/postsList/:i', (req, res) => {
 		});
 });
 
-router.get('/post/:id', (req, res) => {
+router.get('/getPost/:id', (req, res) => {
 	const postId = inputGuard(req.params.id);
 	if (postId) {
 		Post.find({ _id: ObjectId(postId) }).then((results) => {
@@ -195,8 +193,7 @@ router.delete('/deleteComment', authService.verifyToken, (req, res) => {
 	});
 });
 
-router.get('/commentsList/:postId&:i', (req, res) => {
-
+router.get('/getComments/:postId&:i', (req, res) => {
 	const postId = inputGuard(req.params.postId);
 	const index = parseInt(inputGuard(req.params.i));
 	Comment.find({

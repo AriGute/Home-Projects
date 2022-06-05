@@ -6,9 +6,7 @@ const CardProfile = ({ profile }) => {
 	let date = Utils.DateFormat(profile.lastActiveAt);
 	return (
 		<div className='card cardProfile'>
-			<DefaultProfileIcon
-				name={`${profile.firstName} ${profile.lastName}`}
-			/>
+			<DefaultProfileIcon name={`${profile.firstName} ${profile.lastName}`} />
 			<div className='details'>
 				<p className='name'>
 					{profile.firstName} {profile.lastName}
