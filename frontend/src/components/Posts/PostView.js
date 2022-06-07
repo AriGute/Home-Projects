@@ -46,14 +46,6 @@ const PostView = () => {
 		alert('report');
 	};
 
-	// TODO: remove demo object
-	const demoProfile = {
-		firstName: 'coordi',
-		lastActiveAt: '2022-05-28T20:16:13.000Z',
-		lastName: 'shokety',
-		registerDate: '2022-05-17T18:24:54.000Z',
-	};
-
 	const loadComments = () => {
 		setloadingStyle({ display: 'inline-block' });
 		PostService.GetComments(post._id, comments.length)
@@ -146,9 +138,7 @@ const PostView = () => {
 						<CommentEditor post={post}></CommentEditor>
 						{comments.length > 0 ? ( // In case posts.length > 0
 							comments.map((comment) => {
-								return (
-									<Comment profile={demoProfile} comment={comment} key={comment._id}></Comment>
-								);
+								return <Comment comment={comment} key={comment._id}></Comment>;
 							})
 						) : (
 							//In case commetns.length == 0

@@ -16,7 +16,6 @@ const CommentEditor = ({ post }) => {
 
 	function addComment(e) {
 		e.preventDefault();
-		debugger;
 		PostService.AddComment(comment, post._id);
 		const commentInput = e?.target[0]?.value;
 		if (commentInput) e.target[0].value = '';

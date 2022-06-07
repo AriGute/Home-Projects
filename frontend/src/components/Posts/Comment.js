@@ -3,7 +3,7 @@ import Utils from '../../services/Utils';
 import './Comment.css';
 import ToolTip from '../ToolTip';
 
-const Comment = ({ comment, profile }) => {
+const Comment = ({ comment }) => {
 	const date = Utils.DateFormat(comment.creationDate);
 	const editComment = () => {
 		alert('edit');
@@ -17,7 +17,7 @@ const Comment = ({ comment, profile }) => {
 	return (
 		<div className='card'>
 			<div className='commentContent'>
-				<CardProfile profile={profile}></CardProfile>
+				<CardProfile profile={comment.ownerProfile}></CardProfile>
 				<div className='commentText'>
 					{comment.comment.split('\n').map((text, i) => {
 						//split every line in text to p
