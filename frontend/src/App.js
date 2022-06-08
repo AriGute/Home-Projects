@@ -1,4 +1,4 @@
-import Header from './components/Header';
+import HeaderNew from './components/HeaderNew'
 import NavBar from './components/NavBar';
 import {
 	BrowserRouter,
@@ -23,7 +23,7 @@ function App() {
 	return (
 		<div className='App'>
 			<BrowserRouter>
-				<Header drawer={drawer} setDrawer={setDrawer} />
+				<HeaderNew/>
 				<Drawer
 					sx={{
 						'& .MuiDrawer-paperAnchorLeft': {

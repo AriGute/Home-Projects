@@ -1,0 +1,53 @@
+.header {
+	padding: 0 30px 0 30px;
+	min-height: 56px;
+	background-color: var(--primary-bg-color);
+	z-index: 5;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.sideMenuIcon {
+	width: 30px;
+	height: 30px;
+	background-color: inherit;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.sideMenuIcon p {
+	width: 20px;
+	height: 2px;
+	background-color: var(--secondary-bg-color);
+	margin: 2px 0 2px 4px;
+}
+
+.header h1 {
+	font-size: 30px;
+	font-family: 'Roboto';
+	color: var(--secondary-bg-color);
+	margin: 0;
+	user-select: none;
+	position: relative;
+	background-color: var(--primary-bg-color);
+	text-shadow: 0.5px 0.5px 1px rgb(110, 110, 110), 1px 1px 1px rgb(94, 94, 94),
+		2px 2px 1px rgb(82, 82, 82), 3px 3px 0.5px rgb(70, 70, 70), 4px 4px 0.5px rgb(48, 48, 48);
+}
+
+.menuBtn {
+	color: var(--secondary-bg-color);
+	border-radius: 5px;
+}
+
+.menuBtn:hover {
+	background-color: var(--btmPrimary-bg-color);
+	transition-duration: 0.4s;
+}
+
+@media (min-width: 600px) {
+	.header {
+		min-height: 64px;
+	}
+}
