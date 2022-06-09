@@ -23,6 +23,7 @@
 	text-align: center;
 }
 .dots {
+	transition: all .5s;
 	left: -17px;
 	position: absolute;
 	color: var(--secondary-bg-color);
