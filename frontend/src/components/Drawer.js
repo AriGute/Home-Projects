@@ -1,4 +1,4 @@
-import './SideBar.css';
+import './Drawer.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
@@ -6,7 +6,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import InfoIcon from '@mui/icons-material/Info';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 
-const SideBar = () => {
+const Drawer = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<div className='sideBar'>
@@ -49,4 +49,4 @@ const SideBar = () => {
 	);
 };
 
-export default SideBar;
+export default Drawer;
