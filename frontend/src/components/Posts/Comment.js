@@ -6,17 +6,18 @@ import { useState } from 'react';
 import PostService from '../../services/PostService';
 
 const Comment = ({ comment }) => {
-
 	const [commentText, setCommentText] = useState(comment.comment);
 	const [isEditing, setIsEditing] = useState(false);
-	const [date , setDate] = useState(Utils.DateFormat(comment.lastModifiedDate))
+	const [date, setDate] = useState(Utils.DateFormat(comment.lastModifiedDate));
+	const [commentStyle, setCommentStyle] = useState()
 
 	const editComment = () => {
 		setIsEditing(true);
 	};
 
 	const deleteComment = () => {
-		alert('delete');
+		PostService.DeleteComment(comment._id);
+		setCommentStyle({display:'none'})
 	};
 
 	const reportComment = () => {
@@ -24,18 +25,18 @@ const Comment = ({ comment }) => {
 	};
 
 	const editedComment = (e) => {
-		e.preventDefault()
-		setIsEditing(false)
-	    PostService.UpdateComment(comment._id, commentText)
-		setDate(Utils.DateFormat(Date()))
+		e.preventDefault();
+		setIsEditing(false);
+		PostService.UpdateComment(comment._id, commentText);
+		setDate(Utils.DateFormat(Date()));
 	};
 
 	return (
-		<div className='card'>
+		<div className='card' style={commentStyle}>
 			<div className='commentContent'>
 				<CardProfile profile={comment.ownerProfile}></CardProfile>
 				{isEditing ? (
-						<form onSubmit={editedComment} className='editContainer'>
+					<form onSubmit={editedComment} className='editContainer'>
 						<textarea
 							className='editing'
 							name=''
@@ -43,13 +44,12 @@ const Comment = ({ comment }) => {
 							cols='30'
 							value={commentText}
 							onChange={(e) => {
-								setCommentText(e.target.value)
-							}}>
-						</textarea>
+								setCommentText(e.target.value);
+							}}></textarea>
 						<button className='edditBtn' type='submit'>
 							Save
 						</button>
-						</form>
+					</form>
 				) : (
 					<div className='commentText'>
 						{commentText.split('\n').map((text, i) => {
