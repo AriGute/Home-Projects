@@ -17,7 +17,21 @@ const PostService = {
 			console.log(error);
 		}
 	},
-	RemovePost: (itemId) => {},
+	RemovePost: async (postId) => {
+		try {
+			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/deletePost`, {
+				method: 'DELETE',
+				credentials: 'include',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					postId: postId,
+				}),
+			});
+			return results.ok;
+		} catch (error) {
+			console.log(error);
+		}
+	},
 	GetPostById: async (postId) => {
 		try {
 			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/getPost/${postId}`, {
