@@ -1,8 +1,10 @@
 .commentEditor {
-	width: 80%;
+	width: 74%;
 	height: 100px;
 	resize: none;
 	margin-right: 10px;
+	background-color: var(--secondary-bg-color);
+	border-radius: 5px;
 }
 
 .commentForm {

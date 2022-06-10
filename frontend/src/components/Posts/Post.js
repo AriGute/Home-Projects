@@ -12,10 +12,9 @@ const Post = ({ post, userId }) => {
 					justifyContent: 'space-between',
 				}}
 				key={post._id}>
-				<div
-					className='post'
-					style={{ justifyContent: 'space-between' }}>
+				<div className='post' style={{ justifyContent: 'space-between' }}>
 					<Link
+						className='postLink'
 						to={{
 							pathname: '/postView',
 							state: { post },
@@ -26,10 +25,7 @@ const Post = ({ post, userId }) => {
 					<p
 						style={{
 							fontSize: '12px',
-						}}>{`Last modified:${post.lastModifiedDate.slice(
-						0,
-						10,
-					)}`}</p>
+						}}>{`Last modified:${post.lastModifiedDate.slice(0, 10)}`}</p>
 				</div>
 				<div
 					style={{
@@ -42,17 +38,29 @@ const Post = ({ post, userId }) => {
 							display: 'flex',
 						}}>
 						<div className='center'>
-							<p>{post.votesBalance}</p>
+							<p
+								style={{
+									marginBottom: 0,
+								}}>
+								{post.votesBalance}
+							</p>
 							<p
 								style={{
 									fontSize: '12px',
+									marginTop: 0,
 								}}>
 								Votes
 							</p>
-							<p>{post.commentsCount}</p>
+							<p
+								style={{
+									marginBottom: 0,
+								}}>
+								{post.commentsCount}
+							</p>
 							<p
 								style={{
 									fontSize: '12px',
+									marginTop: 0,
 								}}>
 								Comments
 							</p>

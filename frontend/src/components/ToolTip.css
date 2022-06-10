@@ -2,21 +2,29 @@
 	position: relative;
 }
 .menu {
-	left: -100px;
+	left: -90px;
+	top: -10px;
 	position: absolute;
-	width: 60px;
+	width: 80px;
 	height: 85px;
+	background-color: var(--btmSecondary-bg-color);
+	padding: 5px 0 5px 0;
+	border: 1px solid var(--btmPrimary-bg-color);
 }
 .menu button {
-	padding: 0;
+	padding: 0 0 0 8px;
 	background-color: inherit;
-	font-size: 20px;
-	width: 60px;
+	width: 80px;
+	text-align: left;
+}
+.menu button:hover{
+	background-color: var(--btmPrimary-bg-color);
 }
 .login {
 	text-align: center;
 }
 .dots {
+	transition: all .5s;
 	left: -17px;
 	position: absolute;
 	color: var(--secondary-bg-color);
