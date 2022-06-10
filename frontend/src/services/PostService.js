@@ -30,10 +30,15 @@ const PostService = {
 			console.log(error);
 		}
 	},
-	GetPosts: async (i) => {
+	/**
+	 * @param {Number} i The amount of posts i already have.
+	 * @param {String} ownerId Get all the posts for specific user or "all".
+	 * @returns 10 posts from 'all' list or for specific user.
+	 */
+	GetPosts: async (i, ownerId) => {
 		try {
 			let results = await fetch(
-				process.env.REACT_APP_SERVER + `/posts/getPosts/${i == null ? 0 : i}`,
+				process.env.REACT_APP_SERVER + `/posts/getPosts/${i == null ? 0 : i}&${ownerId || 'all'}`,
 				{
 					method: 'GET',
 					credentials: 'include',
