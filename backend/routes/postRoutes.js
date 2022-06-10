@@ -17,9 +17,19 @@ const ObjectId = mongoose.Types.ObjectId;
  */
 async function createIndex(db) {
 	// For users to find their posts
-	const ownerIdIndex = await db.collection(process.env.POSTS_COLLECTION).createIndex({
+	const postOwnerIdIndex = await db.collection(process.env.POSTS_COLLECTION).createIndex({
 		ownerId: 1,
 	});
+
+	// For users to find their comments
+	const commentOwnerIdIndex = await db.collection(process.env.COMMENTS_COLLECTION).createIndex({
+		ownerId: 1,
+	});
+	const commentCreationDateIndex = await db
+		.collection(process.env.COMMENTS_COLLECTION)
+		.createIndex({
+			creationDate: 1,
+		});
 
 	// For sorting posts by votes balance
 	const voteBalanceIndex = await db.collection(process.env.POSTS_COLLECTION).createIndex({
@@ -170,7 +180,7 @@ router.get('/getPosts/:i&:ownerId', (req, res) => {
 			votesBalance: -1,
 		})
 		.skip(index)
-		.limit(index + 10)
+		.limit(parseInt(process.env.QUERY_DOCS_LIMIT))
 		.then((posts) => {
 			if (posts) {
 				res.status(200).json(posts);
@@ -248,7 +258,7 @@ router.get('/getComments/:postId&:i', (req, res) => {
 			creationDate: 1,
 		})
 		.skip(index)
-		.limit(index + 10)
+		.limit(parseInt(process.env.QUERY_DOCS_LIMIT))
 		.then((commentsResults) => {
 			if (commentsResults) {
 				const data = commentsResults.map(async (comment) => {
@@ -262,6 +272,27 @@ router.get('/getComments/:postId&:i', (req, res) => {
 				Promise.all(data).then((results) => {
 					res.status(200).json(results);
 				});
+			} else {
+				res.sendStatus(404);
+			}
+		});
+});
+
+router.get('/getUserComments/:ownerId&:i', (req, res) => {
+	const ownerId = inputGuard(req.params.ownerId);
+	const index = parseInt(inputGuard(req.params.i));
+	Comment.find({
+		ownerId: ownerId,
+	})
+		.sort({
+			creationDate: 1,
+		})
+		.skip(index)
+		.limit(parseInt(process.env.QUERY_DOCS_LIMIT))
+		.then((commentsResults) => {
+			console.log(commentsResults.length);
+			if (commentsResults) {
+				res.status(200).json(commentsResults);
 			} else {
 				res.sendStatus(404);
 			}
