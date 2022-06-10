@@ -17,3 +17,23 @@
 	font-size: 12px;
 	text-align: right;
 }
+
+.editing {
+	width: 93%;
+	height: 100px;
+	resize: none;
+	background-color: var(--secondary-bg-color);
+	margin-right: 5px;
+}
+
+.editContainer{
+	max-width: 800px;
+	margin: 0 auto 0 5px;
+	text-align: left;
+	width: 80%;
+	display: flex;
+}
+
+.edditBtn{
+    margin: 0px 0px 0px auto;
+}
