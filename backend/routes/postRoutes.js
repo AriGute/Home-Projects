@@ -32,7 +32,7 @@ async function createIndex(db) {
 	});
 }
 
-router.post('/add', authService.verifyToken, (req, res) => {
+router.post('/addPost', authService.verifyToken, (req, res) => {
 	const post = new Post({
 		ownerId: req.user.uid,
 		header: req.body.header,
@@ -55,6 +55,23 @@ router.post('/add', authService.verifyToken, (req, res) => {
 					res.sendStatus(200);
 				}
 			});
+		}
+	});
+});
+router.post('/editPost/:id', authService.verifyToken, (req, res) => {
+	const id = inputGuard(req.params.id);
+	const update = {
+		header: req.body.header || '',
+		brief: req.body.brief || '',
+		description: req.body.description || '',
+		tags: req.body.tags || [],
+		lastModifiedDate: Date(),
+	};
+	Post.updateOne({ _id: ObjectId(id), ownerId: req.user.uid }, { $set: update }).then((results) => {
+		if (results) {
+			res.sendStatus(200);
+		} else {
+			res.sendStatus(404);
 		}
 	});
 });
@@ -176,7 +193,22 @@ router.post('/addComment', authService.verifyToken, (req, res) => {
 	comment.save();
 	res.sendStatus(200);
 });
-
+router.post('/editComment/:id', authService.verifyToken, (req, res) => {
+	const id = inputGuard(req.params.id);
+	const update = {
+		comment: req.body.comment || '',
+		lastModifiedDate: Date(),
+	};
+	Comment.updateOne({ _id: ObjectId(id), ownerId: req.user.uid }, { $set: update }).then(
+		(results) => {
+			if (results) {
+				res.sendStatus(200);
+			} else {
+				res.sendStatus(404);
+			}
+		},
+	);
+});
 router.delete('/deleteComment', authService.verifyToken, (req, res) => {
 	Comment.findOneAndDelete({
 		_id: req.body.commentId,

@@ -1,7 +1,7 @@
 const PostService = {
 	AddPost: async (header, brief, description, tags) => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + '/posts/add', {
+			let results = await fetch(process.env.REACT_APP_SERVER + '/posts/addPost', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				credentials: 'include',
@@ -41,6 +41,24 @@ const PostService = {
 			);
 			const data = results.json();
 			return data;
+		} catch (error) {
+			console.log(error);
+		}
+	},
+	UpdatePost: async (id, header, brief, description, tags) => {
+		try {
+			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/editPost/${id || ''}`, {
+				method: 'POST',
+				credentials: 'include',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					header: header,
+					brief: brief,
+					description: description,
+					tags: tags,
+				}),
+			});
+			return results;
 		} catch (error) {
 			console.log(error);
 		}
@@ -109,7 +127,21 @@ const PostService = {
 
 		return results.ok;
 	},
-
+	UpdateComment: async (id, comment) => {
+		try {
+			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/editComment/${id || ''}`, {
+				method: 'POST',
+				credentials: 'include',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					comment: comment,
+				}),
+			});
+			return results;
+		} catch (error) {
+			console.log(error);
+		}
+	},
 	GetComments: async (postId, i) => {
 		try {
 			let results = await fetch(
