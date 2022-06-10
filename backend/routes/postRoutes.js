@@ -154,16 +154,29 @@ router.get('/checkVote/:id', authService.verifyToken, (req, res) => {
 
 router.delete('/delete', authService.verifyToken, (req, res) => {});
 
-router.get('/getPosts/:i', (req, res) => {
+/**
+ * URL receive i for index and ownerId to get all the posts of specific user.
+ * In case ownerId is "all" then respond relative to all posts.
+ */
+router.get('/getPosts/:i&:ownerId', (req, res) => {
 	const index = parseInt(inputGuard(req.params.i));
-	Post.find({})
+	const ownerId = inputGuard(req.params.ownerId);
+
+	const filter = {};
+	if (ownerId !== 'all') filter.ownerId = ownerId;
+
+	Post.find(filter)
 		.sort({
 			votesBalance: -1,
 		})
 		.skip(index)
 		.limit(index + 10)
-		.then((results) => {
-			res.status(200).json(results);
+		.then((posts) => {
+			if (posts) {
+				res.status(200).json(posts);
+			} else {
+				res.sendStatus(404);
+			}
 		});
 });
 

@@ -16,6 +16,11 @@ Content-Type: application/json
 GET http://localhost:4000/posts/commentsList/627e9797b75ae40f1e8cf7ce&0
 Content-Type: application/json
 
+### get posts (index & id) => (0&627e9661b75ae40f1e8cf7a9) or (0&all)
+
+GET http://localhost:4000/posts/getPosts/0&627e9661b75ae40f1e8cf7a9
+Content-Type: application/json
+
 ### get post by id
 
 GET http://localhost:4000/posts/getPost/627e9797b75ae40f1e8cf7ce

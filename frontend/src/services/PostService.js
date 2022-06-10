@@ -17,7 +17,21 @@ const PostService = {
 			console.log(error);
 		}
 	},
-	RemovePost: (itemId) => {},
+	RemovePost: async (postId) => {
+		try {
+			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/deletePost`, {
+				method: 'DELETE',
+				credentials: 'include',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					postId: postId,
+				}),
+			});
+			return results.ok;
+		} catch (error) {
+			console.log(error);
+		}
+	},
 	GetPostById: async (postId) => {
 		try {
 			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/getPost/${postId}`, {
@@ -30,10 +44,15 @@ const PostService = {
 			console.log(error);
 		}
 	},
-	GetPosts: async (i) => {
+	/**
+	 * @param {Number} i The amount of posts i already have.
+	 * @param {String} ownerId Get all the posts for specific user or "all".
+	 * @returns 10 posts from 'all' list or for specific user.
+	 */
+	GetPosts: async (i, ownerId) => {
 		try {
 			let results = await fetch(
-				process.env.REACT_APP_SERVER + `/posts/getPosts/${i == null ? 0 : i}`,
+				process.env.REACT_APP_SERVER + `/posts/getPosts/${i == null ? 0 : i}&${ownerId || 'all'}`,
 				{
 					method: 'GET',
 					credentials: 'include',
