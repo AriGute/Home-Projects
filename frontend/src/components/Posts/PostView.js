@@ -66,9 +66,11 @@ const PostView = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	useEffect(() => {
-		AuthService.FindProfile(post.ownerId).then((profile) => {
-			setAuthor(profile);
-		});
+		if (post.ownerId !== defaultPost.ownerId) {
+			AuthService.FindProfile(post.ownerId).then((profile) => {
+				setAuthor(profile);
+			});
+		}
 	}, [post]);
 
 	return (
@@ -115,23 +117,25 @@ const PostView = () => {
 											width: '200px',
 										}}></div>
 								)}
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-									}}>
-									<div className='tags'>
-										<p style={{ fontSize: '12px' }}>Tags:</p>
-										<div style={{ display: 'flex' }}>
-											{post.tags.map((tag, index) => (
-												<div className='tag' key={post._id + index}>
-													<p>{tag}</p>
-												</div>
-											))}
+								{post.ownerId !== defaultPost.ownerId && (
+									<div
+										style={{
+											display: 'flex',
+											flexDirection: 'row',
+										}}>
+										<div className='tags'>
+											<p style={{ fontSize: '12px' }}>Tags:</p>
+											<div style={{ display: 'flex' }}>
+												{post.tags.map((tag, index) => (
+													<div className='tag' key={post._id + index}>
+														<p>{tag}</p>
+													</div>
+												))}
+											</div>
 										</div>
+										<Vote post={post} />
 									</div>
-									<Vote post={post} />
-								</div>
+								)}
 							</div>
 							<p>Last Modified: {post.lastModifiedDate.slice(0, 10)}</p>
 						</div>

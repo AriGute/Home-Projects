@@ -26,7 +26,7 @@ const ToolTip = ({ edit, del, report }) => {
 				<div className='dots' onClick={openMenu}></div>
 			)}
 			{isOpen && (
-				<div className='menu card' onClick={closeMenu}>
+				<div className='menu card' onMouseLeave={closeMenu} onClick={closeMenu}>
 					{isLogin === true ? (
 						<div className='login'>
 							<button onClick={edit}>Edit</button>
