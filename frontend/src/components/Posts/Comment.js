@@ -9,7 +9,7 @@ const Comment = ({ comment }) => {
 	const [commentText, setCommentText] = useState(comment.comment);
 	const [isEditing, setIsEditing] = useState(false);
 	const [date, setDate] = useState(Utils.DateFormat(comment.lastModifiedDate));
-	const [commentStyle, setCommentStyle] = useState()
+	const [commentStyle, setCommentStyle] = useState();
 
 	const editComment = () => {
 		setIsEditing(true);
@@ -17,12 +17,9 @@ const Comment = ({ comment }) => {
 
 	const deleteComment = () => {
 		PostService.DeleteComment(comment._id);
-		setCommentStyle({display:'none'})
+		setCommentStyle({ display: 'none' });
 	};
 
-	const reportComment = () => {
-		alert('report');
-	};
 
 	const editedComment = (e) => {
 		e.preventDefault();
@@ -34,7 +31,6 @@ const Comment = ({ comment }) => {
 	return (
 		<div className='card' style={commentStyle}>
 			<div className='commentContent'>
-				<CardProfile profile={comment.ownerProfile}></CardProfile>
 				{isEditing ? (
 					<form onSubmit={editedComment} className='editContainer'>
 						<textarea
@@ -52,26 +48,26 @@ const Comment = ({ comment }) => {
 					</form>
 				) : (
 					<div className='commentText'>
-						{commentText.split('\n').map((text, i) => {
-							//split every line in text to p
-							return (
-								<p
-									style={{
-										marginBottom: '0px',
-										marginTop: '0px',
-									}}
-									key={comment._id + i}>
-									{text}
-								</p>
-							);
-						})}
-
-						<p className='date'>{date}</p>
+						<div className='content'>
+							{commentText.split('\n').map((text, i) => {
+								//split every line in text to p
+								return (
+									<p style={{ margin: '2px' }} key={comment._id + i}>
+										{text}
+									</p>
+								);
+							})}
+						</div>
+						<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+							<CardProfile profile={comment.ownerProfile}></CardProfile>
+							<p className='date'>{date}</p>
+						</div>
 					</div>
 				)}
-				<ToolTip edit={editComment} del={deleteComment}>
-					report={reportComment}
-				</ToolTip>
+				<ToolTip
+					edit={editComment}
+					del={deleteComment}
+					from={{ item: 'comment', itemId: comment._id }}></ToolTip>
 			</div>
 		</div>
 	);

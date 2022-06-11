@@ -2,10 +2,9 @@
 	display: flex;
 }
 .commentText {
-	max-width: 800px;
 	margin: 0 auto 0 5px;
 	text-align: left;
-	width: 73%;
+	width: 97%;
 	min-height: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -26,14 +25,22 @@
 	margin-right: 5px;
 }
 
-.editContainer{
-	max-width: 800px;
+.editContainer {
 	margin: 0 auto 0 5px;
 	text-align: left;
-	width: 80%;
+	width: 97%;
 	display: flex;
 }
 
-.edditBtn{
-    margin: 0px 0px 0px auto;
+.edditBtn {
+	margin: 0px 0px 0px auto;
+}
+
+.commentText .content {
+	margin-bottom: 0px;
+	margin-top: 0px;
+	background: var(--btmTertiary-bg-color);
+	min-height: 70px;
+	padding: 5px;
+	border-radius: 5px;
 }
