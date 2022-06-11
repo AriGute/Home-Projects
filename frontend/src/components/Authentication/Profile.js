@@ -9,7 +9,6 @@ const Profile = () => {
 	const history = new useHistory();
 
 	const logout = () => {
-		console.log('logout');
 		AuthService.Logout();
 		history.push('/');
 		window.location.reload();
@@ -22,9 +21,7 @@ const Profile = () => {
 	return (
 		<div className='Profile'>
 			<div className='card'>
-				<h2 style={{ color: 'var(--secondary-bg-color)' }}>
-					Profile:
-				</h2>
+				<h2 style={{ color: 'var(--secondary-bg-color)' }}>Profile:</h2>
 				{details ? (
 					<div>
 						<h3

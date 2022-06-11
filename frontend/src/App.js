@@ -1,5 +1,4 @@
-import Header from './components/Header';
-import NavBar from './components/NavBar';
+import Header from './components/Header'
 import {
 	BrowserRouter,
 	Route,
@@ -15,27 +14,13 @@ import PostView from './components/Posts/PostView';
 import About from './components/About';
 import ContactUs from './components/ContactUs';
 import Report from './components/Report';
-import { Drawer } from '@mui/material';
-import { useState } from 'react';
 
 function App() {
-	const [drawer, setDrawer] = useState(false);
+	
 	return (
 		<div className='App'>
 			<BrowserRouter>
-				<Header drawer={drawer} setDrawer={setDrawer} />
-				<Drawer
-					sx={{
-						'& .MuiDrawer-paperAnchorLeft': {
-							overflowY: 'clip !important',
-						},
-					}}
-					anchor='left'
-					open={drawer}
-					onClose={() => setDrawer(false)}
-					children={
-						<NavBar setDrawer={setDrawer}></NavBar>
-					}></Drawer>
+				<Header/>
 				<Switch>
 					<Route exact path='/'>
 						<Home></Home>
