@@ -193,19 +193,21 @@ const PostService = {
 		}
 	},
 	/**
-	 * @param {String} type Type of report (pornography, violent, etc...)
+	 * @param {String} reportType Type of report (pornography, violent, etc...)
+	 * @param {String} targetType 'Post' or 'Comment'.
 	 * @param {String} targetId The id of the post/comment.
 	 * @param {String} report The free text of the report.
 	 * @returns {Boolean} if network call succeed.
 	 */
-	SendReport: async (type, targetId, report) => {
+	SendReport: async (reportType, targetType, targetId, report) => {
 		try {
 			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/sendReport`, {
 				method: 'POST',
 				credentials: 'include',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
-					type: type,
+					reportType: reportType,
+					targetType: targetType,
 					targetId: targetId, // postId or commentId
 					report: report,
 				}),
