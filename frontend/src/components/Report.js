@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import PostService from '../services/PostService';
 import './Report.css';
 
 /**
@@ -12,15 +13,15 @@ const Report = ({ reportIsOpen, closeReport, from }) => {
 
 	const [reportStyle, setReportStyle] = useState(null);
 	const options = [
-		{ value: 'violent', lable: 'Violent or hurmedfull contents' },
-		{ value: 'spam', lable: 'Spam' },
-		{ value: 'pornographi', lable: 'Pornographi' },
+		{ value: 'violent', label: 'Violent or harmful contents' },
+		{ value: 'spam', label: 'Spam' },
+		{ value: 'pornography', label: 'Pornography' },
 	];
 
 	const sendReport = (e) => {
 		e.preventDefault();
-		console.log(e);
-		console.log(`item:${reportItem} id:${itemId}`);
+		PostService.SendReport(e.target[1].value, reportItem, itemId, e.target[2].value)
+		closeReport()
 	};
 
 	useEffect(() => {
@@ -41,10 +42,10 @@ const Report = ({ reportIsOpen, closeReport, from }) => {
 					<button className='closeBtn' onClick={closeReport}>X</button>
 				</div>
 				<h1>Report {reportItem} </h1>
-				<h4 style={{ margin: '0 0 2px 0' }}>Report reason</h4>
+				<h4 style={{ margin: '0 0 2px 0' }}>Report reason:</h4>
 				<select name='reason' onChange={(e) => console.log(e.target.value)}>
-					{options.map((option) => {
-						return <option value={option.value}>{option.lable}</option>;
+					{options.map((option, i) => {
+						return <option key={`report${i}`} value={option.value}>{option.label}</option>;
 					})}
 				</select>
 				<textarea name='' id='' cols='30'></textarea>

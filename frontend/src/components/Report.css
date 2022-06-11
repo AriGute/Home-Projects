@@ -11,11 +11,11 @@
 }
 
 .report.open {
-	top: 65vh;
+	bottom: 0vh;
 }
 
 .report.close {
-	top: 100%;
+	bottom: -50%;
 }
 
 .report textarea {
@@ -63,19 +63,9 @@
 	margin: 10px -10px 0px 0px;
 }
 
-@media (max-width: 600px) {
+@media (max-width:600px) {
 	.report {
 		width: 70vw;
-		max-height: 40vh;
-	}
-
-	.report.open {
-		top: 40vh;
-	}
-}
-
-@media (orientation: landscape) {
-	.report.open{
-		top:10vh
+		max-height: 70vh;
 	}
 }

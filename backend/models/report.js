@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ReportSchema = new Schema({
+	reason: String,
 	type: String,
 	targetId: String, // postId or commentId
 	ownerId: String,
