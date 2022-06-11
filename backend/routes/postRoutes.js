@@ -5,6 +5,7 @@ const Post = require('../models/post');
 const User = require('../models/user');
 const Vote = require('../models/vote');
 const Comment = require('../models/comment');
+const Report = require('../models/report');
 const authService = require('./authRoutes');
 const Profile = require('../models/profile');
 const inputGuard = require('../utils');
@@ -213,8 +214,13 @@ router.post('/addComment', authService.verifyToken, (req, res) => {
 		lastModifiedDate: Date(),
 		creationDate: Date(),
 	});
-	comment.save();
-	res.sendStatus(200);
+	comment.save().then((results) => {
+		if (results) {
+			res.sendStatus(200);
+		} else {
+			res.sendStatus(500);
+		}
+	});
 });
 router.post('/editComment/:id', authService.verifyToken, (req, res) => {
 	const id = inputGuard(req.params.id);
@@ -297,6 +303,23 @@ router.get('/getUserComments/:ownerId&:i', (req, res) => {
 				res.sendStatus(404);
 			}
 		});
+});
+
+router.post('/sendReport', authService.verifyToken, (req, res) => {
+	const report = new Report({
+		ownerId: req.user.uid,
+		type: req.body.type,
+		targetId: req.body.targetId,
+		report: req.body.report,
+		creationDate: Date(),
+	});
+	report.save().then((results) => {
+		if (results) {
+			res.sendStatus(200);
+		} else {
+			res.sendStatus(500);
+		}
+	});
 });
 
 module.exports = {
