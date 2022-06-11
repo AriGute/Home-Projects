@@ -56,7 +56,6 @@ button:hover {
 }
 
 .card {
-	/* border: 3px solid var(--primary-bg-color); */
 	border-radius: 5px;
 	padding: 10px;
 	margin: 10px;

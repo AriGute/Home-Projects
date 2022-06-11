@@ -27,12 +27,13 @@ const PostView = () => {
 		creationDate: ' ',
 		__v: 0,
 	};
+
 	const [post, setPost] = useState(defaultPost);
 	const { id } = useParams();
 	const [author, setAuthor] = useState(null);
 	const [comments, setComments] = useState([]);
 	const [isLoadingPost, setIsLoadingPost] = useState(true);
-	const [loadingStyle, setloadingStyle] = useState({
+	const [loadingStyle, setLoadingStyle] = useState({
 		display: 'none',
 	});
 
@@ -42,18 +43,15 @@ const PostView = () => {
 	const deletePost = () => {
 		alert('delete');
 	};
-	const reportPost = () => {
-		alert('report');
-	};
 
 	const loadComments = () => {
-		setloadingStyle({ display: 'inline-block' });
+		setLoadingStyle({ display: 'inline-block' });
 		PostService.GetComments(post._id, comments.length)
 			.then((results) => {
 				setComments(comments.concat(results));
 			})
 			.then(() => {
-				setloadingStyle({ display: 'none' });
+				setLoadingStyle({ display: 'none' });
 			});
 	};
 
@@ -74,7 +72,7 @@ const PostView = () => {
 	}, [post]);
 
 	return (
-		<div>
+		<div a='1'>
 			{id !== undefined || post ? (
 				<div className='PostView'>
 					<div className='fullPost'>
@@ -97,7 +95,11 @@ const PostView = () => {
 											return <p key={post._id + i}>{text}</p>;
 										})}
 									</div>
-									<ToolTip edit={editPost} del={deletePost} report={reportPost}></ToolTip>
+									<ToolTip
+										edit={editPost}
+										del={deletePost}
+										from={{ item: 'post', itemId: post._id }}
+									/>
 								</div>
 							) : (
 								<TextPlaceHolder
@@ -140,15 +142,11 @@ const PostView = () => {
 							<p>Last Modified: {post.lastModifiedDate.slice(0, 10)}</p>
 						</div>
 						<CommentEditor post={post}></CommentEditor>
-						{comments.length > 0 ? ( // In case posts.length > 0
+						{comments.length > 0 && // In case posts.length > 0
 							comments.map((comment) => {
 								return <Comment comment={comment} key={comment._id}></Comment>;
-							})
-						) : (
-							//In case commetns.length == 0
-							<div></div>
-						)}
-						<div className='loadinDiv' style={loadingStyle}>
+							}) }
+						<div className='loadingDiv' style={loadingStyle}>
 							<Loading />
 						</div>
 						<br />

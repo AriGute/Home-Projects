@@ -308,7 +308,7 @@ router.get('/getUserComments/:ownerId&:i', (req, res) => {
 router.post('/sendReport', authService.verifyToken, (req, res) => {
 	const report = new Report({
 		ownerId: req.user.uid,
-		reportType: req.body.type,
+		reason: req.body.reason,
 		targetType: req.body.targetType,
 		targetId: req.body.targetId,
 		report: req.body.report,

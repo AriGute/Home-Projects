@@ -1,0 +1,71 @@
+.report {
+	width: 40vw;
+	height: 260px;
+	position: fixed;
+	left: 50%;
+	transform: translate(-50%);
+	transition: all 0.3s;
+	z-index: 100;
+	padding: 0px 20px 5px 15px;
+	box-shadow: 0px 5px 15px;
+}
+
+.report.open {
+	bottom: 0vh;
+}
+
+.report.close {
+	bottom: -50%;
+}
+
+.report textarea {
+	margin-top: 5px;
+	width: 100%;
+	min-height: 43%;
+	max-height: 100%;
+	resize: none;
+}
+
+.report .submit {
+	margin-top: 5px;
+	position: relative;
+	bottom: 0;
+}
+.report h1 {
+	margin: 10px 0 10px 0;
+}
+
+.report select {
+	border-radius: 5px;
+	background-color: var(--btmTertiary-bg-color);
+	font-size: 15px;
+	color: var(--btmPrimary-bg-color);
+}
+
+.reportBackGround {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: transparent;
+}
+
+.closeBtnDiv {
+	width: 100%;
+	position: relative;
+	height: 0;
+}
+
+.closeBtn {
+	height: 25px;
+	float: right;
+	margin: 10px -10px 0px 0px;
+}
+
+@media (max-width:600px) {
+	.report {
+		width: 70vw;
+		max-height: 70vh;
+	}
+}

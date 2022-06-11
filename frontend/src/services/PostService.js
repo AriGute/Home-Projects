@@ -199,14 +199,14 @@ const PostService = {
 	 * @param {String} report The free text of the report.
 	 * @returns {Boolean} if network call succeed.
 	 */
-	SendReport: async (reportType, targetType, targetId, report) => {
+	SendReport: async (reason, targetType, targetId, report) => {
 		try {
 			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/sendReport`, {
 				method: 'POST',
 				credentials: 'include',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
-					reportType: reportType,
+					reason: reason,
 					targetType: targetType,
 					targetId: targetId, // postId or commentId
 					report: report,
