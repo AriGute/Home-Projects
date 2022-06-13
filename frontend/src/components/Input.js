@@ -26,7 +26,7 @@ const Input = ({
 	width = 160,
 	errorMarginTop = 6,
 	errorMarginLeft = 3,
-	errorColor = 'hsl(0deg 77% 42%)',
+	errorColor = 'hsl(0deg 95% 70%)',
 }) => {
 	const openError = {
 		color: errorColor,
@@ -45,17 +45,15 @@ const Input = ({
 	const [inputStyle, setInputStyle] = useState('inputContent');
 	const [errorTextStyle, setErrorTextStyle] = useState(closeError);
 
-	const requiredError = 'You Missed something?';
+	const requiredError = 'Do you missed something?';
 
 	const requiredCheck = (e) => {
-		debugger
 		if (required) {
 			if (e.target.value === '') {
 				setInputStyle('inputContent error');
 				setErrorTextStyle(openError);
 				setErrorText(requiredError);
 				getInput(null);
-
 			} else {
 				setInputStyle('inputContent');
 				setErrorTextStyle(closeError);
@@ -82,19 +80,17 @@ const Input = ({
 	}, [isError]);
 
 	return (
-		<div>
-			<form className='errorContainer'>
-				<input
-					className={inputStyle}
-					style={{ width: `${width}px`, height: `${height}px` }}
-					onChange={(e) => requiredCheck(e)}
-					type={type}
-				/>
-				<span style={errorTextStyle} className={'errorText'}>
-					{errorText}
-				</span>
-			</form>
-		</div>
+		<form className='errorContainer'>
+			<input
+				className={inputStyle}
+				style={{ width: `${width}px`, height: `${height}px` }}
+				onChange={(e) => requiredCheck(e)}
+				type={type}
+			/>
+			<span style={errorTextStyle} className={'errorText'}>
+				{errorText}
+			</span>
+		</form>
 	);
 };
 

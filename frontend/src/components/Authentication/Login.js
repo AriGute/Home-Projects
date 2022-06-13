@@ -8,7 +8,7 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const [isError, setIsError] = useState();
 
-	const errorText = 'Do you forgot your username or password';
+	const errorText = 'Do you forgot your username or password?';
 
 	const history = useHistory();
 
@@ -29,7 +29,13 @@ const Login = () => {
 		<div className='Login'>
 			<div className='card'>
 				<h3>Login:</h3>
-				<form onSubmit={login}>
+				<form
+					onSubmit={login}
+					onKeyDown={(e) => {
+						if (e.key === 'Enter') {
+							e.preventDefault();
+						}
+					}}>
 					<label>Email</label>
 					<Input required={true} getInput={(e) => setEmail(e)} isError={isError} />
 					<label>Password</label>
