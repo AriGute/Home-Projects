@@ -1,0 +1,23 @@
+.errorContainer {
+	position: relative;
+	margin-bottom: 12px;
+}
+
+.inputContent {
+	z-index: 10;
+	border: 1px solid var(--quaternary-bg-color);
+	outline: none;
+	background-color: var(--secondary-bg-color);
+	transition: color 0.3s;
+}
+
+.inputContent.error {
+	border: 2px solid hsl(0deg 77% 42%);
+}
+
+.errorText {
+	position: absolute;
+	z-index: 1;
+	text-align: left;
+	transition: all 0.3s;
+}
