@@ -69,6 +69,7 @@ const PostView = () => {
 				setAuthor(profile);
 			});
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [post]);
 
 	return (
