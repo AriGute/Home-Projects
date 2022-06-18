@@ -9,14 +9,25 @@ const Home = () => {
 	const [posts, setPosts] = useState([]);
 	const [profile, setProfile] = useState(null);
 	const [loading, setLoading] = useState(false);
+	// const [isScroll, setIsScroll] = useState(false);
+
+	window.addEventListener('scroll', (e) => {
+		if (!loading) {
+			const bottom =
+				Math.floor(e.target.scrollingElement.scrollHeight - e.target.scrollingElement.scrollTop) <=
+				e.target.scrollingElement.clientHeight;
+			if (bottom) {
+				fetchPosts();
+				setLoading(true);
+			}
+		}
+	});
 
 	function fetchPosts() {
-		if (loading === false) {
-			PostService.GetPosts(posts.length).then((newPosts) => {
-				if (newPosts) setPosts([...posts, ...newPosts]);
-				setLoading(false);
-			});
-		}
+		PostService.GetPosts(posts.length).then((newPosts) => {
+			if (newPosts) setPosts([...posts, ...newPosts]);
+			setLoading(false);
+		});
 	}
 	useEffect(() => {
 		fetchPosts();
@@ -33,17 +44,10 @@ const Home = () => {
 	return (
 		<div
 			className='Home'
-			onScroll={(e) => {
-				const bottom = e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight;
-				if (bottom) {
-					fetchPosts();
-					setLoading(true);
-				}
-			}}
 			style={{
 				display: 'flex',
 				justifyContent: 'center',
-				height: '93vh',
+				height: '100%',
 				overflowY: 'auto',
 			}}>
 			{posts.length > 0 ? ( //In case posts was retrieved from fetch

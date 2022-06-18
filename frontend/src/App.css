@@ -18,7 +18,6 @@
 
 .App-header {
 	background-color: #282c34;
-	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -38,21 +37,6 @@
 	to {
 		transform: rotate(360deg);
 	}
-}
-
-button {
-	border: 2px solid var(--btmPrimary-bg-color);
-	height: 30px;
-	border: 0px;
-	background-color: var(--btmPrimary-bg-color);
-	color: var(--secondary-bg-color);
-	border-radius: 5px;
-	cursor: pointer;
-	transition: 0.2s;
-}
-
-button:hover {
-	background-color: var(--btmSecondary-bg-color);
 }
 
 .card {
@@ -76,4 +60,34 @@ h3,
 h4,
 h5 {
 	color: var(--secondary-bg-color);
+}
+
+textarea,
+input {
+	border-radius: 5px;
+}
+
+button {
+	border: 2px solid var(--btmPrimary-bg-color);
+	height: 30px;
+	border: 0px;
+	background-color: var(--btmPrimary-bg-color);
+	color: var(--secondary-bg-color);
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+button:hover {
+	background-color: var(--btmSecondary-bg-color);
+}
+
+::-webkit-scrollbar{
+	background-color: inherit;
+
+}
+::-webkit-scrollbar-thumb{
+	background-color: var(--tertiary-bg-color);
+	border-radius: 5px;
+	width: 2px;
 }

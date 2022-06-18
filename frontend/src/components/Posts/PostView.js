@@ -1,5 +1,5 @@
 import './PostView.css';
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import AuthService from '../../services/AuthService';
 import Vote from './Vote';
@@ -10,9 +10,11 @@ import Comment from './Comment';
 import ToolTip from '../ToolTip';
 import Loading from '../../PlaceHolders/Loading';
 import TextPlaceHolder from '../../PlaceHolders/TextPlaceHolder';
+import Utils from '../../services/Utils';
 
 const PostView = () => {
 	const location = useLocation();
+	const history = new useHistory();
 	// TODO: remove demo object
 	const defaultPost = {
 		_id: '',
@@ -37,11 +39,26 @@ const PostView = () => {
 		display: 'none',
 	});
 
+	window.addEventListener('scroll', (e) => {
+		const bottom =
+			Math.floor(e.target.scrollingElement.scrollHeight - e.target.scrollingElement.scrollTop) <=
+			e.target.scrollingElement.clientHeight;
+		if (bottom && comments.length > 0) {
+			loadComments();
+		}
+	});
+
 	const editPost = () => {
 		alert('edit');
 	};
+
 	const deletePost = () => {
-		alert('delete');
+		PostService.RemovePost(post._id).then((result) => {
+			if (result) {
+				history.push('/');
+			} else {
+			}
+		});
 	};
 
 	const loadComments = () => {
@@ -52,6 +69,7 @@ const PostView = () => {
 			})
 			.then(() => {
 				setLoadingStyle({ display: 'none' });
+				
 			});
 	};
 
@@ -69,13 +87,21 @@ const PostView = () => {
 				setAuthor(profile);
 			});
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [post]);
 
 	return (
-		<div a='1'>
+		<div
+			onScroll={(e) => {
+				const bottom =
+					Math.floor(e.target.scrollHeight - e.target.scrollTop) <= e.target.clientHeight;
+				if (bottom && comments.length > 0) {
+					loadComments();
+				}
+			}}
+			style={{ overflowY: 'auto', height: '100%' }}>
 			{id !== undefined || post ? (
-				<div className='PostView'>
+				<div className='postView'>
 					<div className='fullPost'>
 						<div className='card'>
 							{isLoadingPost === false ? (
@@ -140,20 +166,22 @@ const PostView = () => {
 									</div>
 								)}
 							</div>
-							<p>Last Modified: {post.lastModifiedDate.slice(0, 10)}</p>
+							<p>Last Modified: {Utils.DateFormat(post.lastModifiedDate)}</p>
 						</div>
 						<CommentEditor post={post}></CommentEditor>
 						{comments.length > 0 && // In case posts.length > 0
 							comments.map((comment) => {
 								return <Comment comment={comment} key={comment._id}></Comment>;
-							}) }
+							})}
 						<div className='loadingDiv' style={loadingStyle}>
 							<Loading />
 						</div>
 						<br />
-						<button onClick={loadComments} className='loadComments'>
-							Load comments
-						</button>
+						{comments.length === 0 && (
+							<button onClick={loadComments} className='loadComments'>
+								Load comments
+							</button>
+						)}
 					</div>
 				</div>
 			) : (

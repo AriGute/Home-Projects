@@ -163,8 +163,18 @@ router.get('/checkVote/:id', authService.verifyToken, (req, res) => {
 	});
 });
 
-router.delete('/delete', authService.verifyToken, (req, res) => {});
-
+router.delete('/deletePost', authService.verifyToken, (req, res) => {
+	Post.findOneAndDelete({
+		_id: ObjectId(req.body.postId),
+		ownerId: req.user.uid,
+	}).then((results) => {
+		if (results) {
+			res.sendStatus(200);
+		} else {
+			res.sendStatus(404);
+		}
+	});
+});
 /**
  * URL receive i for index and ownerId to get all the posts of specific user.
  * In case ownerId is "all" then respond relative to all posts.
@@ -240,14 +250,11 @@ router.post('/editComment/:id', authService.verifyToken, (req, res) => {
 });
 router.delete('/deleteComment', authService.verifyToken, (req, res) => {
 	Comment.findOneAndDelete({
-		_id: req.body.commentId,
+		_id: ObjectId(req.body.commentId),
+		ownerId: req.user.uid,
 	}).then((results) => {
 		if (results) {
-			if (results.ownerId === req.user.uid) {
-				res.sendStatus(200);
-			} else {
-				res.sendStatus(401);
-			}
+			res.sendStatus(200);
 		} else {
 			res.sendStatus(404);
 		}

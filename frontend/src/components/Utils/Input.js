@@ -4,8 +4,9 @@ import './Input.css';
 /**
  *
  * @param {Function} getInput callback function to set the value
- * @param {Boolean0} isError boolean to set an error
- * @param {String} errorText the text of the error that you want to show
+ * @param {String} value current value and set first value of component
+ * @param {Boolean} isError boolean to set an error
+ * @param {String} error the text of the error that you want to show
  * @param {String} type type of input
  * @param {Boolean} required input required?
  * @param {Number} height height of input with default setting
@@ -13,26 +14,45 @@ import './Input.css';
  * @param {Number} errorMarginTop error message margin top with default setting
  * @param {Number} errorMarginLeft error message margin left with default setting
  * @param {String} errorColor color of error
+ * @param {String} fontSize change font size
+ * @param {Boolean} autoComplete form autoComplete on or off
  *
  */
 
 const Input = ({
-	getInput,
+	getInput = () => {},
+	value = '',
 	isError,
 	error = '',
 	type = 'text',
 	required = false,
-	height = 15,
+	height = 20,
 	width = 160,
-	errorMarginTop = 6,
+	errorMarginTop = 3,
 	errorMarginLeft = 3,
-	errorColor = 'hsl(0deg 95% 70%)',
+	errorColor = 'var(--error-color)',
+	errorFontSize='12px',
+	fontSize ='14px',
+	autoComplete,
 }) => {
+	const style = {
+		width: width,
+		height: height,
+	};
+
+	if (width === 'full') {
+		style.width = '-webkit-fill-available';
+	}
+	if (height === 'full') {
+		style.height = '-webkit-fill-available';
+	}
+
 	const openError = {
+
 		color: errorColor,
 		left: `${errorMarginLeft}px`,
 		top: `${height + errorMarginTop}px`,
-		fontSize: '10px',
+		fontSize: errorFontSize,
 	};
 	const closeError = {
 		color: errorColor,
@@ -53,44 +73,52 @@ const Input = ({
 				setInputStyle('inputContent error');
 				setErrorTextStyle(openError);
 				setErrorText(requiredError);
-				getInput(null);
-			} else {
-				setInputStyle('inputContent');
-				setErrorTextStyle(closeError);
-				getInput(e.target.value);
+				return getInput(null);
 			}
-		} else {
 			setInputStyle('inputContent');
 			setErrorTextStyle(closeError);
-			setErrorText(error);
-			getInput(e.target.value);
+			return getInput(e.target.value);
 		}
+		setInputStyle('inputContent');
+		setErrorTextStyle(closeError);
+		setErrorText(error);
+		return getInput(e.target.value);
 	};
 
 	useEffect(() => {
 		if (isError) {
 			setInputStyle('inputContent error');
 			setErrorText(error);
-			setErrorTextStyle(openError);
-		} else {
-			setInputStyle('inputContent');
-			setErrorTextStyle(closeError);
+			return setErrorTextStyle(openError);
 		}
+		setInputStyle('inputContent');
+		setErrorTextStyle(closeError);
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isError]);
 
 	return (
-		<form className='errorContainer'>
-			<input
-				className={inputStyle}
-				style={{ width: `${width}px`, height: `${height}px` }}
-				onChange={(e) => requiredCheck(e)}
-				type={type}
-			/>
+		<div className='inputContainer' style={style} autoComplete={autoComplete ? 'on' : 'off'}>
+			{type === 'textarea' ? (
+				<textarea
+					className={inputStyle}
+					onChange={(e) => requiredCheck(e)}
+					value={value ? value : ''}
+					style={{ fontSize: fontSize }}
+				/>
+			) : (
+				<input
+					className={inputStyle}
+					onChange={(e) => requiredCheck(e)}
+					type={type}
+					value={value ? value : ''}
+					style={{ fontSize: fontSize }}
+				/>
+			)}
 			<span style={errorTextStyle} className={'errorText'}>
 				{errorText}
 			</span>
-		</form>
+		</div>
 	);
 };
 

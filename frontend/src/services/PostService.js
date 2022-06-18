@@ -193,7 +193,7 @@ const PostService = {
 		}
 	},
 	/**
-	 * @param {String} reportType Type of report (pornography, violent, etc...)
+	 * @param {String} reason Reason of report (pornography, violent, etc...)
 	 * @param {String} targetType 'Post' or 'Comment'.
 	 * @param {String} targetId The id of the post/comment.
 	 * @param {String} report The free text of the report.

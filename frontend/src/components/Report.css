@@ -30,6 +30,7 @@
 	margin-top: 5px;
 	position: relative;
 	bottom: 0;
+	min-height: 30px;
 }
 .report h1 {
 	margin: 10px 0 10px 0;
@@ -51,13 +52,13 @@
 	background-color: transparent;
 }
 
-.closeBtnDiv {
+.closeReportBtnDiv {
 	width: 100%;
 	position: relative;
 	height: 0;
 }
 
-.closeBtn {
+.closeReportBtn {
 	height: 25px;
 	float: right;
 	margin: 10px -10px 0px 0px;
@@ -65,7 +66,7 @@
 
 @media (max-width:600px) {
 	.report {
-		width: 70vw;
+		width: 80vw;
 		max-height: 70vh;
 	}
 }

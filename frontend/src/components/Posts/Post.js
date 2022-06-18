@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Utils from '../../services/Utils';
 import './Post.css';
 
 const Post = ({ post, userId }) => {
@@ -25,7 +26,7 @@ const Post = ({ post, userId }) => {
 					<p
 						style={{
 							fontSize: '12px',
-						}}>{`Last modified:${post.lastModifiedDate.slice(0, 10)}`}</p>
+						}}>{`Last modified:${Utils.DateFormat(post.lastModifiedDate)}`}</p>
 				</div>
 				<div
 					style={{
