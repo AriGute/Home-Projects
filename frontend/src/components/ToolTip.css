@@ -1,5 +1,6 @@
 .toolTip {
 	position: relative;
+	z-index: 100;
 }
 .menu {
 	left: -90px;
@@ -36,7 +37,7 @@
 .dots:hover {
 	background-color: var(--btmSecondary-bg-color);
 }
-.dots:after {
+.dots::after {
 	content: '\2807';
 	font-size: 20px;
 }

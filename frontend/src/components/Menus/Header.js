@@ -1,7 +1,7 @@
 import './Header.css';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import AuthService from '../services/AuthService';
+import AuthService from '../../services/AuthService';
 import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Drawer from './Drawer';

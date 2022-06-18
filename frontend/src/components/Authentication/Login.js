@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
-import Input from '../Input';
+import Input from '../Utils/Input';
 import './Login.css';
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [isError, setIsError] = useState();
 
-	const errorText = 'Do you forgot your username or password?';
+	const errorText ='Forgot your username or password?';
 
 	const history = useHistory();
 
@@ -28,21 +28,22 @@ const Login = () => {
 	return (
 		<div className='Login'>
 			<div className='card'>
-				<h3>Login:</h3>
+				<h3>Login</h3>
 				<form
 					onSubmit={login}
 					onKeyDown={(e) => {
 						if (e.key === 'Enter') {
-							e.preventDefault();
+							login(e)
 						}
 					}}>
 					<label>Email</label>
-					<Input required={true} getInput={(e) => setEmail(e)} isError={isError} />
+					<Input required={true} getInput={(e) => setEmail(e)} isError={isError} value={email} />
 					<label>Password</label>
 					<Input
 						type='password'
 						required={true}
 						getInput={(e) => setPassword(e)}
+						value={password}
 						error={errorText}
 						isError={isError}
 					/>
