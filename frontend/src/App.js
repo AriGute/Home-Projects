@@ -37,6 +37,9 @@ function App() {
 					<Route exact path='/addProject'>
 						<PostForm></PostForm>
 					</Route>
+					<Route exact path='/editProject/'>
+						<PostForm></PostForm>
+					</Route>
 					<Route exact path='/postView/' >
 						<PostView></PostView>
 					</Route>

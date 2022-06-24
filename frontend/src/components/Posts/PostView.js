@@ -49,7 +49,8 @@ const PostView = () => {
 	});
 
 	const editPost = () => {
-		alert('edit');
+		window.sessionStorage.setItem('post', JSON.stringify(post));
+		history.push(`/editProject/`);
 	};
 
 	const deletePost = () => {
@@ -69,15 +70,16 @@ const PostView = () => {
 			})
 			.then(() => {
 				setLoadingStyle({ display: 'none' });
-				
 			});
 	};
 
 	useEffect(() => {
-		PostService.GetPostById(id || location.state?.post._id).then((updatedPost) => {
-			setPost(updatedPost[0]);
-			setIsLoadingPost(false);
-		});
+		PostService.GetPostById(id || location.state?.post._id)
+			.then((updatedPost) => {
+				setPost(updatedPost[0]);
+				setIsLoadingPost(false);
+				console.log(updatedPost[0]._id);
+			});
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

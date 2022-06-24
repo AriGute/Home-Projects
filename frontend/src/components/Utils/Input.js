@@ -14,7 +14,8 @@ import './Input.css';
  * @param {Number} errorMarginTop error message margin top with default setting
  * @param {Number} errorMarginLeft error message margin left with default setting
  * @param {String} errorColor color of error
- * @param {String} fontSize change font size
+ * @param {String} errorFontSize change error font size in px
+ * @param {String} fontSize change font size in px
  * @param {Boolean} autoComplete form autoComplete on or off
  *
  */

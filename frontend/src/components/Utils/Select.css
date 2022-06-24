@@ -22,10 +22,12 @@
 
 .select input:focus ~ label,
 .select label.up {
-	top: -10px;
-	font-size: 11px;
-	color: hsl(211deg 91% 18%);
-	pointer-events: none;
+    padding: 0;
+    top: -5px;
+    height: 10px;
+    font-size: 11px;
+    color: hsl(211deg 91% 18%);
+    pointer-events: none;
 }
 
 .select:hover input {
