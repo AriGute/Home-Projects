@@ -69,7 +69,6 @@ const PostView = () => {
 			})
 			.then(() => {
 				setLoadingStyle({ display: 'none' });
-				
 			});
 	};
 
