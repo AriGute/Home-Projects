@@ -69,6 +69,7 @@ router.post('/addPost', authService.verifyToken, (req, res) => {
 		}
 	});
 });
+
 router.post('/editPost/:id', authService.verifyToken, (req, res) => {
 	const id = inputGuard(req.params.id);
 	const update = {
@@ -175,6 +176,7 @@ router.delete('/deletePost', authService.verifyToken, (req, res) => {
 		}
 	});
 });
+
 /**
  * URL receive i for index and ownerId to get all the posts of specific user.
  * In case ownerId is "all" then respond relative to all posts.
@@ -205,7 +207,22 @@ router.get('/getPost/:id', (req, res) => {
 	const postId = inputGuard(req.params.id);
 	if (postId) {
 		Post.find({ _id: ObjectId(postId) }).then((results) => {
-			if (results) {
+			if (results && results.length > 0) {
+				res.status(200).json(results);
+			} else {
+				res.sendStatus(404);
+			}
+		});
+	} else {
+		res.sendStatus(400);
+	}
+});
+
+router.get('/getPostsByTag/:tags', (req, res) => {
+	const tags = req.params.tags && req.params.tags.split(',').map((tag) => inputGuard(tag));
+	if (tags.length > 0) {
+		Post.find({ tags: { $all: tags } }).then((results) => {
+			if (results && results.length > 0) {
 				res.status(200).json(results);
 			} else {
 				res.sendStatus(404);
@@ -224,14 +241,25 @@ router.post('/addComment', authService.verifyToken, (req, res) => {
 		lastModifiedDate: Date(),
 		creationDate: Date(),
 	});
-	comment.save().then((results) => {
-		if (results) {
-			res.sendStatus(200);
+
+	comment.save().then((commnetResults) => {
+		if (commnetResults) {
+			Post.updateOne({ _id: ObjectId(req.body.postId) }, { $inc: { commentsCount: 1 } }).then(
+				(postResults) => {
+					if (postResults) {
+						res.sendStatus(200);
+					} else {
+						res.sendStatus(500);
+						Comment.findOneAndDelete({ _id: ObjectId(comment._id) });
+					}
+				},
+			);
 		} else {
 			res.sendStatus(500);
 		}
 	});
 });
+
 router.post('/editComment/:id', authService.verifyToken, (req, res) => {
 	const id = inputGuard(req.params.id);
 	const update = {
@@ -248,12 +276,14 @@ router.post('/editComment/:id', authService.verifyToken, (req, res) => {
 		},
 	);
 });
+
 router.delete('/deleteComment', authService.verifyToken, (req, res) => {
 	Comment.findOneAndDelete({
 		_id: ObjectId(req.body.commentId),
 		ownerId: req.user.uid,
 	}).then((results) => {
 		if (results) {
+			Post.updateOne({ _id: ObjectId(req.body.postId) }, { $inc: { commentsCount: -1 } });
 			res.sendStatus(200);
 		} else {
 			res.sendStatus(404);
@@ -273,7 +303,7 @@ router.get('/getComments/:postId&:i', (req, res) => {
 		.skip(index)
 		.limit(parseInt(process.env.QUERY_DOCS_LIMIT))
 		.then((commentsResults) => {
-			if (commentsResults) {
+			if (commentsResults && commentsResults.length > 0) {
 				const data = commentsResults.map(async (comment) => {
 					let userResult = await User.find({
 						_id: ObjectId(comment.ownerId),

@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ### get comments
 
-GET http://localhost:4000/posts/commentsList/627e9797b75ae40f1e8cf7ce&0
+GET http://localhost:4000/posts/getComments/627e973bb75ae40f1e8cf7c0&15
 Content-Type: application/json
 
 ### get comments for specific user
@@ -24,6 +24,12 @@ Content-Type: application/json
 
 GET http://localhost:4000/posts/getPosts/0&627e9661b75ae40f1e8cf7a9
 Content-Type: application/json
+
+### get posts by tag => (tag) e.g (javascript)
+
+GET http://localhost:4000/posts/getPostsByTag/JavaScript,Python
+Content-Type: application/json
+
 
 ### get post by id
 
