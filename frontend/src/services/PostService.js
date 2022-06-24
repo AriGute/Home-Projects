@@ -64,6 +64,30 @@ const PostService = {
 			console.log(error);
 		}
 	},
+	/**
+	 * @param {Array} tags
+	 * @returns List of posts with the givin tags.
+	 */
+	GetPostsByTags: async (tags) => {
+		try {
+			if (!tags) throw new Error('tags is undefined');
+			let queryTags = '';
+			tags.forEach((tag) => {
+				queryTags = queryTags + tag + ',';
+			});
+			let results = await fetch(
+				process.env.REACT_APP_SERVER + `/posts/getPostsByTag/${queryTags == null ? '' : queryTags}`,
+				{
+					method: 'GET',
+					credentials: 'include',
+				},
+			);
+			const data = results.json();
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
+	},
 	UpdatePost: async (id, header, brief, description, tags) => {
 		try {
 			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/editPost/${id || ''}`, {

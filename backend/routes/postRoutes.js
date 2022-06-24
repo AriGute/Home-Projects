@@ -218,6 +218,21 @@ router.get('/getPost/:id', (req, res) => {
 	}
 });
 
+router.get('/getPostsByTag/:tags', (req, res) => {
+	const tags = req.params.tags && req.params.tags.split(',').map((tag) => inputGuard(tag));
+	if (tags.length > 0) {
+		Post.find({ tags: { $all: tags } }).then((results) => {
+			if (results && results.length > 0) {
+				res.status(200).json(results);
+			} else {
+				res.sendStatus(404);
+			}
+		});
+	} else {
+		res.sendStatus(400);
+	}
+});
+
 router.post('/addComment', authService.verifyToken, (req, res) => {
 	const comment = new Comment({
 		ownerId: req.user.uid,
