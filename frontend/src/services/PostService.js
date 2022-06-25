@@ -58,6 +58,7 @@ const PostService = {
 					credentials: 'include',
 				},
 			);
+			if (results.status == 404) debugger;
 			const data = results.json();
 			return data;
 		} catch (error) {
@@ -89,7 +90,7 @@ const PostService = {
 		}
 	},
 	UpdatePost: async (id, header, brief, description, tags) => {
-		debugger
+		debugger;
 		try {
 			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/editPost/${id || ''}`, {
 				method: 'POST',

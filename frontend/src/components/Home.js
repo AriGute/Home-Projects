@@ -8,25 +8,27 @@ import Loading from '../PlaceHolders/Loading';
 const Home = () => {
 	const [posts, setPosts] = useState([]);
 	const [profile, setProfile] = useState(null);
-	const [loading, setLoading] = useState(false);
-	// const [isScroll, setIsScroll] = useState(false);
+	let isFetching = false;
 
 	window.addEventListener('scroll', (e) => {
-		if (!loading) {
+		if (!isFetching) {
 			const bottom =
-				Math.floor(e.target.scrollingElement.scrollHeight - e.target.scrollingElement.scrollTop) <=
+				e.target.scrollingElement.scrollHeight - e.target.scrollingElement.scrollTop <=
 				e.target.scrollingElement.clientHeight;
 			if (bottom) {
+				debugger
+				isFetching = true;
 				fetchPosts();
-				setLoading(true);
 			}
 		}
 	});
 
 	function fetchPosts() {
 		PostService.GetPosts(posts.length).then((newPosts) => {
-			if (newPosts) setPosts([...posts, ...newPosts]);
-			setLoading(false);
+			if (newPosts) {
+				setPosts([...posts, ...newPosts]);
+				isFetching = false;
+			}
 		});
 	}
 	useEffect(() => {
@@ -49,6 +51,7 @@ const Home = () => {
 				justifyContent: 'center',
 				height: '100%',
 				overflowY: 'auto',
+				paddingBottom: '5px',
 			}}>
 			{posts.length > 0 ? ( //In case posts was retrieved from fetch
 				profile ? ( // In case profile is still null

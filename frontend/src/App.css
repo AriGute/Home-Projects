@@ -84,10 +84,9 @@ button:hover {
 
 ::-webkit-scrollbar{
 	background-color: inherit;
-
+	width: 12px;
 }
 ::-webkit-scrollbar-thumb{
 	background-color: var(--tertiary-bg-color);
 	border-radius: 5px;
-	width: 2px;
 }

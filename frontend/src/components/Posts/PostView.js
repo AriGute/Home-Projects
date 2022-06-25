@@ -78,7 +78,6 @@ const PostView = () => {
 			.then((updatedPost) => {
 				setPost(updatedPost[0]);
 				setIsLoadingPost(false);
-				console.log(updatedPost[0]._id);
 			});
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
