@@ -7,14 +7,19 @@ import Chip from '../Utils/Chip';
 import Input from '../Utils/Input';
 import Select from '../Utils/Select';
 
-const PostForm = (Post) => {
+const PostForm = () => {
+	const history = useHistory();
+	const post =
+		history.location.pathname === '/addProject'
+			? null
+			: JSON.parse(window.sessionStorage.getItem('post'));
 	const [isLogin, setIsLogin] = useState(false);
-	const [header, setHeader] = useState('');
-	const [brief, setBrief] = useState('');
-	const [description, setDescription] = useState('');
+	const [header, setHeader] = useState(post ? post.header : '');
+	const [brief, setBrief] = useState(post ? post.brief : '');
+	const [description, setDescription] = useState(post ? post.description : '');
 	const [tagsList, setTagsList] = useState([]);
 	const [inputValue, setInputValue] = useState('');
-	const history = useHistory();
+
 	const [isError, setIsError] = useState();
 
 	const handleDelete = (i) => {
@@ -24,6 +29,20 @@ const PostForm = (Post) => {
 			});
 			setTagsList(newList);
 		}
+	};
+
+	const editPost = (e) => {
+		e.preventDefault();
+		console.log(post._id);
+		if (header && brief && description && tagsList.length) {
+			PostService.UpdatePost(post._id, header, brief, description, tagsList).then((results) => {
+				if (results) {
+					window.location.reload();
+				}
+			});
+			return history.push('/');
+		}
+		setIsError(true);
 	};
 
 	const addPost = (e) => {
@@ -53,7 +72,10 @@ const PostForm = (Post) => {
 	return (
 		<div className='postForm'>
 			{isLogin ? (
-				<form className='card' onSubmit={addPost} style={{ width: '100vw', maxWidth: '600px' }}>
+				<form
+					className='card'
+					onSubmit={history.location.pathname === '/addProject' ? addPost : editPost}
+					style={{ width: '100vw', maxWidth: '600px' }}>
 					<div style={{ alignSelf: 'center', width: '500px', textAlign: 'left' }}>
 						<label>Header</label>
 						<Input
