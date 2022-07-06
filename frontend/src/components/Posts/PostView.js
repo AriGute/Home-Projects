@@ -15,7 +15,7 @@ import Utils from '../../services/Utils';
 const PostView = () => {
 	const location = useLocation();
 	const history = new useHistory();
-	// TODO: remove demo object
+	const { id } = useParams();
 	const defaultPost = {
 		_id: '',
 		ownerId: ' ',
@@ -31,22 +31,15 @@ const PostView = () => {
 	};
 
 	const [post, setPost] = useState(defaultPost);
-	const { id } = useParams();
 	const [author, setAuthor] = useState(null);
 	const [comments, setComments] = useState([]);
 	const [isLoadingPost, setIsLoadingPost] = useState(true);
 	const [loadingStyle, setLoadingStyle] = useState({
 		display: 'none',
 	});
+	const [noMoreStyle, setNoMoreStyle] = useState({ display: 'none' });
 
-	window.addEventListener('scroll', (e) => {
-		const bottom =
-			Math.floor(e.target.scrollingElement.scrollHeight - e.target.scrollingElement.scrollTop) <=
-			e.target.scrollingElement.clientHeight;
-		if (bottom && comments.length > 0) {
-			loadComments();
-		}
-	});
+	let isFetching = false;
 
 	const editPost = () => {
 		window.sessionStorage.setItem('post', JSON.stringify(post));
@@ -66,7 +59,12 @@ const PostView = () => {
 		setLoadingStyle({ display: 'inline-block' });
 		PostService.GetComments(post._id, comments.length)
 			.then((results) => {
-				setComments(comments.concat(results));
+				debugger;
+				if (results) {
+					setComments(comments.concat(results));
+					return (isFetching = false);
+				}
+				setNoMoreStyle({ display: 'block', color: 'var(--quaternary-bg-color)' });
 			})
 			.then(() => {
 				setLoadingStyle({ display: 'none' });
@@ -74,11 +72,10 @@ const PostView = () => {
 	};
 
 	useEffect(() => {
-		PostService.GetPostById(id || location.state?.post._id)
-			.then((updatedPost) => {
-				setPost(updatedPost[0]);
-				setIsLoadingPost(false);
-			});
+		PostService.GetPostById(id || location.state?.post._id).then((updatedPost) => {
+			setPost(updatedPost[0]);
+			setIsLoadingPost(false);
+		});
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -94,13 +91,17 @@ const PostView = () => {
 	return (
 		<div
 			onScroll={(e) => {
-				const bottom =
-					Math.floor(e.target.scrollHeight - e.target.scrollTop) <= e.target.clientHeight;
-				if (bottom && comments.length > 0) {
-					loadComments();
+				console.log('scroll');
+				if (!isFetching) {
+					const bottom =
+						Math.floor(e.target.scrollHeight - e.target.scrollTop) <= e.target.clientHeight;
+					if (bottom) {
+						isFetching = true;
+						loadComments();
+					}
 				}
 			}}
-			style={{ overflowY: 'auto', height: '100%' }}>
+			style={{ overflowY: 'auto', height: '93vh' }}>
 			{id !== undefined || post ? (
 				<div className='postView'>
 					<div className='fullPost'>
@@ -177,6 +178,7 @@ const PostView = () => {
 						<div className='loadingDiv' style={loadingStyle}>
 							<Loading />
 						</div>
+						<p style={noMoreStyle}>No more Comments</p>
 						<br />
 						{comments.length === 0 && (
 							<button onClick={loadComments} className='loadComments'>

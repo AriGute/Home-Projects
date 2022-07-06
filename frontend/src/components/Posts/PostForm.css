@@ -1,6 +1,7 @@
 .postForm {
 	display: flex;
 	justify-content: center;
+	height: 93vh;
 }
 
 label {

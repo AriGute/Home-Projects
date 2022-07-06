@@ -8,29 +8,22 @@ import Loading from '../PlaceHolders/Loading';
 const Home = () => {
 	const [posts, setPosts] = useState([]);
 	const [profile, setProfile] = useState(null);
+	const [noMoreStyle, setNoMoreStyle] = useState({ display: 'none' });
+
 	let isFetching = false;
 
-	window.addEventListener('scroll', (e) => {
-		if (!isFetching) {
-			const bottom =
-				e.target.scrollingElement.scrollHeight - e.target.scrollingElement.scrollTop <=
-				e.target.scrollingElement.clientHeight;
-			if (bottom) {
-				debugger
-				isFetching = true;
-				fetchPosts();
-			}
-		}
-	});
-
 	function fetchPosts() {
+		console.log('fetch');
 		PostService.GetPosts(posts.length).then((newPosts) => {
+			debugger;
 			if (newPosts) {
 				setPosts([...posts, ...newPosts]);
-				isFetching = false;
+				return (isFetching = false);
 			}
+			setNoMoreStyle({ display: 'block', color: 'var(--quaternary-bg-color)' });
 		});
 	}
+	
 	useEffect(() => {
 		fetchPosts();
 		if (profile != null) {
@@ -49,30 +42,31 @@ const Home = () => {
 			style={{
 				display: 'flex',
 				justifyContent: 'center',
-				height: '100%',
+				height: '93vh',
 				overflowY: 'auto',
-				paddingBottom: '5px',
+				overflowX: 'hidden',
+			}}
+			onScroll={(e) => {
+				console.log('scroll');
+				if (!isFetching) {
+					const bottom =
+						Math.floor(e.target.scrollHeight - e.target.scrollTop) <= e.target.clientHeight;
+					if (bottom) {
+						isFetching = true;
+						fetchPosts();
+					}
+				}
 			}}>
 			{posts.length > 0 ? ( //In case posts was retrieved from fetch
-				profile ? ( // In case profile is still null
-					<div>
-						{posts.length > 0 ? ( // In case posts.length > 0
-							posts.map((post) => <Post post={post} userId={profile._id} key={post._id} />)
-						) : (
-							//In case posts.length == 0
-							<p>There is nothing to show.</p>
-						)}
-					</div>
-				) : (
-					<div>
-						{posts.length > 0 ? ( // In case posts.length > 0
-							posts.map((post) => <Post post={post} userId={null} key={post._id} />)
-						) : (
-							//In case posts.length == 0
-							<p>There is nothing to show.</p>
-						)}
-					</div>
-				)
+				<div style={{ height: 'fit-content' }}>
+					{posts.length > 0 ? ( // In case posts.length > 0
+						posts.map((post) => <Post post={post} userId={null} key={post._id} />)
+					) : (
+						//In case posts.length == 0
+						<p>There is nothing to show.</p>
+					)}
+					<p style={noMoreStyle}>No more posts</p>
+				</div>
 			) : (
 				<Loading></Loading>
 			)}

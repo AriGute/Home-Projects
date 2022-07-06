@@ -184,7 +184,6 @@ router.delete('/deletePost', authService.verifyToken, (req, res) => {
 router.get('/getPosts/:i&:ownerId', (req, res) => {
 	const index = parseInt(inputGuard(req.params.i));
 	const ownerId = inputGuard(req.params.ownerId);
-
 	const filter = {};
 	if (ownerId !== 'all') filter.ownerId = ownerId;
 
@@ -195,11 +194,16 @@ router.get('/getPosts/:i&:ownerId', (req, res) => {
 		.skip(index)
 		.limit(parseInt(process.env.QUERY_DOCS_LIMIT))
 		.then((posts) => {
+			console.log(posts)
 			if (posts) {
-				res.status(200).json(posts);
-			} else {
-				res.sendStatus(404);
-			}
+                if (posts.length > 0) {
+                    res.status(200).json(posts);
+                } else {
+                    res.status(200).json({});
+                }
+            } else {
+                res.sendStatus(404);
+            }
 		});
 });
 
@@ -242,8 +246,8 @@ router.post('/addComment', authService.verifyToken, (req, res) => {
 		creationDate: Date(),
 	});
 
-	comment.save().then((commnetResults) => {
-		if (commnetResults) {
+	comment.save().then((commentResults) => {
+		if (commentResults) {
 			Post.updateOne({ _id: ObjectId(req.body.postId) }, { $inc: { commentsCount: 1 } }).then(
 				(postResults) => {
 					if (postResults) {
@@ -303,21 +307,25 @@ router.get('/getComments/:postId&:i', (req, res) => {
 		.skip(index)
 		.limit(parseInt(process.env.QUERY_DOCS_LIMIT))
 		.then((commentsResults) => {
-			if (commentsResults && commentsResults.length > 0) {
-				const data = commentsResults.map(async (comment) => {
-					let userResult = await User.find({
-						_id: ObjectId(comment.ownerId),
-					});
-					const modifyComment = JSON.parse(JSON.stringify(comment));
-					modifyComment.ownerProfile = Profile(userResult[0]);
-					return modifyComment;
-				});
-				Promise.all(data).then((results) => {
-					res.status(200).json(results);
-				});
-			} else {
-				res.sendStatus(404);
-			}
+			if (commentsResults) {
+                if (commentsResults.length > 0) {
+                    const data = commentsResults.map(async (comment) => {
+                        let userResult = await User.find({
+                            _id: ObjectId(comment.ownerId),
+                        });
+                        const modifyComment = JSON.parse(JSON.stringify(comment));
+                        modifyComment.ownerProfile = Profile(userResult[0]);
+                        return modifyComment;
+                    });
+                    Promise.all(data).then((results) => {
+                        res.status(200).json(results);
+                    });
+                } else {
+                    res.status(200).json({});
+                }
+            } else {
+                res.sendStatus(404);
+            }
 		});
 });
 

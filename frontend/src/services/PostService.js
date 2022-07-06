@@ -58,8 +58,8 @@ const PostService = {
 					credentials: 'include',
 				},
 			);
-			if (results.status == 404) debugger;
-			const data = results.json();
+			const data = await results.json();
+			if (!Object.keys(data).length) return false;
 			return data;
 		} catch (error) {
 			console.log(error);
@@ -197,7 +197,8 @@ const PostService = {
 					credentials: 'include',
 				},
 			);
-			const data = results.json();
+			const data = await results.json();
+			if (!Object.keys(data).length) return false;
 			return data;
 		} catch (error) {
 			console.log(error);
