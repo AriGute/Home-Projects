@@ -3,7 +3,7 @@ import AuthService from '../services/AuthService';
 import PostService from '../services/PostService';
 import './Home.css';
 import Post from './Posts/Post';
-import Loading from '../PlaceHolders/Loading';
+import Loading from './PlaceHolders/Loading';
 
 const Home = () => {
 	const [posts, setPosts] = useState([]);
@@ -13,9 +13,7 @@ const Home = () => {
 	let isFetching = false;
 
 	function fetchPosts() {
-		console.log('fetch');
 		PostService.GetPosts(posts.length).then((newPosts) => {
-			debugger;
 			if (newPosts) {
 				setPosts([...posts, ...newPosts]);
 				return (isFetching = false);
@@ -23,7 +21,7 @@ const Home = () => {
 			setNoMoreStyle({ display: 'block', color: 'var(--quaternary-bg-color)' });
 		});
 	}
-	
+
 	useEffect(() => {
 		fetchPosts();
 		if (profile != null) {
@@ -47,10 +45,9 @@ const Home = () => {
 				overflowX: 'hidden',
 			}}
 			onScroll={(e) => {
-				console.log('scroll');
 				if (!isFetching) {
 					const bottom =
-						Math.floor(e.target.scrollHeight - e.target.scrollTop) <= e.target.clientHeight;
+						Math.floor(e.target.scrollHeight - e.target.scrollTop - 1) <= e.target.clientHeight;
 					if (bottom) {
 						isFetching = true;
 						fetchPosts();

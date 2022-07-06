@@ -8,14 +8,15 @@ import CardProfile from '../CardProfile/CardProfile';
 import PostService from '../../services/PostService';
 import Comment from './Comment';
 import ToolTip from '../ToolTip';
-import Loading from '../../PlaceHolders/Loading';
-import TextPlaceHolder from '../../PlaceHolders/TextPlaceHolder';
+import Loading from '../PlaceHolders/Loading';
+import TextPlaceHolder from '../PlaceHolders/TextPlaceHolder';
 import Utils from '../../services/Utils';
 
 const PostView = () => {
 	const location = useLocation();
 	const history = new useHistory();
 	const { id } = useParams();
+
 	const defaultPost = {
 		_id: '',
 		ownerId: ' ',
@@ -38,7 +39,6 @@ const PostView = () => {
 		display: 'none',
 	});
 	const [noMoreStyle, setNoMoreStyle] = useState({ display: 'none' });
-
 	let isFetching = false;
 
 	const editPost = () => {
@@ -59,7 +59,6 @@ const PostView = () => {
 		setLoadingStyle({ display: 'inline-block' });
 		PostService.GetComments(post._id, comments.length)
 			.then((results) => {
-				debugger;
 				if (results) {
 					setComments(comments.concat(results));
 					return (isFetching = false);
@@ -73,6 +72,7 @@ const PostView = () => {
 
 	useEffect(() => {
 		PostService.GetPostById(id || location.state?.post._id).then((updatedPost) => {
+			
 			setPost(updatedPost[0]);
 			setIsLoadingPost(false);
 		});
@@ -91,10 +91,10 @@ const PostView = () => {
 	return (
 		<div
 			onScroll={(e) => {
-				console.log('scroll');
+				if (noMoreStyle.display === 'block') return;
 				if (!isFetching) {
 					const bottom =
-						Math.floor(e.target.scrollHeight - e.target.scrollTop) <= e.target.clientHeight;
+						Math.floor(e.target.scrollHeight - e.target.scrollTop - 1) <= e.target.clientHeight;
 					if (bottom) {
 						isFetching = true;
 						loadComments();
@@ -127,7 +127,7 @@ const PostView = () => {
 									<ToolTip
 										edit={editPost}
 										del={deletePost}
-										from={{ item: 'post', itemId: post._id }}
+										from={{ item: 'post', itemId: post._id, ownerId: post.ownerId }}
 									/>
 								</div>
 							) : (

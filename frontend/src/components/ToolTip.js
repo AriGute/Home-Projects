@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AuthService from '../services/AuthService';
 import Report from './Report';
 import './ToolTip.css';
@@ -6,15 +6,9 @@ import './ToolTip.css';
 const ToolTip = ({ edit, del, from }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isLogin, setIsLogin] = useState(false);
+	const [user, setUser] = useState({});
 
 	const openMenu = () => {
-		if (!isLogin) {
-			AuthService.Profile().then((user) => {
-				if (user) {
-					setIsLogin(user.isLogin);
-				}
-			});
-		}
 		setIsOpen(true);
 	};
 	const closeMenu = () => {
@@ -27,9 +21,20 @@ const ToolTip = ({ edit, del, from }) => {
 		setReportIsOpen(true);
 	};
 
+	useEffect(() => {
+		if (!isLogin) {
+			AuthService.Profile().then((user) => {
+				if (user) {
+					setUser(user.profile);
+					setIsLogin(user.isLogin);
+				}
+			});
+		}
+	}, []);
+
 	return (
 		<div className='toolTip'>
-			{!isOpen && <div className='dots' onClick={openMenu}></div>}
+			{!isOpen && from.ownerId === user._id && <div className='dots' onClick={openMenu}></div>}
 			{isOpen && (
 				<div className='menu card' onMouseLeave={closeMenu} onClick={closeMenu}>
 					{isLogin === true ? (

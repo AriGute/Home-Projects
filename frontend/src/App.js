@@ -14,6 +14,7 @@ import PostView from './components/Posts/PostView';
 import About from './components/About';
 import ContactUs from './components/ContactUs';
 import Report from './components/Report';
+import NotFoundPage from './components/404';
 
 function App() {
 	
@@ -23,37 +24,40 @@ function App() {
 				<Header/>
 				<Switch>
 					<Route exact path='/'>
-						<Home></Home>
+						<Home/>
 					</Route>
 					<Route exact path='/login'>
-						<Login></Login>
+						<Login/>
 					</Route>
 					<Route exact path='/profile'>
-						<Profile></Profile>
+						<Profile/>
 					</Route>
 					<Route exact path='/register'>
-						<Register></Register>
+						<Register/>
 					</Route>
 					<Route exact path='/addProject'>
-						<PostForm></PostForm>
+						<PostForm/>
 					</Route>
 					<Route exact path='/editProject/'>
-						<PostForm></PostForm>
+						<PostForm/>
 					</Route>
 					<Route exact path='/postView/' >
-						<PostView></PostView>
+						<PostView/>
 					</Route>
 					<Route exact path='/report'>
-					<Report></Report>
+					<Report/>
 					</Route>
 					<Route path='/postView/:id'>
-						<PostView></PostView>
+						<PostView/>
 					</Route>
 					<Route path='/about'>
-						<About></About>
+						<About/>
 					</Route>
 					<Route path='/contactUs'>
-						<ContactUs></ContactUs>
+						<ContactUs/>
+					</Route>
+					<Route>
+						<NotFoundPage/>
 					</Route>
 				</Switch>
 			</BrowserRouter>

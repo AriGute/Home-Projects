@@ -90,7 +90,6 @@ const PostService = {
 		}
 	},
 	UpdatePost: async (id, header, brief, description, tags) => {
-		debugger;
 		try {
 			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/editPost/${id || ''}`, {
 				method: 'POST',

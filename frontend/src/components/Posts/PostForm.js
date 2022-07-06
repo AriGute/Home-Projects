@@ -74,7 +74,7 @@ const PostForm = () => {
 				<form
 					className='card'
 					onSubmit={history.location.pathname === '/addProject' ? addPost : editPost}
-					style={{ width: '100%', maxWidth: '600px' }}>
+					style={{ width: '100%', maxWidth: '600px', height: 'fit-content'}}>
 					<label>Header</label>
 					<Input
 						required
@@ -161,5 +161,5 @@ const PostForm = () => {
 	);
 };
 
-const options = ['Java', 'JavaScript', 'Python', 'React', 'Angular','zzz','asdfasf','asdfasfasgfa'];
+const options = ['Java', 'JavaScript', 'Python', 'React', 'Angular'];
 export default PostForm;
