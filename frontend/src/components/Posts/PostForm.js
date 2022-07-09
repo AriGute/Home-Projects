@@ -33,7 +33,6 @@ const PostForm = () => {
 
 	const editPost = (e) => {
 		e.preventDefault();
-		console.log(post._id);
 		if (header && brief && description && tagsList.length) {
 			PostService.UpdatePost(post._id, header, brief, description, tagsList).then((results) => {
 				if (results) {
@@ -75,32 +74,31 @@ const PostForm = () => {
 				<form
 					className='card'
 					onSubmit={history.location.pathname === '/addProject' ? addPost : editPost}
-					style={{ width: '100vw', maxWidth: '600px' }}>
-					<div style={{ alignSelf: 'center', width: '500px', textAlign: 'left' }}>
-						<label>Header</label>
-						<Input
-							required
-							getInput={(e) => setHeader(e)}
-							value={header}
-							width={'full'}
-							height={30}
-							fontSize={'20px'}
-							Autocomplete={true}
-							isError={isError}
-							error={'You must fill all the sections'}
-						/>
-						<label>Short Brief</label>
-						<Input
-							type='textarea'
-							required
-							getInput={(e) => setBrief(e)}
-							value={brief}
-							width={'full'}
-							height={100}
-							isError={isError}
-							error={'You must fill all the sections'}
-						/>
-					</div>
+					style={{ width: '100%', maxWidth: '600px', height: 'fit-content'}}>
+					<label>Header</label>
+					<Input
+						required
+						getInput={(e) => setHeader(e)}
+						value={header}
+						width={'full'}
+						height={30}
+						fontSize={'20px'}
+						Autocomplete={true}
+						isError={isError}
+						error={'You must fill all the sections'}
+					/>
+					<label>Short Brief</label>
+					<Input
+						type='textarea'
+						required
+						getInput={(e) => setBrief(e)}
+						value={brief}
+						width={'full'}
+						height={100}
+						isError={isError}
+						error={'You must fill all the sections'}
+					/>
+
 					<label>Description</label>
 					<Input
 						type='textarea'
@@ -108,7 +106,7 @@ const PostForm = () => {
 						getInput={(e) => setDescription(e)}
 						value={description}
 						width={'full'}
-						height={250}
+						height={200}
 						isError={isError}
 						error={'You must fill all the sections'}
 					/>

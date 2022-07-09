@@ -20,7 +20,6 @@ const Report = ({ reportIsOpen, closeReport, from }) => {
 
 	const sendReport = (e) => {
 		e.preventDefault();
-		debugger;
 		PostService.SendReport(reportReason, reportItem, itemId, reportText);
 		closeReport();
 	};

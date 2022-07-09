@@ -58,7 +58,8 @@ const PostService = {
 					credentials: 'include',
 				},
 			);
-			const data = results.json();
+			const data = await results.json();
+			if (!Object.keys(data).length) return false;
 			return data;
 		} catch (error) {
 			console.log(error);
@@ -89,7 +90,6 @@ const PostService = {
 		}
 	},
 	UpdatePost: async (id, header, brief, description, tags) => {
-		debugger
 		try {
 			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/editPost/${id || ''}`, {
 				method: 'POST',
@@ -196,7 +196,8 @@ const PostService = {
 					credentials: 'include',
 				},
 			);
-			const data = results.json();
+			const data = await results.json();
+			if (!Object.keys(data).length) return false;
 			return data;
 		} catch (error) {
 			console.log(error);

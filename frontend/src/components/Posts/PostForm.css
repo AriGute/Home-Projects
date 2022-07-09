@@ -1,6 +1,8 @@
 .postForm {
 	display: flex;
 	justify-content: center;
+	height: 93vh;
+	overflow-y: auto;
 }
 
 label {
@@ -13,8 +15,11 @@ label {
 	min-height: 40px;
 	overflow: hidden;
 	width: -webkit-fill-available;
-	justify-content: left;
+	justify-content: center;
 	align-items: center;
+	max-width: 70vw;
+	flex-wrap: wrap;
+	align-self: center;
 }
 
 .selectDiv {

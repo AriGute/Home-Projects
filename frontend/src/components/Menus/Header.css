@@ -2,7 +2,7 @@
 	position: sticky;
 	top: 0;
 	padding: 0 30px 0 30px;
-	min-height: 56px;
+	min-height: 7vh;
 	background-color: var(--primary-bg-color);
 	z-index: 5;
 	display: flex;
@@ -32,8 +32,8 @@
 	transition-duration: 0.4s;
 }
 
-@media (min-width: 600px) {
+/* @media (min-width: 600px) {
 	.header {
 		min-height: 64px;
 	}
-}
+} */
