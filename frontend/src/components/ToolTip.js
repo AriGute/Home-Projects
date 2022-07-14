@@ -34,17 +34,18 @@ const ToolTip = ({ edit, del, from }) => {
 
 	return (
 		<div className='toolTip'>
-			{!isOpen && from.ownerId === user._id && <div className='dots' onClick={openMenu}></div>}
-			{isOpen && (
+			{isLogin && !isOpen && <div className='dots' onClick={openMenu}></div>}
+			{isLogin && isOpen && (
 				<div className='menu card' onMouseLeave={closeMenu} onClick={closeMenu}>
-					{isLogin === true ? (
+					{from.ownerId === user._id ? (
 						<div className='login'>
 							<button onClick={edit}>Edit</button>
 							<button onClick={del}>Delete</button>
-							<button onClick={reported}>Report</button>
 						</div>
 					) : (
-						<div className='notLogin'></div>
+						<div className='login'>
+							<button onClick={reported}>Report</button>
+						</div>
 					)}
 				</div>
 			)}

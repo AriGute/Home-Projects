@@ -7,7 +7,6 @@
 	top: -10px;
 	position: absolute;
 	width: 80px;
-	height: 85px;
 	background-color: var(--btmSecondary-bg-color);
 	padding: 5px 0 5px 0;
 	border: 1px solid var(--btmPrimary-bg-color);
@@ -18,14 +17,14 @@
 	width: 80px;
 	text-align: left;
 }
-.menu button:hover{
+.menu button:hover {
 	background-color: var(--btmPrimary-bg-color);
 }
 .login {
 	text-align: center;
 }
 .dots {
-	transition: all .5s;
+	transition: all 0.5s;
 	left: -17px;
 	position: absolute;
 	color: var(--secondary-bg-color);
