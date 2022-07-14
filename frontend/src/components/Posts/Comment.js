@@ -12,7 +12,6 @@ const Comment = ({ comment }) => {
 	const [date, setDate] = useState(Utils.DateFormat(comment.lastModifiedDate));
 	const [commentStyle, setCommentStyle] = useState();
 	const lastText = comment.comment;
-
 	const deleteComment = () => {
 		PostService.DeleteComment(comment._id).then((result) => {
 			if (result) {
@@ -81,7 +80,8 @@ const Comment = ({ comment }) => {
 				<ToolTip
 					edit={editComment}
 					del={deleteComment}
-					from={{ item: 'comment', itemId: comment._id }}></ToolTip>
+					from={{ item: 'comment', itemId: comment._id, ownerId: comment.ownerId }}
+				/>
 			</div>
 		</div>
 	);
