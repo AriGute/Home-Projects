@@ -43,7 +43,7 @@
 	width: 170px;
 	height: 100vh;
 	background-color: var(--secondary-bg-color);
-	z-index: 4;
+	z-index: 5;
 	text-align: left;
 	box-shadow: 0px 5px 10px;
 }
