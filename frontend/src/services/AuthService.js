@@ -1,7 +1,8 @@
+const baseUrl = document.location.href.slice(0, -1);
 const AuthService = {
 	Login: async (email, password) => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + '/auth/login', {
+			let results = await fetch(baseUrl + '/auth/login', {
 				headers: { 'Content-Type': 'application/json' },
 				method: 'POST',
 				credentials: 'include',
@@ -17,7 +18,7 @@ const AuthService = {
 	},
 	Register: async (firstName, lastName, email, password) => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + '/auth/register', {
+			let results = await fetch(baseUrl + '/auth/register', {
 				headers: { 'Content-Type': 'application/json' },
 				method: 'POST',
 				credentials: 'include',
@@ -35,7 +36,7 @@ const AuthService = {
 	},
 	Logout: async () => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + '/auth/logout', {
+			let results = await fetch(baseUrl + '/auth/logout', {
 				method: 'GET',
 				credentials: 'include',
 			});
@@ -51,7 +52,7 @@ const AuthService = {
 			return JSON.parse(profile);
 		} else {
 			try {
-				let results = await fetch(process.env.REACT_APP_SERVER + '/auth/profile', {
+				let results = await fetch(baseUrl + '/auth/profile', {
 					method: 'GET',
 					credentials: 'include',
 				});
@@ -70,7 +71,7 @@ const AuthService = {
 	},
 	FindProfile: async (uid) => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + `/auth/findProfile/${uid}`, {
+			let results = await fetch(baseUrl + `/auth/findProfile/${uid}`, {
 				method: 'GET',
 			});
 			const data = await results.json();

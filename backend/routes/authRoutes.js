@@ -116,15 +116,15 @@ router.post('/login', async (req, res) => {
 
 				const cookieExpired = 24 * 60 * 60 * 1000;
 
-				res.cookie(process.env.ACCESS_TOKEN_NAME, accessToken, {
-					maxAge: parseInt(process.env.ACCESS_TOKEN_TTL),
+				res.cookie('Authorization Bearer', accessToken, {
+					maxAge: parseInt(604800000),
 					secure: true,
 					httpOnly: true,
 					sameSite: 'None',
 				});
 				// TODO: add refresh token feature after uploading the site to official domain.
 				// res.cookie('Refresh Token', refreshToken, {
-				// 	maxAge: parseInt(process.env.ACCESS_TOKEN_TTL),
+				// 	maxAge: parseInt(604800000),
 				// 	secure: true,
 				// 	httpOnly: true,
 				// 	sameSite: 'None',
@@ -179,7 +179,7 @@ router.get('/findProfile/:uid', (req, res) => {
  * (witch make the browser delete the ACCESS_TOKEN cookie)
  */
 router.get('/logout', verifyToken, (req, res) => {
-	res.cookie(process.env.ACCESS_TOKEN_NAME, ' ', {
+	res.cookie('Authorization Bearer', ' ', {
 		maxAge: 0,
 	});
 	res.sendStatus(200);
@@ -192,7 +192,7 @@ router.get('/logout', verifyToken, (req, res) => {
 router.get('/token', (req, res) => {
 	const refreshToken = req.body.token;
 	if (refreshToken == null) return res.sendStatus(401);
-	jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err, user) => {
+	jwt.verify(refreshToken, 'etyd234azxv456tghsw12ad647uhg', async (err, user) => {
 		if (err) return res.status(403).redirect('/');
 		const accessToken = await generateAccessToken({
 			uid: user.uid,
@@ -212,9 +212,9 @@ router.get('/token', (req, res) => {
  */
 async function generateAccessToken(payload) {
 	try {
-		const token = process.env.ACCESS_TOKEN_SECRET;
+		const token = '12dDASas12dD4ASDLKH12dsdf32ahgsd5';
 		return jwt.sign(payload, token, {
-			expiresIn: process.env.ACCESS_TOKEN_TTL,
+			expiresIn: 604800000,
 		});
 	} catch (error) {
 		console.log('Could not generate access token: ', error);
@@ -229,9 +229,9 @@ async function generateAccessToken(payload) {
  */
 async function generateRefreshToken(payload) {
 	try {
-		const token = process.env.REFRESH_TOKEN_SECRET;
+		const token = 'etyd234azxv456tghsw12ad647uhg';
 		return jwt.sign(payload, token, {
-			expiresIn: process.env.REFRESH_TOKEN_TTL,
+			expiresIn: '604800000',
 		});
 	} catch (error) {
 		console.log('Could not generate access token: ', error);
@@ -245,10 +245,10 @@ async function generateRefreshToken(payload) {
  * @returns the name of the user if he has authenticated.
  */
 function verifyToken(req, res, next) {
-	const authHeader = req.cookies[process.env.ACCESS_TOKEN_NAME];
+	const authHeader = req.cookies['Authorization Bearer'];
 	const token = authHeader;
 	if (token == null) return res.sendStatus(401);
-	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+	jwt.verify(token, '12dDASas12dD4ASDLKH12dsdf32ahgsd5', (err, user) => {
 		if (err) return res.sendStatus(403);
 		User.findOne({ _uid: user.uid, name: user.name }, (err, user) => {
 			if (user == null)

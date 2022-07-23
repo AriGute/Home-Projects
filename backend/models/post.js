@@ -14,9 +14,6 @@ const postScheme = new Schema({
 	creationDate: Date, //TODO: make this an index in mongo
 });
 
-const Post = mongoose.model(
-	process.env.POSTS_COLLECTION,
-	postScheme,
-);
+const Post = mongoose.model('posts', postScheme);
 
 module.exports = Post;

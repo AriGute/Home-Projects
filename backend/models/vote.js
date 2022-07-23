@@ -10,9 +10,6 @@ const voteScheme = new Schema({
 	date: Date,
 });
 
-const Vote = mongoose.model(
-	process.env.VOTES_COLLECTION,
-	voteScheme,
-);
+const Vote = mongoose.model('votes', voteScheme);
 
 module.exports = Vote;

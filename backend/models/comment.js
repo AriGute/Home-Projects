@@ -10,9 +10,6 @@ const CommentSchema = new Schema({
 	creationDate: Date, //TODO: make this an index in mongo
 });
 
-const Comment = mongoose.model(
-	process.env.COMMENTS_COLLECTION,
-	CommentSchema,
-);
+const Comment = mongoose.model('comments', CommentSchema);
 
 module.exports = Comment;

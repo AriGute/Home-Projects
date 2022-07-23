@@ -11,6 +11,6 @@ const ReportSchema = new Schema({
 	creationDate: Date,
 });
 
-const Report = mongoose.model(process.env.REPORTS_COLLECTION, ReportSchema);
+const Report = mongoose.model('reports', ReportSchema);
 
 module.exports = Report;

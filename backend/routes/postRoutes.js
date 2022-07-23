@@ -18,27 +18,25 @@ const ObjectId = mongoose.Types.ObjectId;
  */
 async function createIndex(db) {
 	// For users to find their posts
-	const postOwnerIdIndex = await db.collection(process.env.POSTS_COLLECTION).createIndex({
+	const postOwnerIdIndex = await db.collection('posts').createIndex({
 		ownerId: 1,
 	});
 
 	// For users to find their comments
-	const commentOwnerIdIndex = await db.collection(process.env.COMMENTS_COLLECTION).createIndex({
+	const commentOwnerIdIndex = await db.collection('comments').createIndex({
 		ownerId: 1,
 	});
-	const commentCreationDateIndex = await db
-		.collection(process.env.COMMENTS_COLLECTION)
-		.createIndex({
-			creationDate: 1,
-		});
+	const commentCreationDateIndex = await db.collection('comments').createIndex({
+		creationDate: 1,
+	});
 
 	// For sorting posts by votes balance
-	const voteBalanceIndex = await db.collection(process.env.POSTS_COLLECTION).createIndex({
+	const voteBalanceIndex = await db.collection('posts').createIndex({
 		votesBalance: 1,
 	});
 
 	// For new posts to be visible
-	const dateIndex = await db.collection(process.env.POSTS_COLLECTION).createIndex({
+	const dateIndex = await db.collection('posts').createIndex({
 		creationDate: 1,
 	});
 }
@@ -192,18 +190,18 @@ router.get('/getPosts/:i&:ownerId', (req, res) => {
 			votesBalance: -1,
 		})
 		.skip(index)
-		.limit(parseInt(process.env.QUERY_DOCS_LIMIT))
+		.limit(parseInt('10'))
 		.then((posts) => {
-			console.log(posts)
+			console.log(posts);
 			if (posts) {
-                if (posts.length > 0) {
-                    res.status(200).json(posts);
-                } else {
-                    res.status(200).json({});
-                }
-            } else {
-                res.sendStatus(404);
-            }
+				if (posts.length > 0) {
+					res.status(200).json(posts);
+				} else {
+					res.status(200).json({});
+				}
+			} else {
+				res.sendStatus(404);
+			}
 		});
 });
 
@@ -305,27 +303,27 @@ router.get('/getComments/:postId&:i', (req, res) => {
 			creationDate: 1,
 		})
 		.skip(index)
-		.limit(parseInt(process.env.QUERY_DOCS_LIMIT))
+		.limit(parseInt('10'))
 		.then((commentsResults) => {
 			if (commentsResults) {
-                if (commentsResults.length > 0) {
-                    const data = commentsResults.map(async (comment) => {
-                        let userResult = await User.find({
-                            _id: ObjectId(comment.ownerId),
-                        });
-                        const modifyComment = JSON.parse(JSON.stringify(comment));
-                        modifyComment.ownerProfile = Profile(userResult[0]);
-                        return modifyComment;
-                    });
-                    Promise.all(data).then((results) => {
-                        res.status(200).json(results);
-                    });
-                } else {
-                    res.status(200).json({});
-                }
-            } else {
-                res.sendStatus(404);
-            }
+				if (commentsResults.length > 0) {
+					const data = commentsResults.map(async (comment) => {
+						let userResult = await User.find({
+							_id: ObjectId(comment.ownerId),
+						});
+						const modifyComment = JSON.parse(JSON.stringify(comment));
+						modifyComment.ownerProfile = Profile(userResult[0]);
+						return modifyComment;
+					});
+					Promise.all(data).then((results) => {
+						res.status(200).json(results);
+					});
+				} else {
+					res.status(200).json({});
+				}
+			} else {
+				res.sendStatus(404);
+			}
 		});
 });
 
@@ -339,7 +337,7 @@ router.get('/getUserComments/:ownerId&:i', (req, res) => {
 			creationDate: 1,
 		})
 		.skip(index)
-		.limit(parseInt(process.env.QUERY_DOCS_LIMIT))
+		.limit(parseInt('10'))
 		.then((commentsResults) => {
 			console.log(commentsResults.length);
 			if (commentsResults) {

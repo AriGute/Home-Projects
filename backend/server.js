@@ -12,7 +12,7 @@ const path = require('path');
 app.use(express.json());
 app.use(cookieParser());
 
-mongoose.connect(process.env.DATA_BASE, (err, db) => {
+mongoose.connect('mongodb://localhost:27017/home-projects', (err, db) => {
 	postService.createIndex(db);
 });
 mongoose.connection
@@ -31,7 +31,7 @@ app.get('/', function (req, res) {
 app.use(
 	'/auth',
 	cors({
-		origin: process.env.CLIENT_DNS,
+		// origin: process.env.CLIENT_DNS,
 		credentials: true,
 	}),
 	authService.routes,
@@ -40,7 +40,7 @@ app.use(
 app.use(
 	'/posts',
 	cors({
-		origin: process.env.CLIENT_DNS,
+		// origin: process.env.CLIENT_DNS,
 		credentials: true,
 	}),
 	postService.routes,
@@ -73,7 +73,7 @@ function stop() {
 // 				process.env.port,
 // 		);
 // 	});
-app.listen(process.env.PORT, () => {
+app.listen('4000', () => {
 	console.log('Server up and running in port: ' + process.env.port);
 });
 

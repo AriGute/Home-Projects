@@ -72,7 +72,6 @@ const PostView = () => {
 
 	useEffect(() => {
 		PostService.GetPostById(id || location.state?.post._id).then((updatedPost) => {
-			
 			setPost(updatedPost[0]);
 			setIsLoadingPost(false);
 		});
