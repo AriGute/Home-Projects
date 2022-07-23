@@ -1,4 +1,4 @@
-require('dotEnv').config();
+// require('dotEnv').config();
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -8,9 +8,6 @@ const orderSchema = new Schema({
 	customerId: String,
 });
 
-const Order = mongoose.model(
-	process.env.ORDER_COLLECTION,
-	orderSchema,
-);
+const Order = mongoose.model(process.env.ORDER_COLLECTION, orderSchema);
 
 module.exports = Order;

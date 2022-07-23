@@ -1,4 +1,4 @@
-require('dotEnv').config();
+// require('dotEnv').config();
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
