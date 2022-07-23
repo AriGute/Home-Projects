@@ -1,4 +1,4 @@
-const baseUrl = document.location.href.slice(0, -1);
+const baseUrl = document.location.origin;
 
 const PostService = {
 	AddPost: async (header, brief, description, tags) => {
