@@ -1,7 +1,9 @@
+const baseUrl = document.location.href.slice(0, -1);
+
 const PostService = {
 	AddPost: async (header, brief, description, tags) => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + '/posts/addPost', {
+			let results = await fetch(baseUrl + '/posts/addPost', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				credentials: 'include',
@@ -19,7 +21,7 @@ const PostService = {
 	},
 	RemovePost: async (postId) => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/deletePost`, {
+			let results = await fetch(baseUrl + `/posts/deletePost`, {
 				method: 'DELETE',
 				credentials: 'include',
 				headers: { 'Content-Type': 'application/json' },
@@ -34,7 +36,7 @@ const PostService = {
 	},
 	GetPostById: async (postId) => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/getPost/${postId}`, {
+			let results = await fetch(baseUrl + `/posts/getPost/${postId}`, {
 				method: 'GET',
 				credentials: 'include',
 			});
@@ -52,7 +54,7 @@ const PostService = {
 	GetPosts: async (i, ownerId) => {
 		try {
 			let results = await fetch(
-				process.env.REACT_APP_SERVER + `/posts/getPosts/${i == null ? 0 : i}&${ownerId || 'all'}`,
+				baseUrl + `/posts/getPosts/${i == null ? 0 : i}&${ownerId || 'all'}`,
 				{
 					method: 'GET',
 					credentials: 'include',
@@ -77,7 +79,7 @@ const PostService = {
 				queryTags = queryTags + tag + ',';
 			});
 			let results = await fetch(
-				process.env.REACT_APP_SERVER + `/posts/getPostsByTag/${queryTags == null ? '' : queryTags}`,
+				baseUrl + `/posts/getPostsByTag/${queryTags == null ? '' : queryTags}`,
 				{
 					method: 'GET',
 					credentials: 'include',
@@ -91,7 +93,7 @@ const PostService = {
 	},
 	UpdatePost: async (id, header, brief, description, tags) => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/editPost/${id || ''}`, {
+			let results = await fetch(baseUrl + `/posts/editPost/${id || ''}`, {
 				method: 'POST',
 				credentials: 'include',
 				headers: { 'Content-Type': 'application/json' },
@@ -108,7 +110,7 @@ const PostService = {
 		}
 	},
 	UpVote: async (postId) => {
-		const results = await fetch(process.env.REACT_APP_SERVER + '/posts/upVote', {
+		const results = await fetch(baseUrl + '/posts/upVote', {
 			method: 'PUT',
 			credentials: 'include',
 			headers: { 'Content-Type': 'application/json' },
@@ -120,7 +122,7 @@ const PostService = {
 		return data;
 	},
 	DownVote: async (postId) => {
-		const results = await fetch(process.env.REACT_APP_SERVER + '/posts/downVote', {
+		const results = await fetch(baseUrl + '/posts/downVote', {
 			method: 'PUT',
 			credentials: 'include',
 			headers: { 'Content-Type': 'application/json' },
@@ -132,7 +134,7 @@ const PostService = {
 		return data;
 	},
 	ClearVote: async (postId) => {
-		const results = await fetch(process.env.REACT_APP_SERVER + '/posts/clearVote', {
+		const results = await fetch(baseUrl + '/posts/clearVote', {
 			method: 'PUT',
 			credentials: 'include',
 			headers: { 'Content-Type': 'application/json' },
@@ -150,7 +152,7 @@ const PostService = {
 	 * @returns vote object or false if current user did not vote yet.
 	 */
 	GetVote: async (postId) => {
-		const results = await fetch(process.env.REACT_APP_SERVER + '/posts/checkVote/' + postId, {
+		const results = await fetch(baseUrl + '/posts/checkVote/' + postId, {
 			method: 'GET',
 			credentials: 'include',
 		});
@@ -159,7 +161,7 @@ const PostService = {
 	},
 
 	AddComment: async (comment, postId) => {
-		const results = await fetch(process.env.REACT_APP_SERVER + '/posts/addComment', {
+		const results = await fetch(baseUrl + '/posts/addComment', {
 			headers: { 'Content-Type': 'application/json' },
 			method: 'POST',
 			credentials: 'include',
@@ -173,7 +175,7 @@ const PostService = {
 	},
 	UpdateComment: async (id, comment) => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/editComment/${id || ''}`, {
+			let results = await fetch(baseUrl + `/posts/editComment/${id || ''}`, {
 				method: 'POST',
 				credentials: 'include',
 				headers: { 'Content-Type': 'application/json' },
@@ -189,8 +191,7 @@ const PostService = {
 	GetComments: async (postId, i) => {
 		try {
 			let results = await fetch(
-				process.env.REACT_APP_SERVER +
-					`/posts/getComments/${postId == null ? 0 : postId}&${i == null ? 0 : i}`,
+				baseUrl + `/posts/getComments/${postId == null ? 0 : postId}&${i == null ? 0 : i}`,
 				{
 					method: 'GET',
 					credentials: 'include',
@@ -205,7 +206,7 @@ const PostService = {
 	},
 	DeleteComment: async (commentId) => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/deleteComment`, {
+			let results = await fetch(baseUrl + `/posts/deleteComment`, {
 				method: 'DELETE',
 				credentials: 'include',
 				headers: { 'Content-Type': 'application/json' },
@@ -227,7 +228,7 @@ const PostService = {
 	 */
 	SendReport: async (reason, targetType, targetId, report) => {
 		try {
-			let results = await fetch(process.env.REACT_APP_SERVER + `/posts/sendReport`, {
+			let results = await fetch(baseUrl + `/posts/sendReport`, {
 				method: 'POST',
 				credentials: 'include',
 				headers: { 'Content-Type': 'application/json' },

@@ -12,7 +12,9 @@ const path = require('path');
 app.use(express.json());
 app.use(cookieParser());
 
-mongoose.connect('mongodb://localhost:27017/home-projects', (err, db) => {
+// mongodb://ec2-user@172.31.45.159:27017
+
+mongoose.connect('mongodb://172.31.45.159:27017/home-projects', (err, db) => {
 	postService.createIndex(db);
 });
 mongoose.connection
