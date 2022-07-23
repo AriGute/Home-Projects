@@ -14,7 +14,7 @@ app.use(cookieParser());
 
 // mongodb://ec2-user@172.31.45.159:27017
 
-mongoose.connect('mongodb://172.31.45.159:27017/home-projects', (err, db) => {
+mongoose.connect('mongodb://127.0.0.1:27017/home-projects', (err, db) => {
 	postService.createIndex(db);
 });
 mongoose.connection
@@ -30,23 +30,9 @@ app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.use(
-	'/auth',
-	cors({
-		// origin: process.env.CLIENT_DNS,
-		credentials: true,
-	}),
-	authService.routes,
-);
+app.use('/auth', cors({ credentials: true }), authService.routes);
 
-app.use(
-	'/posts',
-	cors({
-		// origin: process.env.CLIENT_DNS,
-		credentials: true,
-	}),
-	postService.routes,
-);
+app.use('/posts', cors({ credentials: true }), postService.routes);
 
 // can be remove at any time
 app.get('/', cors(), (req, res, next) => {
