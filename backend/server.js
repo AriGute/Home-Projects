@@ -74,7 +74,7 @@ function stop() {
 // 		);
 // 	});
 app.listen('4000', () => {
-	console.log('Server up and running in port: ' + process.env.port);
+	console.log('Server up and running in port: ' + 4000);
 });
 
 module.exports = app;
