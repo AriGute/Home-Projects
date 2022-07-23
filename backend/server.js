@@ -26,8 +26,14 @@ mongoose.connection
 	});
 
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/test', function (req, res) {
+	res.cookie('rememberme1', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
+	res.status(200).json({ status: 'success' });
 });
 
 app.use('/auth', cors({ credentials: true }), authService.routes);

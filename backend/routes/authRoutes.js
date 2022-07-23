@@ -113,7 +113,7 @@ router.post('/login', async (req, res) => {
 				const refreshTokenAndUserInfo = jwt.sign(payload, refreshToken);
 				let date = new Date();
 				date.setMonth(date.getMonth() + 8);
-
+				res.cookie('rememberme2', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
 				const cookieExpired = 24 * 60 * 60 * 1000;
 
 				res.cookie('Authorization Bearer', accessToken, {
