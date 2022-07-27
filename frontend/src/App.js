@@ -41,9 +41,6 @@ function App() {
 					<Route exact path='/editProject/'>
 						<PostForm/>
 					</Route>
-					<Route exact path='/postView/' >
-						<PostView/>
-					</Route>
 					<Route exact path='/report'>
 					<Report/>
 					</Route>
