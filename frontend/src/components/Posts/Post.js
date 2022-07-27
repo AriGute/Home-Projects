@@ -17,7 +17,7 @@ const Post = ({ post, userId }) => {
 					<Link
 						className='postLink'
 						to={{
-							pathname: '/postView',
+							pathname: `/postView/${post._id}`,
 							state: { post },
 						}}>
 						{post.header}
