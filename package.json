@@ -1,0 +1,21 @@
+{
+  "name": "home-projects",
+  "version": "1.0.0",
+  "description": "automate build",
+  "main": "index.js",
+  "scripts": {
+    "build-front": "cd frontend && npm run build",
+    "start-front": "cd frontend && npm run start",
+    "start-back": "cd backend && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AriGute/Home-Projects.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AriGute/Home-Projects/issues"
+  },
+  "homepage": "https://github.com/AriGute/Home-Projects#readme"
+}
