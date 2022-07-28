@@ -31,6 +31,7 @@ const PostView = () => {
 		__v: 0,
 	};
 
+	const [firstCommentLoad, setFirstCommentLoad] = useState(false);
 	const [post, setPost] = useState(defaultPost);
 	const [author, setAuthor] = useState(null);
 	const [comments, setComments] = useState([]);
@@ -90,13 +91,15 @@ const PostView = () => {
 	return (
 		<div
 			onScroll={(e) => {
-				if (noMoreStyle.display === 'block') return;
-				if (!isFetching) {
-					const bottom =
-						Math.floor(e.target.scrollHeight - e.target.scrollTop - 1) <= e.target.clientHeight;
-					if (bottom) {
-						isFetching = true;
-						loadComments();
+				if (firstCommentLoad) {
+					if (noMoreStyle.display === 'block') return;
+					if (!isFetching) {
+						const bottom =
+							Math.floor(e.target.scrollHeight - e.target.scrollTop - 1) <= e.target.clientHeight;
+						if (bottom) {
+							isFetching = true;
+							loadComments();
+						}
 					}
 				}
 			}}
@@ -179,8 +182,13 @@ const PostView = () => {
 						</div>
 						<p style={noMoreStyle}>No more Comments</p>
 						<br />
-						{comments.length === 0 && (
-							<button onClick={loadComments} className='loadComments'>
+						{!firstCommentLoad && (
+							<button
+								onClick={() => {
+									loadComments();
+									setFirstCommentLoad(true);
+								}}
+								className='loadComments'>
 								Load comments
 							</button>
 						)}

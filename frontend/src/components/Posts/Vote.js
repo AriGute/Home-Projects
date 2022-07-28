@@ -20,6 +20,7 @@ const Vote = (props) => {
 	const [post, setPost] = useState(props.post);
 	const [isLogin, setIsLogin] = useState(false);
 	const [votesBalance, setVotes] = useState(false);
+	const [userId, setUserId] = useState(null);
 
 	const [btnUpVote, setBtnUpVote] = useState(btnNotClickedStyle);
 
@@ -43,10 +44,11 @@ const Vote = (props) => {
 
 	useEffect(() => {
 		AuthService.Profile().then((user) => {
+			setUserId(user.profile._id);
 			setIsLogin(user.isLogin);
 			setVotes(post.votesBalance);
 			// User is login?
-			if (user.isLogin) {
+			if (user.isLogin && user.profile._id !== props.post.ownerId) {
 				PostService.GetVote(post._id).then((vote) => {
 					// User have vote for this post
 					if (vote) {
@@ -78,7 +80,7 @@ const Vote = (props) => {
 			<button
 				style={btnUpVote}
 				onClick={() => {
-					if (isLogin) upVote(post._id);
+					if (isLogin && userId !== props.post.ownerId) upVote(post._id);
 				}}>
 				<KeyboardArrowUpIcon></KeyboardArrowUpIcon>
 			</button>
@@ -92,7 +94,7 @@ const Vote = (props) => {
 			<button
 				style={btnDownVote}
 				onClick={() => {
-					if (isLogin) downVote(post._id);
+					if (isLogin && userId !== props.post.ownerId) downVote(post._id);
 				}}>
 				<KeyboardArrowDownIcon></KeyboardArrowDownIcon>
 			</button>
