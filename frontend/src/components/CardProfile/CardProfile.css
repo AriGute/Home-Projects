@@ -1,7 +1,17 @@
-.cardProfile{
-    height: 100px;
-	width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around
+.cardProfile {
+	height: 70px;
+	width: 160px;
+	min-width: 125px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	padding: 5px;
+	margin: 5px;
+}
+.lastSeen {
+	margin-top: 0;
+	font-size: 12px;
+}
+.name {
+	margin-bottom: 5px;
 }

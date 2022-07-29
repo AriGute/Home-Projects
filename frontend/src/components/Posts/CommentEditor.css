@@ -1,0 +1,28 @@
+.commentEditor {
+	width: 74%;
+	height: 100px;
+	resize: none;
+	margin-right: 10px;
+	background-color: var(--secondary-bg-color);
+	border-radius: 5px;
+}
+
+.commentForm {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	
+}
+
+.postBtn {
+	margin-left: 10px;
+}
+
+@media screen and (max-width: 600px) {
+	.commentForm {
+		flex-wrap: wrap;
+		flex-direction: row;
+		align-content: center;
+		justify-content: space-around;
+	}
+}

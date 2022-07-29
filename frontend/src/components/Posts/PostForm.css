@@ -1,26 +1,40 @@
-.PostForm {
+.postForm {
 	display: flex;
 	justify-content: center;
-}
-
-textarea,
-input {
-	background-color: var(--secondary-bg-color);
-	max-width: 100vw;
+	height: 93vh;
+	overflow-y: auto;
 }
 
 label {
-	color: white;
-	padding-bottom: 5px;
-	padding-top: 5px;
+	color: var(--secondary-bg-color);
+	padding: 5px 0 5px 0;
 }
 
 .tagList {
-	border: 1px solid black;
-	width: 100px;
-	min-height: 20px;
-	background-color: var(--quaternary-bg-color);
-	white-space: nowrap;
+	display: flex;
+	min-height: 40px;
 	overflow: hidden;
-	text-overflow: ellipsis;
+	width: -webkit-fill-available;
+	justify-content: center;
+	align-items: center;
+	max-width: 70vw;
+	flex-wrap: wrap;
+	align-self: center;
+}
+
+.selectDiv {
+	align-self: center;
+	display: flex;
+}
+
+.tagsContainer {
+	width: -webkit-fill-available;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	padding: 10px 0 10px 0;
+}
+
+.postForm label{
+	margin-left: 10px;
 }

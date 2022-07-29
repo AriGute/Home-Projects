@@ -1,0 +1,75 @@
+.container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	width: 100vw;
+	height: 100vh;
+	background-color: hsla(0, 0%, 0%, 0.65);
+	display: flex;
+	flex-direction: column;
+	margin-right: 10px;
+	transition: background-color 0.3s linear;
+}
+
+.sideMenuIcon {
+	width: 30px;
+	height: 30px;
+	background-color: inherit;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	cursor: pointer;
+}
+
+.sideMenuIcon p {
+	width: 20px;
+	height: 3px;
+	background-color: var(--secondary-bg-color);
+	margin: 2px 0 2px 4px;
+}
+
+.container.closed {
+	background-color: transparent;
+	pointer-events: none;
+}
+
+.container.open {
+	background-color: hsla(0, 0%, 0%, 0.65);
+}
+
+.navContainer {
+	padding: 5px;
+	width: 170px;
+	height: 100vh;
+	background-color: var(--secondary-bg-color);
+	z-index: 5;
+	text-align: left;
+	box-shadow: 0px 5px 10px;
+}
+
+.navContainer.closed {
+	margin-left: -120%;
+	transition: all 1.2s;
+}
+
+.navContainer.open {
+	margin-left: 0%;
+	transition: all 0.3s;
+}
+
+.navBarList {
+	display: flex;
+	flex-direction: column;
+}
+
+.navContainer a {
+	padding: 5px;
+	border-radius: 5px;
+	transition-duration: 0.2s;
+	display: flex;
+}
+
+.navContainer a:hover {
+	background-color: var(--btmSecondary-bg-color);
+}

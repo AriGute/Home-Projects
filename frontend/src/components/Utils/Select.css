@@ -1,0 +1,132 @@
+.select {
+	position: relative;
+}
+
+.select input {
+	padding: 0 0 0 10px;
+	background-color: inherit;
+	outline: none;
+	border: 1px solid var(--btmTertiary-bg-color);
+	height: 40px;
+	width: 200px;
+}
+
+.select label {
+	height: 18px;
+	background-color: var(--cardPrimary-bg-color);
+	position: absolute;
+	top: 6px;
+	left: 10px;
+	transition: all 0.2s;
+}
+
+.select input:focus ~ label,
+.select label.up {
+    padding: 0;
+    top: -5px;
+    height: 10px;
+    font-size: 11px;
+    color: hsl(211deg 91% 18%);
+    pointer-events: none;
+}
+
+.select:hover input {
+	border: 1px solid var(--btmPrimary-bg-color);
+}
+
+.select input:focus {
+	border: 1px solid hsl(211deg 91% 18%);
+}
+
+.select button {
+	position: absolute;
+	top: 11px;
+	right: 10px;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	background-color: inherit;
+}
+
+.select button:hover {
+	background-color: hsl(213, 25%, 33%);
+}
+
+.select button:hover ~ input {
+	border: 1px solid var(--btmPrimary-bg-color);
+}
+
+.arrow {
+	border: 1px solid var(--btmTertiary-bg-color);
+	border-width: 0 3px 3px 0;
+	display: inline-block;
+	padding: 3px;
+}
+
+.arrow.down {
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+}
+
+.arrow.up {
+	transform: rotate(-135deg);
+	-webkit-transform: rotate(-135deg);
+}
+
+.select:hover .arrow {
+	border: 1px solid var(--btmPrimary-bg-color);
+	border-width: 0 3px 3px 0;
+}
+
+.options {
+	position: absolute;
+	border: 1px solid var(--primary-bg-color);
+	background-color: var(--secondary-bg-color);
+	margin-left: 5px;
+	width: 190px;
+	max-height: 195px;
+	border-radius: 10px;
+	padding: 5px;
+	display: none;
+	overflow: auto;
+	z-index: 3;
+}
+
+.options.open {
+	display: block;
+}
+
+.select ::-webkit-scrollbar-track{
+	margin: 5px 0 5px 0;
+}
+
+.select ::-webkit-scrollbar {
+
+	width: 5px;
+	border-radius: 10px;
+	background-color: transparent;
+}
+
+.option {
+	color: var(--primary-bg-color);
+	text-align: left;
+	margin: 0;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.option:hover {
+	background-color: hsl(0, 0%, 84%);
+}
+
+.select.error input,
+.select.error button:hover ~ input {
+	border: 2px solid var(--error-color);
+}
+
+.select.error label,
+.select.error input:focus ~ label,
+.select.error button {
+	color: var(--error-color);
+}

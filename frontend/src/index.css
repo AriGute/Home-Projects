@@ -1,30 +1,31 @@
 html {
-	overflow-y: auto;
+	overflow-y: hidden;
+	overflow-x: hidden;
 }
 
 body {
-	--primary-bg-color: rgb(37, 33, 33);
-	--secondary-bg-color: rgb(219, 219, 219);
-	--tertiary-bg-color: rgb(66, 60, 53);
-	--quaternary-bg-color: rgb(58, 51, 44);
+	--primary-bg-color: hsl(219, 37%, 17%);
+	--secondary-bg-color: hsl(75, 6%, 87%);
+	--tertiary-bg-color: hsl(213, 30%, 39%);
+	--quaternary-bg-color: hsl(211, 53%, 11%);
 
-	--btmPrimary-bg-color: rgb(26, 23, 23);
-	--btmSecondary-bg-color: rgb(44, 44, 44);
-	--btmTertiary-bg-color: rgb(66, 60, 53);
+	--btmPrimary-bg-color: hsl(210, 54%, 11%);
+	--btmSecondary-bg-color: hsl(219, 37%, 17%);
+	--btmTertiary-bg-color: hsl(214, 23%, 56%);
 
-	--cardPrimary-bg-color: rgb(54, 51, 51);
+	--cardPrimary-bg-color: hsl(212, 29%, 36%);
+
+	--error-color: hsl(0, 77%, 42%);
 
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
-		'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-		'Droid Sans', 'Helvetica Neue', sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	background-color: var(--tertiary-bg-color);
+	background-color: var(--secondary-bg-color);
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas,
-		'Courier New', monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

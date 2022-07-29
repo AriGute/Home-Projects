@@ -3,25 +3,26 @@ import AuthService from '../services/AuthService';
 import PostService from '../services/PostService';
 import './Home.css';
 import Post from './Posts/Post';
-import Loading from './Loading';
+import Loading from './PlaceHolders/Loading';
 
 const Home = () => {
 	const [posts, setPosts] = useState([]);
 	const [profile, setProfile] = useState(null);
-	const [loading, setLoading] = useState(false);
+	const [noMoreStyle, setNoMoreStyle] = useState({ display: 'none' });
+
+	let isFetching = false;
 
 	function fetchPosts() {
-		if (loading === false) {
-			PostService.GetPosts(posts.length).then(
-				(newPosts) => {
-					if (newPosts) setPosts([...posts, ...newPosts]);
-					setLoading(false);
-				},
-			);
-		}
+		PostService.GetPosts(posts.length).then((newPosts) => {
+			if (newPosts) {
+				setPosts([...posts, ...newPosts]);
+				return (isFetching = false);
+			}
+			setNoMoreStyle({ display: 'block', color: 'var(--quaternary-bg-color)' });
+		});
 	}
+
 	useEffect(() => {
-		console.log('use effect');
 		fetchPosts();
 		if (profile != null) {
 			AuthService.Profile().then(async (user) => {
@@ -36,54 +37,33 @@ const Home = () => {
 	return (
 		<div
 			className='Home'
-			onScroll={(e) => {
-				const bottom =
-					e.target.scrollHeight - e.target.scrollTop <=
-					e.target.clientHeight;
-				if (bottom) {
-					console.log('bottom');
-					fetchPosts();
-					setLoading(true);
-				}
-			}}
 			style={{
 				display: 'flex',
 				justifyContent: 'center',
 				height: '93vh',
 				overflowY: 'auto',
+				overflowX: 'hidden',
+			}}
+			onScroll={(e) => {
+				if (!isFetching) {
+					const bottom =
+						Math.floor(e.target.scrollHeight - e.target.scrollTop - 1) <= e.target.clientHeight;
+					if (bottom) {
+						isFetching = true;
+						fetchPosts();
+					}
+				}
 			}}>
 			{posts.length > 0 ? ( //In case posts was retrieved from fetch
-				profile ? ( // In case profile is still null
-					<div>
-						{posts.length > 0 ? ( // In case posts.length > 0
-							posts.map((post) => (
-								<Post
-									post={post}
-									userId={profile._id}
-									key={post._id}
-								/>
-							))
-						) : (
-							//In case posts.length == 0
-							<p>There is nothing to show.</p>
-						)}
-					</div>
-				) : (
-					<div>
-						{posts.length > 0 ? ( // In case posts.length > 0
-							posts.map((post) => (
-								<Post
-									post={post}
-									userId={null}
-									key={post._id}
-								/>
-							))
-						) : (
-							//In case posts.length == 0
-							<p>There is nothing to show.</p>
-						)}
-					</div>
-				)
+				<div style={{ height: 'fit-content' }}>
+					{posts.length > 0 ? ( // In case posts.length > 0
+						posts.map((post) => <Post post={post} userId={null} key={post._id} />)
+					) : (
+						//In case posts.length == 0
+						<p>There is nothing to show.</p>
+					)}
+					<p style={noMoreStyle}>No more posts</p>
+				</div>
 			) : (
 				<Loading></Loading>
 			)}

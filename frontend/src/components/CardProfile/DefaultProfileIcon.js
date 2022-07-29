@@ -22,7 +22,7 @@ const DefaultProfileIcon = ({ name }) => {
 
 	return (
 		<div
-			className='icon'
+			className='iconProfile'
 			style={{ backgroundColor: setBackgroundColor() }}>
 			<p className='acronyms' style={{ color: setBackgroundColor() }} >{acronyms}</p>
 		</div>

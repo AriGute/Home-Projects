@@ -1,11 +1,14 @@
 ## Essential environment variables and files:
+
 Add .env file with this variables and fill them as needed:
+
 ```
 DATA_BASE=
 USERS_COLLECTION=
 POSTS_COLLECTION=
 COMMENTS_COLLECTION=
 VOTES_COLLECTION=
+REPORTS_COLLECTION=
 
 ACCESS_TOKEN_NAME=
 ACCESS_TOKEN_SECRET=
@@ -16,7 +19,10 @@ REFRESH_TOKEN_TT=
 
 PORT=
 CLIENT_DNS=
+QUERY_DOCS_LIMIT=
 ```
+
 Add ssl folder and add inside:
+
 - certificate.pem
 - key.pem

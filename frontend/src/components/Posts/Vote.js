@@ -7,30 +7,24 @@ import './Vote.css';
 
 const Vote = (props) => {
 	const btnClickedStyle = {
-		backgroundColor: 'orange',
+		backgroundColor: 'var(--btmPrimary-bg-color)',
 	};
 	const btnNotClickedStyle = {
-		backgroundColor: 'var(--btmPrimary-bg-color)',
+		backgroundColor: 'var(--btmTertiary-bg-color)',
 	};
 	const btnUnavailable = {
 		backgroundColor: 'lightgrey',
 		cursor: 'inherit',
 	};
 
-	const userId = props.userId;
 	const [post, setPost] = useState(props.post);
 	const [isLogin, setIsLogin] = useState(false);
-	const [votesBalance, setVotes] = useState(
-		post.votesBalance,
-	);
+	const [votesBalance, setVotes] = useState(false);
+	const [userId, setUserId] = useState(null);
 
-	const [btnUpVote, setBtnUpVote] = useState(
-		btnNotClickedStyle,
-	);
+	const [btnUpVote, setBtnUpVote] = useState(btnNotClickedStyle);
 
-	const [btnDownVote, setBtnDownVote] = useState(
-		btnNotClickedStyle,
-	);
+	const [btnDownVote, setBtnDownVote] = useState(btnNotClickedStyle);
 
 	const upVote = (postId) => {
 		PostService.UpVote(postId).then((updatedPost) => {
@@ -44,30 +38,32 @@ const Vote = (props) => {
 	};
 
 	useEffect(() => {
-		setVotes(post.votesBalance);
+		setPost(props.post);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [props.post]);
+
+	useEffect(() => {
 		AuthService.Profile().then((user) => {
+			setUserId(user.profile._id);
 			setIsLogin(user.isLogin);
+			setVotes(post.votesBalance);
 			// User is login?
-			if (user.isLogin) {
+			if (user.isLogin && user.profile._id !== props.post.ownerId) {
 				PostService.GetVote(post._id).then((vote) => {
 					// User have vote for this post
-					console.log(vote);
 					if (vote) {
 						setIsLogin(true);
 						if (vote.upVote === true) {
 							setBtnUpVote(btnClickedStyle); // upVote is clicked
 							setBtnDownVote(btnNotClickedStyle); // no vote
-							setVotes(post.votesBalance);
 						} else if (vote.upVote === false) {
 							setBtnDownVote(btnClickedStyle); // downVote is clicked
 							setBtnUpVote(btnNotClickedStyle); // no vote
-							setVotes(post.votesBalance);
 						}
 					} else {
 						// In case User have no vote in this post
 						setBtnUpVote(btnNotClickedStyle); // no vote
 						setBtnDownVote(btnNotClickedStyle); // no vote
-						setVotes(post.votesBalance);
 					}
 				});
 			} else {
@@ -77,24 +73,28 @@ const Vote = (props) => {
 			}
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userId, post]);
+	}, [post.votesBalance]);
 
 	return (
 		<div className='Vote'>
 			<button
 				style={btnUpVote}
 				onClick={() => {
-					if (isLogin) upVote(post._id);
+					if (isLogin && userId !== props.post.ownerId) upVote(post._id);
 				}}>
 				<KeyboardArrowUpIcon></KeyboardArrowUpIcon>
 			</button>
-			<div style={{ textAlign: 'center' }}>
-				<p>{votesBalance}</p>
+			<div>
+				{votesBalance !== false ? (
+					<p style={{ color: 'rgb(13, 27, 42)' }}>{votesBalance}</p>
+				) : (
+					<p>" "</p>
+				)}
 			</div>
 			<button
 				style={btnDownVote}
 				onClick={() => {
-					if (isLogin) downVote(post._id);
+					if (isLogin && userId !== props.post.ownerId) downVote(post._id);
 				}}>
 				<KeyboardArrowDownIcon></KeyboardArrowDownIcon>
 			</button>
