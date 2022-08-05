@@ -36,6 +36,10 @@ app.use('/auth', cors({ credentials: true }), authService.routes);
 
 app.use('/posts', cors({ credentials: true }), postService.routes);
 
+app.get('/teamsGenerator', function (req, res) {
+	res.sendFile(path.join(__dirname, 'public', 'TeamsGenerator.html'));
+});
+
 app.get('/*', function (req, res) {
 	res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
