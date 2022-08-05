@@ -101,12 +101,13 @@ mafrum
 				}
 				function fillTable() {
 					let table = document.querySelector('#teams');
-					for (let i = 0; i < teamA.length; i++) {
+					const size = teamA.length > teamB.length ? teamA.length : teamB.length;
+					for (let i = 0; i < size; i++) {
 						let row = document.createElement('tr');
 						let player1 = document.createElement('td');
-						player1.innerText = teamA[i];
+						player1.innerText = teamA[i] || '-';
 						let player2 = document.createElement('td');
-						player2.innerText = teamB[i];
+						player2.innerText = teamB[i] || '-';
 						row.appendChild(player1);
 						row.appendChild(player2);
 						table.appendChild(row);
