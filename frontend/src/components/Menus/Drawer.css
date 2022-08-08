@@ -64,6 +64,7 @@
 }
 
 .navContainer a {
+	color: var(--cardPrimary-bg-color);
 	padding: 5px;
 	border-radius: 5px;
 	transition-duration: 0.2s;
@@ -71,5 +72,5 @@
 }
 
 .navContainer a:hover {
-	background-color: var(--btmSecondary-bg-color);
+	background-color: var(--quaternary-bg-color);
 }

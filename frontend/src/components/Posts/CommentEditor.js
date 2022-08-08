@@ -46,7 +46,7 @@ const CommentEditor = ({ post }) => {
 						type={'textarea'}
 						value={comment}
 					/>
-					<button className='postBtn' type='submit'>
+					<button className='commentBtn' type='submit'>
 						Comment
 					</button>
 				</form>

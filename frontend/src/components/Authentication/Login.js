@@ -47,7 +47,7 @@ const Login = () => {
 						error={errorText}
 						isError={isError}
 					/>
-					<button style={{ alignSelf: 'center', margin: '5px' }}>Login</button>
+					<button style={{ alignSelf: 'center', margin: '25px 5px 5px 5px' }}>Login</button>
 					<Link to='/register' style={{ alignSelf: 'center', margin: '5px' }}>
 						<button>Register</button>
 					</Link>

@@ -11,6 +11,7 @@ const Vote = (props) => {
 	};
 	const btnNotClickedStyle = {
 		backgroundColor: 'var(--btmTertiary-bg-color)',
+		color:'var(--btmSecondary-bg-color)'
 	};
 	const btnUnavailable = {
 		backgroundColor: 'lightgrey',
@@ -44,7 +45,7 @@ const Vote = (props) => {
 
 	useEffect(() => {
 		AuthService.Profile().then((user) => {
-			setUserId(user.profile._id);
+			if (user.isLogin) setUserId(user.profile._id);
 			setIsLogin(user.isLogin);
 			setVotes(post.votesBalance);
 			// User is login?

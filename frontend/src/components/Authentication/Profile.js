@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
+import Utils from '../../services/Utils';
 
 import './Profile.css';
 
@@ -31,10 +32,7 @@ const Profile = () => {
 							{details.firstName + ' ' + details.lastName}
 						</h3>
 						<p>Email: {details.email}</p>
-						<p>
-							Register date:
-							{' ' + details.registerDate.slice(0, 10)}
-						</p>
+						<p>Register date:{Utils.DateFormat(details.registerDate)}</p>
 						<button onClick={logout}>Logout</button>
 					</div>
 				) : (

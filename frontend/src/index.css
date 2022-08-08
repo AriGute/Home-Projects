@@ -4,16 +4,16 @@ html {
 }
 
 body {
-	--primary-bg-color: hsl(219, 37%, 17%);
-	--secondary-bg-color: hsl(75, 6%, 87%);
-	--tertiary-bg-color: hsl(213, 30%, 39%);
-	--quaternary-bg-color: hsl(211, 53%, 11%);
+	--primary-bg-color: hsl(159, 56%, 7%);
+	--secondary-bg-color: hsl(35, 32%, 88%);
+	--tertiary-bg-color: hsl(155, 43%, 18%);
+	--quaternary-bg-color: hsl(43, 30%, 60%);
 
-	--btmPrimary-bg-color: hsl(210, 54%, 11%);
-	--btmSecondary-bg-color: hsl(219, 37%, 17%);
-	--btmTertiary-bg-color: hsl(214, 23%, 56%);
+	--btmPrimary-bg-color: hsl(43, 30%, 60%);
+	--btmSecondary-bg-color: hsl(43, 30%, 79%);
+	--btmTertiary-bg-color: hsl(194, 43%, 18%);
 
-	--cardPrimary-bg-color: hsl(212, 29%, 36%);
+	--cardPrimary-bg-color: hsl(190, 100%, 10%);
 
 	--error-color: hsl(0, 77%, 42%);
 
