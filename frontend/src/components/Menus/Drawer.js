@@ -31,7 +31,7 @@ const Drawer = () => {
 					<h3
 						style={{
 							textAlign: 'center',
-							color: 'var(--quaternary-bg-color)',
+							color: 'var(--cardPrimary-bg-color)',
 							padding: '5px',
 						}}>
 						Home Projects

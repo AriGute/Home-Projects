@@ -31,10 +31,11 @@ const Input = ({
 	width = 160,
 	errorMarginTop = 3,
 	errorMarginLeft = 3,
-	errorColor = 'var(--error-color)',
+	errorColor = 'var(--secondary-bg-color)',
 	errorFontSize='12px',
 	fontSize ='14px',
 	autoComplete,
+	maxLetters,
 }) => {
 	const style = {
 		width: width,
@@ -49,7 +50,6 @@ const Input = ({
 	}
 
 	const openError = {
-
 		color: errorColor,
 		left: `${errorMarginLeft}px`,
 		top: `${height + errorMarginTop}px`,
@@ -106,6 +106,7 @@ const Input = ({
 					onChange={(e) => requiredCheck(e)}
 					value={value ? value : ''}
 					style={{ fontSize: fontSize }}
+					maxLength={maxLetters}
 				/>
 			) : (
 				<input
@@ -114,6 +115,7 @@ const Input = ({
 					type={type}
 					value={value ? value : ''}
 					style={{ fontSize: fontSize }}
+					maxLength={maxLetters}
 				/>
 			)}
 			<span style={errorTextStyle} className={'errorText'}>

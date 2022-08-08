@@ -5,11 +5,13 @@
 	margin: 5px 5px 0 0;
 	align-items: center;
 	padding: 5px;
+
 }
 
 .chip p {
 	margin: 2px;
 	pointer-events: none;
+	color: var(--btmTertiary-bg-color);
 }
 
 .chip.error {
@@ -25,10 +27,10 @@
 	border-radius: 50%;
 	background-color: inherit;
 	margin-left: 4px;
-	color: var(--secondary-bg-color);
+	color: var(--btmTertiary-bg-color);
 }
 
 .deleteChip:hover {
-	background-color: var(--btmTertiary-bg-color);
+	background-color: var(--secondary-bg-color);
 	cursor: pointer;
 }

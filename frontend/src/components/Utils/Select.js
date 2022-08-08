@@ -95,7 +95,6 @@ const Select = ({ label, options, getChosenOption = () => {}, isError = false })
 				onKeyUp={search}
 			/>
 			<label className={labelPosition}>{label}</label>
-			<p style={{ margin: 0, height: '5px' }}></p>
 			<div className={optionsClass}>
 				{options ? (
 					optionsList.map((option, i) => {
