@@ -118,7 +118,7 @@ router.post('/login', async (req, res) => {
 
 				res.cookie('Authorization Bearer', accessToken, {
 					maxAge: parseInt(604800000),
-					secure: true,
+					// secure: true,
 					httpOnly: true,
 					sameSite: 'None',
 				});
