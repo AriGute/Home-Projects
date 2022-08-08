@@ -113,14 +113,12 @@ router.post('/login', async (req, res) => {
 				const refreshTokenAndUserInfo = jwt.sign(payload, refreshToken);
 				let date = new Date();
 				date.setMonth(date.getMonth() + 8);
-				res.cookie('rememberme2', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
+				res.cookie('rememberme1', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
 				const cookieExpired = 24 * 60 * 60 * 1000;
 
 				res.cookie('Authorization Bearer', accessToken, {
 					maxAge: parseInt(604800000),
-					// secure: true,
 					httpOnly: true,
-					sameSite: 'None',
 				});
 				// TODO: add refresh token feature after uploading the site to official domain.
 				// res.cookie('Refresh Token', refreshToken, {
