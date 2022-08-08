@@ -16,7 +16,6 @@ const Comment = ({ comment }) => {
 		PostService.DeleteComment(comment._id).then((result) => {
 			if (result) {
 				setCommentStyle({ display: 'none' });
-			} else {
 			}
 		});
 	};

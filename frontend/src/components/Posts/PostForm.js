@@ -74,7 +74,7 @@ const PostForm = () => {
 				<form
 					className='card'
 					onSubmit={history.location.pathname === '/addProject' ? addPost : editPost}
-					style={{ width: '100%', maxWidth: '600px', height: 'fit-content'}}>
+					style={{ width: '100%', maxWidth: '600px', height: 'fit-content' }}>
 					<label>Header</label>
 					<Input
 						required
@@ -86,6 +86,7 @@ const PostForm = () => {
 						Autocomplete={true}
 						isError={isError}
 						error={'You must fill all the sections'}
+						maxLetters={60}
 					/>
 					<label>Short Brief</label>
 					<Input
@@ -148,7 +149,6 @@ const PostForm = () => {
 							style={{
 								alignSelf: 'center',
 								margin: '5px',
-								color: 'var(--secondary-bg-color)',
 							}}>
 							Submit
 						</button>
@@ -161,5 +161,5 @@ const PostForm = () => {
 	);
 };
 
-const options = ['Java', 'JavaScript', 'Python', 'React', 'Angular'];
+const options = ['Java', 'JavaScript', 'Python', 'React', 'Angular', 'Tunis', 'Coordi', 'Adir'];
 export default PostForm;

@@ -6,7 +6,7 @@
 	padding: 0 0 0 10px;
 	background-color: inherit;
 	outline: none;
-	border: 1px solid var(--btmTertiary-bg-color);
+	border: 1px solid var(--secondary-bg-color);
 	height: 40px;
 	width: 200px;
 }
@@ -22,11 +22,11 @@
 
 .select input:focus ~ label,
 .select label.up {
-    padding: 0;
+    padding: 0 2px 0px 1px;
     top: -5px;
     height: 10px;
     font-size: 11px;
-    color: hsl(211deg 91% 18%);
+    color: var(--btmSecondary-bg-color);
     pointer-events: none;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .select input:focus {
-	border: 1px solid hsl(211deg 91% 18%);
+	border: 1px solid var(--btmSecondary-bg-color);
 }
 
 .select button {
@@ -57,7 +57,7 @@
 }
 
 .arrow {
-	border: 1px solid var(--btmTertiary-bg-color);
+	border: 1px solid var(--btmSecondary-bg-color);
 	border-width: 0 3px 3px 0;
 	display: inline-block;
 	padding: 3px;
@@ -85,7 +85,7 @@
 	margin-left: 5px;
 	width: 190px;
 	max-height: 195px;
-	border-radius: 10px;
+	border-radius: 0px 0px 10px 10px;
 	padding: 5px;
 	display: none;
 	overflow: auto;
@@ -97,7 +97,7 @@
 }
 
 .select ::-webkit-scrollbar-track{
-	margin: 5px 0 5px 0;
+	margin: 0 0 5px 0;
 }
 
 .select ::-webkit-scrollbar {

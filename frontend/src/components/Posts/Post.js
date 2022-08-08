@@ -1,8 +1,16 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Utils from '../../services/Utils';
 import './Post.css';
 
 const Post = ({ post, userId }) => {
+	const shortBrief = post.brief.split('\n').map((text, i) => {
+		//split every line in text to p
+		return <p key={post._id + i}>{text}</p>;
+	});
+
+	const [shortBriefIsOpen, setShortBriefIsOpen] = useState(false);
+
 	return (
 		<div className='Post'>
 			<div
@@ -11,6 +19,7 @@ const Post = ({ post, userId }) => {
 					display: 'flex',
 					flexDirection: 'row',
 					justifyContent: 'space-between',
+					position: 'relative',
 				}}
 				key={post._id}>
 				<div className='post' style={{ justifyContent: 'space-between' }}>
@@ -22,7 +31,8 @@ const Post = ({ post, userId }) => {
 						}}>
 						{post.header}
 					</Link>
-					<p className='fitText'>{post.brief}</p>
+					<div className='shortBrief'>{shortBriefIsOpen ? shortBrief : shortBrief[0]}</div>
+
 					<p
 						style={{
 							fontSize: '12px',
@@ -68,6 +78,16 @@ const Post = ({ post, userId }) => {
 						</div>
 					</div>
 				</div>
+				{shortBrief.length > 1 && (
+					<button
+						className='moreBtn'
+						onClick={() => {
+							if (!shortBriefIsOpen) return setShortBriefIsOpen(true);
+							setShortBriefIsOpen(false)
+						}}>
+						{shortBriefIsOpen ? 'Click for less' : 'Click to read more'}
+					</button>
+				)}
 			</div>
 		</div>
 	);

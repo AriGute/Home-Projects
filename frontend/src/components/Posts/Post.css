@@ -23,3 +23,13 @@ a {
 a:hover {
 	color: var(--secondary-bg-color);
 }
+
+.moreBtn {
+	position: absolute;
+	bottom: -3px;
+	height: 17px;
+	padding: 0;
+	width: 100%;
+	left: 0;
+	border-radius: 0px 0px 5px 5px;
+}
