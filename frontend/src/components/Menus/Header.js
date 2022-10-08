@@ -20,9 +20,9 @@ const Header = () => {
 	return (
 		<div className='header'>
 			<Drawer/>
-			<Link to='/'>
+			<a href='/'>
 				<h1>Home Projects</h1>
-			</Link>
+			</a>
 			{isLogin ? (
 				<Link to='/profile'>
 					<AccountCircleIcon className='menuBtn' fontSize='large'></AccountCircleIcon>

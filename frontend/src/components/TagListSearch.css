@@ -1,0 +1,33 @@
+.tagSearch {
+	margin: 10px;
+	padding: 1px;
+	border-radius: 5px;
+	background-color: var(--btmTertiary-bg-color);
+	box-shadow: 0px 0px 4px;
+}
+.tagsList {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.searchButton {
+	height: 20px;
+	width: 100px;
+	background-color: var(--cardPrimary-bg-color);
+	color: var(--btmPrimary-bg-color);
+	box-shadow: black 2px 2px 2px;
+	margin-bottom: 8px;
+}
+
+.searchButton:hover {
+	background-color: hsl(190deg 99% 16%);
+}
+
+.tagSearchButton{
+    margin: 0px 5px 0px 5px
+}
+
+.choose{
+    background-color: var(--btmSecondary-bg-color);
+}

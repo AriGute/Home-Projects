@@ -1,0 +1,19 @@
+.tag {
+    display: flex;
+    border: 0px;
+    background-color: var(--btmPrimary-bg-color);
+    color: var(--tertiary-bg-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 13px;
+    padding: 7px;
+    margin: 5px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.tag:hover {
+	background-color: var(--btmSecondary-bg-color);
+	color: var(--tertiary-bg-color);
+}

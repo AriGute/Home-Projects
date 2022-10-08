@@ -11,6 +11,7 @@ import ToolTip from '../ToolTip';
 import Loading from '../PlaceHolders/Loading';
 import TextPlaceHolder from '../PlaceHolders/TextPlaceHolder';
 import Utils from '../../services/Utils';
+import Tags from './Tags';
 
 const PostView = () => {
 	const location = useLocation();
@@ -114,12 +115,13 @@ const PostView = () => {
 										<h2
 											style={{
 												color: 'var(--secondary-bg-color)',
+												width:'80vw'
 											}}>
 											{post.header}
 										</h2>
 										{post.brief.split('\n').map((text, i) => {
 											//split every line in text to p
-											return <p key={post._id + i}>{text}</p>;
+											return <p className={'briefP'} key={post._id + i} >{text}</p>;
 										})}
 										{post.description.split('\n').map((text, i) => {
 											//split every line in text to p
@@ -156,16 +158,7 @@ const PostView = () => {
 											display: 'flex',
 											flexDirection: 'row',
 										}}>
-										<div className='tags'>
-											<p style={{ fontSize: '12px' }}>Tags:</p>
-											<div style={{ display: 'flex' }}>
-												{post.tags.map((tag, index) => (
-													<div className='tag' key={post._id + index}>
-														<p>{tag}</p>
-													</div>
-												))}
-											</div>
-										</div>
+										<Tags tags={post.tags} header={'tags:'}/>
 										<Vote post={post} />
 									</div>
 								)}

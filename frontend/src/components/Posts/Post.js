@@ -10,7 +10,6 @@ const Post = ({ post, userId }) => {
 	});
 
 	const [shortBriefIsOpen, setShortBriefIsOpen] = useState(false);
-
 	return (
 		<div className='Post'>
 			<div
@@ -31,59 +30,59 @@ const Post = ({ post, userId }) => {
 						}}>
 						{post.header}
 					</Link>
-					<div className='shortBrief'>{shortBriefIsOpen ? shortBrief : shortBrief[0]}</div>
-
+					<div className='shortBrief'>
+						{shortBriefIsOpen ? (
+							shortBrief
+						) : (
+							<p className='shortBrief'>
+								{shortBrief[0].props.children.length > 150
+									? `${shortBrief[0].props.children.slice(0, 150)}`
+									: shortBrief[0]}
+							</p>
+						)}
+					</div>
 					<p
 						style={{
 							fontSize: '12px',
-						}}>{`Last modified:${Utils.DateFormat(post.lastModifiedDate)}`}</p>
-				</div>
-				<div
-					style={{
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'flex-end',
-					}}>
-					<div
-						style={{
-							display: 'flex',
 						}}>
-						<div className='center'>
-							<p
-								style={{
-									marginBottom: 0,
-								}}>
-								{post.votesBalance}
-							</p>
-							<p
-								style={{
-									fontSize: '12px',
-									marginTop: 0,
-								}}>
-								Votes
-							</p>
-							<p
-								style={{
-									marginBottom: 0,
-								}}>
-								{post.commentsCount}
-							</p>
-							<p
-								style={{
-									fontSize: '12px',
-									marginTop: 0,
-								}}>
-								Comments
-							</p>
-						</div>
-					</div>
+						{`Last modified:${Utils.DateFormat(post.lastModifiedDate)}`}
+					</p>
 				</div>
-				{shortBrief.length > 1 && (
+				<div className='commentsVotes'>
+					<p
+						style={{
+							marginBottom: 0,
+						}}>
+						{post.votesBalance}
+					</p>
+					<p
+						style={{
+							fontSize: '12px',
+							marginTop: 0,
+						}}>
+						Votes
+					</p>
+					<p
+						style={{
+							marginBottom: 0,
+						}}>
+						{post.commentsCount}
+					</p>
+					<p
+						style={{
+							fontSize: '12px',
+							marginTop: 0,
+						}}>
+						Comments
+					</p>
+				</div>
+
+				{(shortBrief.length > 1 || shortBrief[0].props.children.length > 50) && (
 					<button
 						className='moreBtn'
 						onClick={() => {
 							if (!shortBriefIsOpen) return setShortBriefIsOpen(true);
-							setShortBriefIsOpen(false)
+							setShortBriefIsOpen(false);
 						}}>
 						{shortBriefIsOpen ? 'Click for less' : 'Click to read more'}
 					</button>
