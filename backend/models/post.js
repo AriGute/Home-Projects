@@ -12,6 +12,7 @@ const postScheme = new Schema({
 	tags: [String],
 	lastModifiedDate: Date,
 	creationDate: Date, //TODO: make this an index in mongo
+	views: Number,
 });
 
 const Post = mongoose.model('posts', postScheme);

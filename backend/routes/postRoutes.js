@@ -52,6 +52,7 @@ router.post('/addPost', authService.verifyToken, (req, res) => {
 		commentsCount: 0,
 		lastModifiedDate: Date(),
 		creationDate: Date(),
+		views: 0,
 	});
 	post.save().then((results) => {
 		if (results) {
@@ -176,8 +177,8 @@ router.delete('/deletePost', authService.verifyToken, (req, res) => {
 });
 
 /**
- * URL receive i for index and ownerId to get all the posts of specific user.
- * In case ownerId is "all" then respond relative to all posts.
+ * URL parameter receive i for index and ownerId to get all the posts of
+ * specific user. In case ownerId is "all" then respond with all posts.
  */
 router.get('/getPosts/:i&:ownerId', (req, res) => {
 	const index = parseInt(inputGuard(req.params.i));
@@ -205,16 +206,34 @@ router.get('/getPosts/:i&:ownerId', (req, res) => {
 		});
 });
 
+// router.get('/getPost/:id', (req, res) => {
+// 	const postId = inputGuard(req.params.id);
+// 	if (postId) {
+// 		Post.find({ _id: ObjectId(postId) }).then((results) => {
+// 			console.log(results);
+// 			if (results && results.length > 0) {
+// 				res.status(200).json(results);
+// 			} else {
+// 				res.sendStatus(404);
+// 			}
+// 		});
+// 	} else {
+// 		res.sendStatus(400);
+// 	}
+// });
+
 router.get('/getPost/:id', (req, res) => {
 	const postId = inputGuard(req.params.id);
 	if (postId) {
-		Post.find({ _id: ObjectId(postId) }).then((results) => {
-			if (results && results.length > 0) {
-				res.status(200).json(results);
-			} else {
-				res.sendStatus(404);
-			}
-		});
+		Post.findOneAndUpdate({ _id: ObjectId(postId) }, { $inc: { views: 1 } }).then(
+			(updatedResults) => {
+				if (updatedResults) {
+					res.status(200).json([updatedResults]);
+				} else {
+					res.sendStatus(404);
+				}
+			},
+		);
 	} else {
 		res.sendStatus(400);
 	}
@@ -390,6 +409,8 @@ router.get('/getTags', (req, res) => {
 		'.NET',
 		'FullStack',
 		'NodeJS',
+		'C',
+		'CPP',
 	];
 	res.status(200).json({ tags: tags });
 });
