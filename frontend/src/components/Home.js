@@ -13,13 +13,24 @@ const Home = () => {
 	const [profile, setProfile] = useState(null);
 	const [noMoreStyle, setNoMoreStyle] = useState({ display: 'none' });
 	let [tagSearch, setTagSearch] = useState(false);
+	const [noPostFound, setNoPostFound] = useState(false);
 
 	let isFetching = false;
-
+	/*
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+	*/
 	const SearchTag = (tags) => {
 		if (tags.length > 0) {
 			setTagSearch(true);
 			PostService.GetPostsByTags(tags).then((newPosts) => {
+				if (Object.keys(newPosts).length === 0) {
+					setNoPostFound(true);
+					return;
+				}
+				setNoPostFound(false);
 				setPosts(newPosts);
 			});
 			return;
@@ -82,9 +93,9 @@ const Home = () => {
 				}
 			}}>
 			{posts.length > 0 ? ( //In case posts was retrieved from fetch
-				<div style={{ height: 'fit-content' }}>
+				<div className={'homeContent'}>
+					{noPostFound && <p className='card'>No posts found with this tags</p>}
 					<TagListSearch
-						tags={options}
 						search={(tags) => {
 							SearchTag(tags);
 						}}
@@ -103,7 +114,5 @@ const Home = () => {
 		</div>
 	);
 };
-
-const options = ['Java', 'JavaScript', 'Python', 'React', 'Angular'];
 
 export default Home;

@@ -366,6 +366,27 @@ router.post('/sendReport', authService.verifyToken, (req, res) => {
 	});
 });
 
+router.get('/getTags', (req, res) => {
+	const tags = [
+		'Java',
+		'JavaScript',
+		'Python',
+		'React',
+		'Angular',
+		'DevOps',
+		'BackEnd',
+		'FrontEnd',
+		'Jenkins',
+		'AWS',
+		'Azure',
+		'C#',
+		'.NET',
+		'FullStack',
+		'NodeJS',
+	];
+	res.status(200).json({ tags: tags });
+});
+
 module.exports = {
 	routes: router,
 	createIndex: createIndex,

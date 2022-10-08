@@ -1,8 +1,17 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import './TagListSearch.css';
+import PostService from '../services/PostService';
 
-const TagListSearch = ({ tags, search }) => {
+const TagListSearch = ({ search }) => {
 	const [tagsToSearch, setTagsToSearch] = useState({});
+	const [tags, setTags] = useState([]);
+	useEffect(() => {
+		PostService.getTags().then((results) => {
+			setTags(results);
+		});
+	}, []);
+
 	return (
 		<div className={'tagSearch'}>
 			<p style={{ fontSize: '12px' }}>Search tags:</p>

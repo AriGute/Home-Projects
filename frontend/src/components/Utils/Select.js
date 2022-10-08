@@ -39,7 +39,7 @@ const Select = ({ label, options, getChosenOption = () => {}, isError = false })
 			setOptionsClass('options open');
 		} else {
 			if (isError) {
-				setSelectClass('select error')
+				setSelectClass('select error');
 			}
 			setLabelPosition('');
 			setOptionsClass('options close');

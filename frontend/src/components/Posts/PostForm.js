@@ -6,7 +6,7 @@ import PostService from '../../services/PostService';
 import Chip from '../Utils/Chip';
 import Input from '../Utils/Input';
 import Select from '../Utils/Select';
-
+import Loading from '../PlaceHolders/Loading';
 const PostForm = () => {
 	const history = useHistory();
 	const post =
@@ -68,6 +68,13 @@ const PostForm = () => {
 		});
 	}, [tagsList]);
 
+	const [tags, setTags] = useState([]);
+	useEffect(() => {
+		PostService.getTags().then((results) => {
+			setTags(results);
+		});
+	}, []);
+
 	return (
 		<div className='postForm'>
 			{isLogin ? (
@@ -113,14 +120,19 @@ const PostForm = () => {
 					/>
 					<div className='tagsContainer'>
 						<div className='selectDiv'>
-							<Select
-								label={'Tag'}
-								options={options}
-								getChosenOption={(e) => {
-									setInputValue(e);
-								}}
-								isError={inputValue ? false : isError}
-							/>
+							{tags.length > 0 ? (
+								<Select
+									label={'Tag'}
+									options={tags}
+									getChosenOption={(e) => {
+										setInputValue(e);
+									}}
+									isError={inputValue ? false : isError}
+								/>
+							) : (
+								<Loading />
+							)}
+
 							<button
 								type='button'
 								style={{
@@ -161,5 +173,4 @@ const PostForm = () => {
 	);
 };
 
-const options = ['Java', 'JavaScript', 'Python', 'React', 'Angular'];
 export default PostForm;

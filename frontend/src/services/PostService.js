@@ -78,7 +78,7 @@ const PostService = {
 			tags.forEach((tag) => {
 				queryTags = queryTags + tag + ',';
 			});
-			queryTags = queryTags.slice(0, queryTags.length-1);
+			queryTags = queryTags.slice(0, queryTags.length - 1);
 			let results = await fetch(
 				baseUrl + `/posts/getPostsByTag/${queryTags == null ? '' : queryTags}`,
 				{
@@ -86,8 +86,12 @@ const PostService = {
 					credentials: 'include',
 				},
 			);
-			const data = results.json();
-			return data;
+			if (results.ok) {
+				const data = results.json();
+				return data;
+			} else {
+				return {};
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -241,6 +245,22 @@ const PostService = {
 				}),
 			});
 			return results.ok;
+		} catch (error) {
+			console.log(error);
+		}
+	},
+	getTags: async () => {
+		try {
+			let results = await fetch(baseUrl + `/posts/getTags`, {
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' },
+			});
+			if (results.ok) {
+				const data = await results.json();
+				return data.tags;
+			} else {
+				return [];
+			}
 		} catch (error) {
 			console.log(error);
 		}

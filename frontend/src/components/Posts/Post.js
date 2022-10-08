@@ -15,6 +15,7 @@ const Post = ({ post, userId }) => {
 			<div
 				className='card'
 				style={{
+					margin: '10px 0px 10px 0px',
 					display: 'flex',
 					flexDirection: 'row',
 					justifyContent: 'space-between',

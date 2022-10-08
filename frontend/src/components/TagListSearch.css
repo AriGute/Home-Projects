@@ -4,6 +4,8 @@
 	border-radius: 5px;
 	background-color: var(--btmTertiary-bg-color);
 	box-shadow: 0px 0px 4px;
+	width: 100vw;
+	max-width: 900px;
 }
 .tagsList {
 	display: flex;
@@ -24,10 +26,10 @@
 	background-color: hsl(190deg 99% 16%);
 }
 
-.tagSearchButton{
-    margin: 0px 5px 0px 5px
+.tagSearchButton {
+	margin: 5px;
 }
 
-.choose{
-    background-color: var(--btmSecondary-bg-color);
+.choose {
+	background-color: var(--btmSecondary-bg-color);
 }
