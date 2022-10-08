@@ -221,7 +221,13 @@ router.get('/getPost/:id', (req, res) => {
 });
 
 router.get('/getPostsByTag/:tags', (req, res) => {
-	const tags = req.params.tags && req.params.tags.split(',').map((tag) => inputGuard(tag));
+	decodeURI(req.params.tags);
+	const tags =
+		req.params.tags &&
+		decodeURI(req.params.tags)
+			.split(',')
+			.map((tag) => inputGuard(tag));
+
 	if (tags.length > 0) {
 		Post.find({ tags: { $all: tags } }).then((results) => {
 			if (results && results.length > 0) {
@@ -379,7 +385,7 @@ router.get('/getTags', (req, res) => {
 		'Jenkins',
 		'AWS',
 		'Azure',
-		'C#',
+		'C Sharp',
 		'.NET',
 		'FullStack',
 		'NodeJS',

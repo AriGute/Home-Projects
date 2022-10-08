@@ -78,7 +78,7 @@ const PostService = {
 			tags.forEach((tag) => {
 				queryTags = queryTags + tag + ',';
 			});
-			queryTags = queryTags.slice(0, queryTags.length - 1);
+			queryTags = encodeURI(queryTags.slice(0, queryTags.length - 1));
 			let results = await fetch(
 				baseUrl + `/posts/getPostsByTag/${queryTags == null ? '' : queryTags}`,
 				{
