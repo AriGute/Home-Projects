@@ -16,12 +16,7 @@ const Home = () => {
 	const [noPostFound, setNoPostFound] = useState(false);
 
 	let isFetching = false;
-	/*
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-	*/
+
 	const SearchTag = (tags) => {
 		if (tags.length > 0) {
 			setTagSearch(true);

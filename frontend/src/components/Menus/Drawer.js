@@ -47,14 +47,14 @@ const Drawer = () => {
 								Add Project
 							</Link>
 						)}
-						<Link onClick={() => setIsOpen(false)} to='/contactUs'>
+						{/* <Link onClick={() => setIsOpen(false)} to='/contactUs'>
 							<AlternateEmailIcon className='icon'></AlternateEmailIcon>
 							Contact Us
 						</Link>
 						<Link onClick={() => setIsOpen(false)} to='/about'>
 							<InfoIcon className='icon'></InfoIcon>
 							About
-						</Link>
+						</Link> */}
 					</div>
 				</div>
 			</div>
