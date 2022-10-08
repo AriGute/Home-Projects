@@ -11,6 +11,7 @@ import ToolTip from '../ToolTip';
 import Loading from '../PlaceHolders/Loading';
 import TextPlaceHolder from '../PlaceHolders/TextPlaceHolder';
 import Utils from '../../services/Utils';
+import Tags from './Tags';
 
 const PostView = () => {
 	const location = useLocation();
@@ -156,16 +157,7 @@ const PostView = () => {
 											display: 'flex',
 											flexDirection: 'row',
 										}}>
-										<div className='tags'>
-											<p style={{ fontSize: '12px' }}>Tags:</p>
-											<div style={{ display: 'flex' }}>
-												{post.tags.map((tag, index) => (
-													<div className='tag' key={post._id + index}>
-														<p>{tag}</p>
-													</div>
-												))}
-											</div>
-										</div>
+										<Tags tags={post.tags} header={'tags:'}/>
 										<Vote post={post} />
 									</div>
 								)}

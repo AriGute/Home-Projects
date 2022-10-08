@@ -21,18 +21,6 @@
 	margin-left: 20px;
 }
 
-.tags {
-	margin: 5px;
-	border: 1px solid var(--primary-bg-color);
-	border-radius: 5px;
-}
-
-.tag {
-	margin: 5px;
-	border-top: 1px solid var(--primary-bg-color);
-	border-bottom: 1px solid var(--primary-bg-color);
-	font-size: 12px;
-}
 
 .postText {
 	max-width: 800px;

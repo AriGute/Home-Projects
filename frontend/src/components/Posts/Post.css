@@ -9,7 +9,7 @@ hr {
 	text-align: start;
 }
 
-.center {
+.commentsVotes {
 	margin-left: 10px;
 	text-align: center;
 }
@@ -32,4 +32,11 @@ a:hover {
 	width: 100%;
 	left: 0;
 	border-radius: 0px 0px 5px 5px;
+}
+
+.shortBrief,
+.postLink {
+	max-width: 700px;
+	width: 70vw;
+	word-wrap: break-word;
 }

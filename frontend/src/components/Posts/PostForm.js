@@ -161,5 +161,5 @@ const PostForm = () => {
 	);
 };
 
-const options = ['Java', 'JavaScript', 'Python', 'React', 'Angular', 'Tunis', 'Coordi', 'Adir'];
+const options = ['Java', 'JavaScript', 'Python', 'React', 'Angular'];
 export default PostForm;

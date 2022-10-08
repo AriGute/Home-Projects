@@ -68,7 +68,6 @@ input {
 }
 
 button {
-	border: 2px solid var(--btmPrimary-bg-color);
 	height: 30px;
 	border: 0px;
 	background-color: var(--btmPrimary-bg-color);

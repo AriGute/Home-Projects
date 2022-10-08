@@ -1,0 +1,13 @@
+.tags {
+	margin: 10px;
+    padding: 1px;
+	border-radius: 5px;
+	background-color: var(--btmTertiary-bg-color);
+	box-shadow: 0px 0px 4px;
+}
+.tagsList {
+	margin: 5px;
+	display: flex;
+	justify-content: center;
+    flex-wrap: wrap;
+}

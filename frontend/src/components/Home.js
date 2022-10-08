@@ -4,15 +4,40 @@ import PostService from '../services/PostService';
 import './Home.css';
 import Post from './Posts/Post';
 import Loading from './PlaceHolders/Loading';
+import TagListSearch from './TagListSearch';
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
+	const location = useLocation();
 	const [posts, setPosts] = useState([]);
 	const [profile, setProfile] = useState(null);
 	const [noMoreStyle, setNoMoreStyle] = useState({ display: 'none' });
+	let [tagSearch, setTagSearch] = useState(false);
 
 	let isFetching = false;
 
-	function fetchPosts() {
+	const SearchTag = (tags) => {
+		if (tags.length > 0) {
+			setTagSearch(true)
+			PostService.GetPostsByTags(tags).then((newPosts) => {
+				setPosts(newPosts);
+			});
+		}
+		console.log(tags.length);
+	};
+
+	const fetchPosts = (tags) => {
+		if (tags) {
+			setTagSearch(true);
+			return PostService.GetPostsByTags([tags]).then((newPosts) => {
+				if (newPosts) {
+					setPosts(newPosts);
+					location.state = null;
+					return (isFetching = false);
+				}
+			});
+		}
+		setTagSearch(false);
 		PostService.GetPosts(posts.length).then((newPosts) => {
 			if (newPosts) {
 				setPosts([...posts, ...newPosts]);
@@ -20,10 +45,12 @@ const Home = () => {
 			}
 			setNoMoreStyle({ display: 'block', color: 'var(--quaternary-bg-color)' });
 		});
-	}
+	};
 
 	useEffect(() => {
-		fetchPosts();
+		console.log(location.state);
+		fetchPosts(location.state);
+
 		if (profile != null) {
 			AuthService.Profile().then(async (user) => {
 				if (user.isLogin) {
@@ -45,7 +72,7 @@ const Home = () => {
 				overflowX: 'hidden',
 			}}
 			onScroll={(e) => {
-				if (!isFetching) {
+				if (!isFetching && !tagSearch) {
 					const bottom =
 						Math.floor(e.target.scrollHeight - e.target.scrollTop - 1) <= e.target.clientHeight;
 					if (bottom) {
@@ -56,6 +83,12 @@ const Home = () => {
 			}}>
 			{posts.length > 0 ? ( //In case posts was retrieved from fetch
 				<div style={{ height: 'fit-content' }}>
+					<TagListSearch
+						tags={options}
+						search={(tags) => {
+							SearchTag(tags);
+						}}
+					/>
 					{posts.length > 0 ? ( // In case posts.length > 0
 						posts.map((post) => <Post post={post} userId={null} key={post._id} />)
 					) : (
@@ -70,5 +103,7 @@ const Home = () => {
 		</div>
 	);
 };
+
+const options = ['Java', 'JavaScript', 'Python', 'React', 'Angular'];
 
 export default Home;
