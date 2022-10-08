@@ -221,13 +221,14 @@ router.get('/getPost/:id', (req, res) => {
 });
 
 router.get('/getPostsByTag/:tags', (req, res) => {
-	decodeURI(req.params.tags);
+	console.log(decodeURI(req.params.tags));
+	console.log(req.params.tags);
 	const tags =
 		req.params.tags &&
 		decodeURI(req.params.tags)
 			.split(',')
 			.map((tag) => inputGuard(tag));
-
+	console.log(tags);
 	if (tags.length > 0) {
 		Post.find({ tags: { $all: tags } }).then((results) => {
 			if (results && results.length > 0) {
