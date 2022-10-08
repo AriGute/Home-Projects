@@ -115,12 +115,13 @@ const PostView = () => {
 										<h2
 											style={{
 												color: 'var(--secondary-bg-color)',
+												width:'80vw'
 											}}>
 											{post.header}
 										</h2>
 										{post.brief.split('\n').map((text, i) => {
 											//split every line in text to p
-											return <p key={post._id + i}>{text}</p>;
+											return <p className={'briefP'} key={post._id + i} >{text}</p>;
 										})}
 										{post.description.split('\n').map((text, i) => {
 											//split every line in text to p
