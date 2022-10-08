@@ -18,12 +18,13 @@ const Home = () => {
 
 	const SearchTag = (tags) => {
 		if (tags.length > 0) {
-			setTagSearch(true)
+			setTagSearch(true);
 			PostService.GetPostsByTags(tags).then((newPosts) => {
 				setPosts(newPosts);
 			});
+			return;
 		}
-		console.log(tags.length);
+		window.location.reload();
 	};
 
 	const fetchPosts = (tags) => {
@@ -48,7 +49,6 @@ const Home = () => {
 	};
 
 	useEffect(() => {
-		console.log(location.state);
 		fetchPosts(location.state);
 
 		if (profile != null) {
