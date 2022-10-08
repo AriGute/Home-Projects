@@ -21,13 +21,18 @@
 	margin-left: 20px;
 }
 
-
 .postText {
-	max-width: 800px;
+	word-wrap:break-word;
+	max-width: 900px;
+	width: 90vw;
 	margin: 0 auto 0 0;
 	min-height: 200px;
 }
 
 .loadComments {
 	margin-bottom: 10px;
+}
+
+.briefP {
+	white-space: normal;
 }
